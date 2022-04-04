@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"quik-server": "^2.1.1",
+		"web-resource-inliner": "^5.0.0"
+	}
+}
