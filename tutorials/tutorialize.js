@@ -71,6 +71,9 @@ export const Tutorializer = window[tutorializerSymbol] = {
     }
 }
 
+// 
+// helpers
+// 
 const createTitle = (text)=>{
     const header = document.createElement("h1")
     header.style = `
@@ -90,6 +93,9 @@ const createBody = (text)=>{
     return textElement
 }
 
+// 
+// actual tutorializer components
+// 
 async function showText({id, title, body}) {
     if (Tutorializer.has(id)) { return Tutorializer.data[id] }
     Tutorializer.show(createTitle(title), createBody(body))

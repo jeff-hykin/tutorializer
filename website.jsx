@@ -1,7 +1,10 @@
 import {Tutorializer, onLoad} from "./tutorials/tutorialize.js"
 
 // TODO: create a tutorial (using tutorialize) that generates the tutorialize URL for someone's repo
+    // DONE: next functionality
+    // DONE: back functionality
     // DONE: create an askLine() function
+    // DONE: create an showText() function
 
 ;((async ()=>{
     document.head.innerHTML += `<link rel="stylesheet" href="https://unpkg.com/css-baseline/css/3.css">`
