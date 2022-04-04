@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 cd "$FORNIX_FOLDER"
-npm ./server.js
+node ./server.js
