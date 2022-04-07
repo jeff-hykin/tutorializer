@@ -7,25 +7,34 @@ const html = pureHtml.extend({ text, title, container, input })
 // 
 // actual tutorializer components
 // 
-export async function showText({title, body}) {
-    Tutorializer.content = html`<container>
-        <title>
-            ${title}
-        </title>
-        <text>
-            ${body}
-        </text>
-    </container>`
-}
+export const showText = ({title, body})=>({value, Tutorializer})=>({
+    loadSlide: ()=>{
+        Tutorializer.content = html`<container>
+            <title>
+                ${title}
+            </title>
+            <text>
+                ${body}
+            </text>
+        </container>`
+    },
+    valueIsValid: (value)=>true,
+    ifValueInvalid: ()=> {}, // change GUI if there is a problem
+})
 
-export async function askLine({question}) {
-    console.debug(`this.id is:`,this.id)
-    Tutorializer.content = html`<container>
-        <text>
-            ${question}
-        </text>
-        <input
-            oninput=${({target})=>Tutorializer.add(this.id, target.value)}
-            />
-    </container>`
-}
+export const askLine = ({question})=>({value, Tutorializer})=>({
+    loadSlide: ()=>{
+        Tutorializer.content = html`<container>
+            <text>
+                ${question}
+            </text>
+            <input
+                oninput=${({target})=>value.set(target.value)}
+                />
+        </container>`
+    },
+    valueIsValid: (value)=>typeof value == 'string' && value.length > 0,
+    ifValueInvalid: ()=> {
+        // change GUI if there is a problem
+    },
+})

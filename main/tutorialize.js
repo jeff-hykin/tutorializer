@@ -17,6 +17,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
     element: null,
     eventTypes: {
         next: "tutorializer:next",
+        validated: "tutorializer:validated",
         back: "tutorializer:back",
     },
     _style: document.createElement("style"),
@@ -61,12 +62,29 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
             })
         }
     },
-    async slide(id, func, ...args) {
+    async slide(id, func) {
         if (Tutorializer.has(id)) { return Tutorializer.data[id] }
-        await func.apply({id}, args)
-        await Tutorializer.nextWasClicked()
-        Tutorializer.data[id] = true // data was shown
-        return Tutorializer.data[id]
+        let realValue = undefined
+        const value = {
+            get: ()=>realValue,
+            set: (value)=>{
+                realValue=value
+                Tutorializer.add(id, realValue)
+            },
+        }
+        const { loadSlide, valueIsValid, ifValueInvalid } = await func({value, Tutorializer})
+        await loadSlide()
+        while (true) {
+            await Tutorializer.nextWasClicked()
+            if (await valueIsValid(realValue)) {
+                break
+            } else {
+                await ifValueInvalid(realValue)
+            }
+        }
+        Tutorializer.add(id, realValue)
+        Tutorializer.savePendingData() // TODO: this can be simplified, since originally it was designed for multiple id's
+        return realValue
     },
     async intializeWholeWebpage() {
         document.head.innerHTML += `<link rel="stylesheet" href="https://unpkg.com/css-baseline/css/3.css">`
@@ -142,11 +160,13 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
             </div>
         </div>`
     },
-    async goNext() {
+    savePendingData() {
         if (Object.keys(Tutorializer.pendingData).length) {
             Tutorializer.progressData.push(Object.entries(Tutorializer.pendingData))
             Tutorializer.pendingData = {}
         }
+    },
+    async goNext() {
         window.dispatchEvent(new CustomEvent(Tutorializer.eventTypes.next))
     },
     async goBack() {
