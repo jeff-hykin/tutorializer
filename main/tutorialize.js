@@ -17,7 +17,6 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
     element: null,
     eventTypes: {
         next: "tutorializer:next",
-        validated: "tutorializer:validated",
         back: "tutorializer:back",
     },
     _style: document.createElement("style"),
