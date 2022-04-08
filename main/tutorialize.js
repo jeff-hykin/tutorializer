@@ -40,10 +40,11 @@ export class TutorializerClass {
         this.pendingData[id] = value
     }
     get content() {
-        return this.main.children
+        return this.main
     }
     set content(element) {
         console.log(`start:set content`)
+        console.debug(`this.data is:`,this.data)
         this.main.style.opacity = 0
         // there's a better way to do this using this.main.animate()... I should do that later
         setTimeout(()=>{
@@ -72,8 +73,6 @@ export class TutorializerClass {
     }
     async slide(id, func) {
         console.log(`start:slide`)
-        console.debug(`this is:`,this)
-        console.debug(`Tutorializer is:`,Tutorializer)
         if (this.has(id)) { return this.data[id] }
         let realValue = undefined
         const value = {
@@ -95,6 +94,17 @@ export class TutorializerClass {
         this.add(id, realValue)
         this.savePendingData() // TODO: this can be simplified, since originally it was designed for multiple id's
         return realValue
+    }
+    listenOnce(eventType, listener) {
+        const realListener = async (eventObject)=>{
+            if (await listener(eventObject)) {
+                this.content.removeEventListener(eventType, realListener)
+            }
+        }
+        once(this.events.goingBack).then(()=>{
+            this.content.removeEventListener(eventType, realListener)
+        })
+        this.content.addEventListener(eventType, realListener)
     }
     async intializeWholeWebpage() {
         console.log(`start:intializeWholeWebpage()`)
@@ -166,7 +176,6 @@ export class TutorializerClass {
     }
     createElement() {
         console.log(`start:createElement()`)
-        console.debug(`this is:`,this)
         return this.element = html`<div class="tutorialize-root">
             ${this.main}
             <div class="tutorialize-container-of-arrow-buttons">

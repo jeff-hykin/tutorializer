@@ -13,6 +13,7 @@ export const Tutorial = async ({Tutorializer, slide}) => {
             }
         })
     )
+    console.debug(`githubUsername is:`,githubUsername)
     
     const confirmed = await slide("confirmedGithub",
         askYesNo({
@@ -27,6 +28,7 @@ export const Tutorial = async ({Tutorializer, slide}) => {
             `,
         })
     )
+    console.debug(`confirmed is:`,confirmed)
 
     const slide1WasRead = await slide("didReadSummary1",
         showText({
@@ -39,10 +41,12 @@ export const Tutorial = async ({Tutorializer, slide}) => {
             ` 
         })
     )
+    console.debug(`slide1WasRead is:`,slide1WasRead)
     
     const slide2WasRead = await slide("didReadSummary2",
         showText({ title: `What This Does`, body: `Testing testing` })
     )
+    console.debug(`slide2WasRead is:`,slide2WasRead)
 }
 
 export const theme = {
