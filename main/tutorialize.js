@@ -44,7 +44,8 @@ export class TutorializerClass {
     }
     set content(element) {
         console.log(`start:set content`)
-        console.debug(`this.data is:`,this.data)
+        console.debug(`this.progressData is:`,toRepresentation(this.progressData))
+        console.debug(`this.pendingData is:`,this.pendingData)
         this.main.style.opacity = 0
         // there's a better way to do this using this.main.animate()... I should do that later
         setTimeout(()=>{
@@ -72,7 +73,7 @@ export class TutorializerClass {
         }
     }
     async slide(id, func) {
-        console.log(`start:slide`)
+        console.log(`start:slide(id=${id})`)
         if (this.has(id)) { return this.data[id] }
         let realValue = undefined
         const value = {
@@ -161,6 +162,11 @@ export class TutorializerClass {
         }
     }
     async runTutorial() {
+        // reset events
+        this.events = {
+            attemptGoingToNext: new Event(),
+            goingBack: new Event(),
+        }
         console.log(`start:runTutorial()`)
         try {
             console.log(`start:tutorial()`)
@@ -189,6 +195,8 @@ export class TutorializerClass {
         </div>`
     }
     savePendingData() {
+        console.log("savePendingData")
+        console.debug(`this.pendingData is:`,this.pendingData)
         if (Object.keys(this.pendingData).length) {
             this.progressData.push(Object.entries(this.pendingData))
             this.pendingData = {}
@@ -198,10 +206,15 @@ export class TutorializerClass {
         trigger(this.events.attemptGoingToNext)
     }
     async goBack() {
+        console.log(`going back`)
+        console.debug(`   progressData Before:`, toRepresentation(this.progressData))
+        console.debug(`   pendingData  Before:`, toRepresentation(this.pendingData))
         if (this.progressData.length > 0) {
             const previous = this.progressData.pop()
         }
         this.pendingData = {}
+        console.debug(`   progressData After:`, toRepresentation(this.progressData))
+        console.debug(`   pendingData  After:`, toRepresentation(this.pendingData))
         // cancel all the previous ones
         trigger(this.events.goingBack)
         await this.runTutorial()

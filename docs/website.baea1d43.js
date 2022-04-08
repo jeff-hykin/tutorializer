@@ -1188,7 +1188,7 @@ var askYesNo = function askYesNo(_ref19) {
         }, function () {
           return value1.set(true), Tutorializer2.goNext();
         }, "--button-accent: var(--button-yes-color)", function () {
-          return value1.set(true), Tutorializer2.goNext();
+          return value1.set(false), Tutorializer2.goNext();
         }, "--button-accent: var(--button-no-color)");
         autoFocus(Tutorializer2.content);
         Tutorializer2.listenOnce("keydown", function (eventObject) {
@@ -1407,7 +1407,8 @@ var TutorializerClass = /*#__PURE__*/function () {
       var _this3 = this;
 
       console.log("start:set content");
-      console.debug("this.data is:", this.data);
+      console.debug("this.progressData is:", toRepresentation(this.progressData));
+      console.debug("this.pendingData is:", this.pendingData);
       this.main.style.opacity = 0;
       setTimeout(function () {
         _this3.main.children = [element];
@@ -1448,7 +1449,7 @@ var TutorializerClass = /*#__PURE__*/function () {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                console.log("start:slide");
+                console.log("start:slide(id=".concat(id, ")"));
 
                 if (!this.has(id)) {
                   _context7.next = 3;
@@ -1678,35 +1679,39 @@ var TutorializerClass = /*#__PURE__*/function () {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
+                this.events = {
+                  attemptGoingToNext: new Event(),
+                  goingBack: new Event()
+                };
                 console.log("start:runTutorial()");
-                _context11.prev = 1;
+                _context11.prev = 2;
                 console.log("start:tutorial()");
-                _context11.next = 5;
+                _context11.next = 6;
                 return this.tutorial({
                   Tutorializer: this,
                   slide: this.slide.bind(this)
                 });
 
-              case 5:
+              case 6:
                 return _context11.abrupt("return", this.data);
 
-              case 8:
-                _context11.prev = 8;
-                _context11.t0 = _context11["catch"](1);
+              case 9:
+                _context11.prev = 9;
+                _context11.t0 = _context11["catch"](2);
 
                 if (_context11.t0 instanceof GoingBackDontMindMeException) {
-                  _context11.next = 12;
+                  _context11.next = 13;
                   break;
                 }
 
                 throw _context11.t0;
 
-              case 12:
+              case 13:
               case "end":
                 return _context11.stop();
             }
           }
-        }, _callee11, this, [[1, 8]]);
+        }, _callee11, this, [[2, 9]]);
       }));
 
       function runTutorial() {
@@ -1730,6 +1735,9 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "savePendingData",
     value: function savePendingData() {
+      console.log("savePendingData");
+      console.debug("this.pendingData is:", this.pendingData);
+
       if (Object.keys(this.pendingData).length) {
         this.progressData.push(Object.entries(this.pendingData));
         this.pendingData = {};
@@ -1767,16 +1775,22 @@ var TutorializerClass = /*#__PURE__*/function () {
           while (1) {
             switch (_context13.prev = _context13.next) {
               case 0:
+                console.log("going back");
+                console.debug("   progressData Before:", toRepresentation(this.progressData));
+                console.debug("   pendingData  Before:", toRepresentation(this.pendingData));
+
                 if (this.progressData.length > 0) {
                   this.progressData.pop();
                 }
 
                 this.pendingData = {};
+                console.debug("   progressData After:", toRepresentation(this.progressData));
+                console.debug("   pendingData  After:", toRepresentation(this.pendingData));
                 trigger(this.events.goingBack);
-                _context13.next = 5;
+                _context13.next = 10;
                 return this.runTutorial();
 
-              case 5:
+              case 10:
               case "end":
                 return _context13.stop();
             }
@@ -1833,7 +1847,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57768" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63754" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

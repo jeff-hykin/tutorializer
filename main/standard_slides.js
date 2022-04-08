@@ -39,7 +39,7 @@ export const askYesNo = ({question})=>({value, Tutorializer})=>({
                 <button onclick=${()=>(value.set(true),Tutorializer.goNext())} style=${`--button-accent: var(--button-yes-color)`}>
                     yes
                 </button>
-                <button onclick=${()=>(value.set(true),Tutorializer.goNext())} style=${`--button-accent: var(--button-no-color)`}>
+                <button onclick=${()=>(value.set(false),Tutorializer.goNext())} style=${`--button-accent: var(--button-no-color)`}>
                     no
                 </button>
             </container>
