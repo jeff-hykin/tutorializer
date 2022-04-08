@@ -7,6 +7,20 @@ const convertLink = (link)=> {
     return `${urlObject}`
 }
 
+// Tutorials to create:
+    // Downloading a repo
+    // Installing WSL
+        // Windows 10
+        // Windows 11
+    // Installing Ubuntu for WSL
+    // Running command inside WSL
+    // Running a command line command
+    // Running a powershell script
+    // Installing git
+    // Cloning a repo
+    // Installing Deno
+    // Running a Fornix project
+
 export const Tutorial = async ({Tutorializer, slide}) => {
     
     const firstChoice = await slide(

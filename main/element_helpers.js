@@ -12,7 +12,6 @@ export const title = ({children, ...props})=>html`<h1 class="tutorialize-title" 
 
 export const text = ({children, ...props})=>html`<span class="tutorialize-text" ...${props}>
     ${children}
-    <br />
 </span>`
 
 export const errorText = ({children, ...props})=>html`<span class="tutorialize-text tutorialize-error-text" ...${props}>
