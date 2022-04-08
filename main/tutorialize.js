@@ -84,6 +84,8 @@ export class TutorializerClass {
             },
         }
         const slide = await func({value, Tutorializer: this})
+        console.debug(`slide is:`,slide)
+        console.debug(`slide.loadSlide is:`,slide.loadSlide)
         await slide.loadSlide()
         while (true) {
             // TODO: add error handling here
@@ -109,7 +111,10 @@ export class TutorializerClass {
     }
     async intializeWholeWebpage() {
         console.log(`start:intializeWholeWebpage()`)
-        document.head.innerHTML += `<link rel="stylesheet" href="https://unpkg.com/css-baseline/css/3.css">`
+        document.head.innerHTML += `
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://unpkg.com/css-baseline/css/3.css">
+        `
         // attach the styles (part of theme)
         document.head.appendChild(this._style)
         // TODO; add a loader/spinner here
@@ -170,7 +175,8 @@ export class TutorializerClass {
         console.log(`start:runTutorial()`)
         try {
             console.log(`start:tutorial()`)
-            await this.tutorial({Tutorializer: this, slide: this.slide.bind(this)})
+            let counter = 0
+            await this.tutorial({Tutorializer: this, slide: (slideFunction)=>this.slide(`${++counter}`, slideFunction)})
             return this.data
         } catch (error) {
             // if not just going back
@@ -203,6 +209,7 @@ export class TutorializerClass {
         }
     }
     async goNext() {
+        console.log("goNext")
         trigger(this.events.attemptGoingToNext)
     }
     async goBack() {

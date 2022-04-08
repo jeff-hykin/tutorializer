@@ -27,6 +27,7 @@ export const theme = {
             --text-size: 22px;
             --bottom-row-height: 7rem;
             
+            --link-color: rgb(var(--blue));
             --error-text-color: var(--red);
             --button-yes-color: var(--green);
             --button-no-color: var(--red);
@@ -35,7 +36,7 @@ export const theme = {
         .tutorialize-root {
             display: flex; 
             flex-direction: column;
-            align-items: flex-start; 
+            align-items: center;
             justify-content: flex-start;
             overflow: hidden;
             font-family: sans-serif;
@@ -48,12 +49,14 @@ export const theme = {
 
         .tutorialize-title {
             font-size: var(--title-size);
-            padding: 1rem;
+            padding: 1rem 0;
+            width: 100%;
             text-decoration: underline;
         }
 
         .tutorialize-text {
-            padding: 2rem;
+            width: 100%;
+            padding: 2rem 0;
         }
         
         .tutorialize-button {
@@ -118,14 +121,38 @@ export const theme = {
         .tutorialize-main {
             display: flex; 
             align-items: center; 
-            justify-content: center;
             transition: all 0.5s ease-in-out 0s;
             height: 100%;
-            width: 100%;
+            width: 70rem;
+            max-width: 94vw;
             padding: 2rem;
             flex-direction: column;
             overflow: auto;
             max-height: calc(100vh - var(--bottom-row-height));
+        }
+        .tutorialize-main:first-child {
+            padding-top: 10vh;
+        }
+        .tutorialize-main a {
+            color: var(--link-color);
+        }
+        .tutorialize-main a {
+            color: var(--link-color);
+        }
+        .tutorialize-main * {
+            width: 100%;
+        }
+        .tutorialize-main code::-webkit-scrollbar { /* Chome-based */
+            display: none;
+        }
+        .tutorialize-main code {
+            white-space: nowrap;
+            overflow: auto;
+            padding: 1rem;
+            background: rgb(var(--gray));
+            color: rgb(var(--white));
+            border-radius: 4px;
+            scrollbar-width: none;  /* Firefox */
         }
 
         .tutorialize-container-of-arrow-buttons {

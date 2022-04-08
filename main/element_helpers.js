@@ -12,6 +12,7 @@ export const title = ({children, ...props})=>html`<h1 class="tutorialize-title" 
 
 export const text = ({children, ...props})=>html`<span class="tutorialize-text" ...${props}>
     ${children}
+    <br />
 </span>`
 
 export const errorText = ({children, ...props})=>html`<span class="tutorialize-text tutorialize-error-text" ...${props}>
@@ -27,7 +28,7 @@ export const button = ({children, ...props})=>html`<button class="tutorialize-bu
 </button>`
 
 export const container = ({style, children, ...props})=>html`<div
-    style=${{display: "flex",flexDirection: "column", ...style}}
+    style=${{display: "flex", flexDirection: "column", width: "100%", ...style}}
     ...${props}
     >
         ${children}

@@ -125,7 +125,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.html = exports.Tutorializer = void 0;
 
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21;
 
 var _excluded = ["middleware"],
     _excluded2 = ["children"],
@@ -911,7 +911,7 @@ var toRepresentation = function toRepresentation(item) {
   }
 
   if (item instanceof Object && item.constructor == Object) {
-    var string = "{";
+    var _string = "{";
 
     for (var _i7 = 0, _Object$entries4 = Object.entries(item); _i7 < _Object$entries4.length; _i7++) {
       var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i7], 2),
@@ -920,19 +920,19 @@ var toRepresentation = function toRepresentation(item) {
 
       var stringKey = toRepresentation(key);
       var stringValue = toRepresentation(value);
-      string += "\n  ".concat(stringKey, ": ").concat(indent({
+      _string += "\n  ".concat(stringKey, ": ").concat(indent({
         string: stringValue,
         by: "  ",
         noLead: true
       }), ",");
     }
 
-    string += "\n}";
-    return string;
+    _string += "\n}";
+    return _string;
   }
 
   if (item instanceof Map) {
-    var _string = "Map {";
+    var _string2 = "Map {";
 
     var _iterator5 = _createForOfIteratorHelper(item.entries()),
         _step5;
@@ -948,13 +948,13 @@ var toRepresentation = function toRepresentation(item) {
         var _stringValue = toRepresentation(_value2);
 
         if (!_stringKey.match(/\n/g)) {
-          _string += "\n  ".concat(_stringKey, " => ").concat(indent({
+          _string2 += "\n  ".concat(_stringKey, " => ").concat(indent({
             string: _stringValue,
             by: "  ",
             noLead: true
           }), ",");
         } else {
-          _string += "\n  ".concat(indent({
+          _string2 += "\n  ".concat(indent({
             string: _stringKey,
             by: "  ",
             noLead: true
@@ -971,8 +971,8 @@ var toRepresentation = function toRepresentation(item) {
       _iterator5.f();
     }
 
-    _string += "\n}";
-    return _string;
+    _string2 += "\n}";
+    return _string2;
   }
 
   return item ? item.toString() : "".concat(item);
@@ -1122,7 +1122,8 @@ var container = function container(_ref15) {
 
   return html(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["<div\n    style=", "\n    ...", "\n    >\n        ", "\n</div>"])), _objectSpread({
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    width: "100%"
   }, style), props, children);
 };
 
@@ -1159,15 +1160,20 @@ var autoFocus = function autoFocus(element) {
   }, 200);
 };
 
-var showText = function showText(_ref17) {
-  var title1 = _ref17.title,
-      body = _ref17.body;
-  return function (_ref18) {
-    var value = _ref18.value,
-        Tutorializer1 = _ref18.Tutorializer;
+var show = function show(stringOrElement) {
+  return function (_ref17) {
+    var value = _ref17.value,
+        Tutorializer1 = _ref17.Tutorializer;
     return {
       loadSlide: function loadSlide() {
-        Tutorializer1.content = newHtml(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<container>\n            <title>\n                ", "\n            </title>\n            <text>\n                ", "\n            </text>\n        </container>"])), title1, body);
+        value.set(true);
+        console.debug("stringOrElement is:", stringOrElement);
+
+        if (typeof stringOrElement == 'string') {
+          Tutorializer1.content = newHtml(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["", ""])), string);
+        } else {
+          Tutorializer1.content = stringOrElement;
+        }
       },
       valueIsValid: function valueIsValid(value) {
         return true;
@@ -1176,68 +1182,31 @@ var showText = function showText(_ref17) {
   };
 };
 
-var askYesNo = function askYesNo(_ref19) {
-  var question = _ref19.question;
-  return function (_ref20) {
-    var value1 = _ref20.value,
-        Tutorializer2 = _ref20.Tutorializer;
+var askLine = function askLine(_ref18) {
+  var question = _ref18.question,
+      _ref18$createErrorMes = _ref18.createErrorMessage,
+      createErrorMessage = _ref18$createErrorMes === void 0 ? function () {
+    return null;
+  } : _ref18$createErrorMes;
+  return function (_ref19) {
+    var value1 = _ref19.value,
+        Tutorializer2 = _ref19.Tutorializer;
     return {
       loadSlide: function loadSlide() {
-        Tutorializer2.content = newHtml(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<container>\n            ", "\n            \n            <container style=", ">\n                <button onclick=", " style=", ">\n                    yes\n                </button>\n                <button onclick=", " style=", ">\n                    no\n                </button>\n            </container>\n            <hint>\n                (you can type \"y\" or \"n\" to answer faster)\n            </hint>\n        </container>"])), question, {
-          gap: "1rem"
-        }, function () {
-          return value1.set(true), Tutorializer2.goNext();
-        }, "--button-accent: var(--button-yes-color)", function () {
-          return value1.set(false), Tutorializer2.goNext();
-        }, "--button-accent: var(--button-no-color)");
-        autoFocus(Tutorializer2.content);
-        Tutorializer2.listenOnce("keydown", function (eventObject) {
-          var key = eventObject.key;
-
-          if (key == "y" || key === "Y") {
-            event.stopPropagation();
-            value1.set(true);
-            Tutorializer2.goNext();
-            return true;
-          }
-
-          if (key == "n" || key === "N") {
-            event.stopPropagation();
-            value1.set(false);
-            Tutorializer2.goNext();
-            return true;
-          }
-        });
-      },
-      valueIsValid: function valueIsValid(value) {
-        return value === true || value === false;
-      }
-    };
-  };
-};
-
-var askLine = function askLine(_ref21) {
-  var question = _ref21.question,
-      createErrorMessage = _ref21.createErrorMessage;
-  return function (_ref22) {
-    var value2 = _ref22.value,
-        Tutorializer3 = _ref22.Tutorializer;
-    return {
-      loadSlide: function loadSlide() {
-        this.errorMessageElement = newHtml(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["<errorText style=", "/>"])), {
+        this.errorMessageElement = newHtml(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<errorText style=", "/>"])), {
           textAlign: "center"
         });
-        var input1 = newHtml(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["\n            <input\n                onkeyup=", "\n                />\n        "])), function (_ref23) {
-          var key = _ref23.key,
-              target = _ref23.target;
-          value2.set(target.value);
+        var input1 = newHtml(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["\n            <input\n                onkeyup=", "\n                />\n        "])), function (_ref20) {
+          var key = _ref20.key,
+              target = _ref20.target;
+          value1.set(target.value);
 
           if (key == "Enter") {
-            Tutorializer3.goNext();
+            Tutorializer2.goNext();
           }
         });
         autoFocus(input1);
-        Tutorializer3.content = newHtml(_templateObject13 || (_templateObject13 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            ", "\n            <container style=", ">\n                ", "\n            </container>\n        </container>"])), question, input1, {
+        Tutorializer2.content = newHtml(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["<container>\n            ", "\n            ", "\n            <container style=", ">\n                ", "\n            </container>\n        </container>"])), question, input1, {
           height: "3rem",
           overflow: "visible"
         }, this.errorMessageElement);
@@ -1280,55 +1249,118 @@ var askLine = function askLine(_ref21) {
   };
 };
 
+var askSelectOne = function askSelectOne(_ref21) {
+  var question = _ref21.question,
+      options = _ref21.options;
+  return function (_ref22) {
+    var value3 = _ref22.value,
+        Tutorializer3 = _ref22.Tutorializer;
+    return {
+      loadSlide: function loadSlide() {
+        Tutorializer3.content = newHtml(_templateObject13 || (_templateObject13 = _taggedTemplateLiteral(["<container>\n            ", "\n            \n            <container style=", ">\n                ", "\n            </container>\n            \n        </container>"])), question, {
+          gap: "1rem"
+        }, options.map(function (eachOption) {
+          return newHtml(_templateObject14 || (_templateObject14 = _taggedTemplateLiteral(["\n                        <button onclick=", ">\n                            ", "\n                        </button>\n                    "])), function () {
+            return value3.set(eachOption), Tutorializer3.goNext();
+          }, eachOption);
+        }));
+        autoFocus(Tutorializer3.content);
+        Tutorializer3.listenOnce("keydown", function (eventObject) {});
+      },
+      valueIsValid: function valueIsValid(value) {
+        return value;
+      }
+    };
+  };
+};
+
+var askForUrl = function askForUrl(_ref23) {
+  var question = _ref23.question;
+  return function () {
+    console.debug("question is:", question);
+
+    function isValidHttpUrl(string) {
+      try {
+        var url = new URL(string);
+        return url.protocol === "http:" || url.protocol === "https:";
+      } catch (_) {}
+
+      return false;
+    }
+
+    return askLine({
+      question: question,
+      createErrorMessage: function createErrorMessage(value) {
+        if (isValidHttpUrl(value)) {
+          return;
+        } else {
+          return "Input needs to be a valid URL to work";
+        }
+      }
+    }).apply(void 0, arguments);
+  };
+};
+
+var convertLink = function convertLink(link) {
+  var urlObject = new URL(window.location.origin);
+  urlObject.searchParams.append('_', JSON.stringify({
+    url: link
+  }));
+  return "".concat(urlObject);
+};
+
 var Tutorial1 = /*#__PURE__*/function () {
   var _ref25 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_ref24) {
-    var Tutorializer, slide, githubUsername, confirmed, slide1WasRead, slide2WasRead;
+    var Tutorializer, slide, firstChoice, theLink, convertedUrl;
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             Tutorializer = _ref24.Tutorializer, slide = _ref24.slide;
             _context6.next = 3;
-            return slide("githubUsername", askLine({
-              question: "Whats the github username for the repository?",
-              createErrorMessage: function createErrorMessage(value) {
-                if (value.match(/ /)) {
-                  return "Sorry, github usernames can't have spaces";
-                }
-              }
+            return slide(askSelectOne({
+              question: newHtml(_templateObject15 || (_templateObject15 = _taggedTemplateLiteral(["\n                <title>Howdy!</title>\n                <text>\n                    So I don't see a URL to another tutorial, so this is tutorial on how to set one up\n                    <br>\n                    All I need is a link to a JavaScript file\n                </text>\n                <br>\n            "]))),
+              options: ["I haven't made a JavaScript file yet", "I made the JavaScript file, but not a link", "I have a link"]
             }));
 
           case 3:
-            githubUsername = _context6.sent;
-            console.debug("githubUsername is:", githubUsername);
-            _context6.next = 7;
-            return slide("confirmedGithub", askYesNo({
-              question: newHtml(_templateObject14 || (_templateObject14 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <br>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n                <br>\n                <br>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
+            firstChoice = _context6.sent;
+            console.debug("firstChoice is:", firstChoice);
+
+            if (!(firstChoice == "I have a link")) {
+              _context6.next = 14;
+              break;
+            }
+
+            _context6.next = 8;
+            return slide(askForUrl({
+              question: newHtml(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["\n                    <title>Great!</title>\n                    <text>What's the link?</text>\n                "])))
             }));
 
-          case 7:
-            confirmed = _context6.sent;
-            console.debug("confirmed is:", confirmed);
-            _context6.next = 11;
-            return slide("didReadSummary1", showText({
-              title: "Confirmation Check",
-              body: newHtml(_templateObject15 || (_templateObject15 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
-            }));
+          case 8:
+            theLink = _context6.sent;
+            convertedUrl = convertLink(theLink);
+            _context6.next = 12;
+            return slide(show(newHtml(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["\n                <title>", "</title>\n                \n                <code>\n                    ", "\n                </code>\n\n                <text>\n                    If it doesn't work, its probably because of CORS.\n                    <br />\n                    When I get a chance, I'll write about some options of how to get around that problem.\n                </text>\n            "])), "Heres your URL", convertedUrl)));
 
-          case 11:
-            slide1WasRead = _context6.sent;
-            console.debug("slide1WasRead is:", slide1WasRead);
-            _context6.next = 15;
-            return slide("didReadSummary2", showText({
-              title: "What This Does",
-              body: "Testing testing"
-            }));
+          case 12:
+            _context6.next = 19;
+            break;
 
-          case 15:
-            slide2WasRead = _context6.sent;
-            console.debug("slide2WasRead is:", slide2WasRead);
+          case 14:
+            if (!(firstChoice == "I made the JavaScript file, but not a link")) {
+              _context6.next = 19;
+              break;
+            }
+
+            _context6.next = 17;
+            return slide(show(newHtml(_templateObject18 || (_templateObject18 = _taggedTemplateLiteral(["\n                <text>\n                    Sorry! Haven't finished this tutorial yet\n                </text>\n            "])))));
 
           case 17:
+            _context6.next = 19;
+            break;
+
+          case 19:
           case "end":
             return _context6.stop();
         }
@@ -1346,7 +1378,7 @@ var theme1 = {
   settings: {
     slideFadeInMiliseconds: 600
   },
-  styles: "\n        :root {\n            --white     : 255, 255, 255;\n            --off-white : 238, 238, 238;\n            --gray      : 84 , 110, 122;\n            --light-gray: 199, 203, 205;\n            --black     : 36 , 41 ,  56;\n            --red       : 240, 113, 120;\n            --blue      : 130, 170, 255;\n            --green     : 128, 203, 171;\n            --yellow    : 254, 195,  85;\n            --orange    : 247, 140, 108;\n            --pink      : 229, 126, 179;\n            --purple    : 199, 146, 234;\n            --cyan      : 137, 221, 255;\n            \n            --background: var(--off-white);\n            --text-default-color: var(--gray);\n            --button-accent: var(--blue);\n            --button-background: rgb(var(--white));\n            --title-size: 32px;\n            --text-size: 22px;\n            --bottom-row-height: 7rem;\n            \n            --error-text-color: var(--red);\n            --button-yes-color: var(--green);\n            --button-no-color: var(--red);\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: flex-start; \n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: rgb(var(--text-default-color));\n            background: rgb(var(--background));\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            padding: 2rem;\n        }\n        \n        .tutorialize-button {\n            padding: 1rem;\n            --border-size: 2px;\n            transition: all 0.5s ease-in-out 0s;\n        }\n        .tutorialize-button:not(:hover) {\n            background: var(--button-background);\n            color: rgb(var(--button-accent));\n            border: rgb(var(--button-accent)) solid var(--border-size);\n        }\n        .tutorialize-button:hover {\n            background: rgba(var(--button-accent), 0.6);\n            color: var(--button-background);\n            border: var(--button-background) solid var(--border-size);\n        }\n\n        .tutorialize-error-text {\n            color: rgb(var(--error-text-color));\n        }\n        \n        .tutorialize-hint {\n            font-size: 0.7em;\n            opacity: 0.7;\n            text-align: center;\n            padding: 2rem;\n        }\n\n        .tutorialize-input {\n            color: rgb(var(--text-default-color));\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: rgb(var(--button-accent));\n            text-decoration: underline;\n            background: rgb(var(--white)));\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) rgb(var(--button-accent)) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 100%;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
+  styles: "\n        :root {\n            --white     : 255, 255, 255;\n            --off-white : 238, 238, 238;\n            --gray      : 84 , 110, 122;\n            --light-gray: 199, 203, 205;\n            --black     : 36 , 41 ,  56;\n            --red       : 240, 113, 120;\n            --blue      : 130, 170, 255;\n            --green     : 128, 203, 171;\n            --yellow    : 254, 195,  85;\n            --orange    : 247, 140, 108;\n            --pink      : 229, 126, 179;\n            --purple    : 199, 146, 234;\n            --cyan      : 137, 221, 255;\n            \n            --background: var(--off-white);\n            --text-default-color: var(--gray);\n            --button-accent: var(--blue);\n            --button-background: rgb(var(--white));\n            --title-size: 32px;\n            --text-size: 22px;\n            --bottom-row-height: 7rem;\n            \n            --link-color: rgb(var(--blue));\n            --error-text-color: var(--red);\n            --button-yes-color: var(--green);\n            --button-no-color: var(--red);\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: center;\n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: rgb(var(--text-default-color));\n            background: rgb(var(--background));\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem 0;\n            width: 100%;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            width: 100%;\n            padding: 2rem 0;\n        }\n        \n        .tutorialize-button {\n            padding: 1rem;\n            --border-size: 2px;\n            transition: all 0.5s ease-in-out 0s;\n        }\n        .tutorialize-button:not(:hover) {\n            background: var(--button-background);\n            color: rgb(var(--button-accent));\n            border: rgb(var(--button-accent)) solid var(--border-size);\n        }\n        .tutorialize-button:hover {\n            background: rgba(var(--button-accent), 0.6);\n            color: var(--button-background);\n            border: var(--button-background) solid var(--border-size);\n        }\n\n        .tutorialize-error-text {\n            color: rgb(var(--error-text-color));\n        }\n        \n        .tutorialize-hint {\n            font-size: 0.7em;\n            opacity: 0.7;\n            text-align: center;\n            padding: 2rem;\n        }\n\n        .tutorialize-input {\n            color: rgb(var(--text-default-color));\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: rgb(var(--button-accent));\n            text-decoration: underline;\n            background: rgb(var(--white)));\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) rgb(var(--button-accent)) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 70rem;\n            max-width: 94vw;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n        .tutorialize-main:first-child {\n            padding-top: 10vh;\n        }\n        .tutorialize-main a {\n            color: var(--link-color);\n        }\n        .tutorialize-main a {\n            color: var(--link-color);\n        }\n        .tutorialize-main * {\n            width: 100%;\n        }\n        .tutorialize-main code::-webkit-scrollbar { /* Chome-based */\n            display: none;\n        }\n        .tutorialize-main code {\n            white-space: nowrap;\n            overflow: auto;\n            padding: 1rem;\n            background: rgb(var(--gray));\n            color: rgb(var(--white));\n            border-radius: 4px;\n            scrollbar-width: none;  /* Firefox */\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
 };
 globalThis.allKeys = allKeys1;
 var tutorializerSymbol = Symbol.for("tutorializer");
@@ -1372,7 +1404,7 @@ var TutorializerClass = /*#__PURE__*/function () {
     this.pendingData = {};
     this.progressData = [];
     this.tutorial = Tutorial1;
-    this.main = html(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
+    this.main = html(_templateObject19 || (_templateObject19 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
     this.element = null;
     this.events = {
       attemptGoingToNext: new Event(),
@@ -1478,40 +1510,42 @@ var TutorializerClass = /*#__PURE__*/function () {
 
               case 7:
                 slide = _context7.sent;
-                _context7.next = 10;
+                console.debug("slide is:", slide);
+                console.debug("slide.loadSlide is:", slide.loadSlide);
+                _context7.next = 12;
                 return slide.loadSlide();
 
-              case 10:
+              case 12:
                 if (!true) {
+                  _context7.next = 21;
+                  break;
+                }
+
+                _context7.next = 15;
+                return once(this.events.attemptGoingToNext);
+
+              case 15:
+                _context7.next = 17;
+                return slide.valueIsValid(realValue);
+
+              case 17:
+                if (!_context7.sent) {
                   _context7.next = 19;
                   break;
                 }
 
-                _context7.next = 13;
-                return once(this.events.attemptGoingToNext);
-
-              case 13:
-                _context7.next = 15;
-                return slide.valueIsValid(realValue);
-
-              case 15:
-                if (!_context7.sent) {
-                  _context7.next = 17;
-                  break;
-                }
-
-                return _context7.abrupt("break", 19);
-
-              case 17:
-                _context7.next = 10;
-                break;
+                return _context7.abrupt("break", 21);
 
               case 19:
+                _context7.next = 12;
+                break;
+
+              case 21:
                 this.add(id, realValue);
                 this.savePendingData();
                 return _context7.abrupt("return", realValue);
 
-              case 22:
+              case 24:
               case "end":
                 return _context7.stop();
             }
@@ -1576,7 +1610,7 @@ var TutorializerClass = /*#__PURE__*/function () {
             switch (_context9.prev = _context9.next) {
               case 0:
                 console.log("start:intializeWholeWebpage()");
-                document.head.innerHTML += "<link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">";
+                document.head.innerHTML += "\n            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n            <link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">\n        ";
                 document.head.appendChild(this._style);
                 _context9.next = 5;
                 return import("https://cdn.skypack.dev/quik-router");
@@ -1597,7 +1631,7 @@ var TutorializerClass = /*#__PURE__*/function () {
               case 11:
                 this.theme = this._theme;
                 this.runTutorial();
-                document.body = html(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
+                document.body = html(_templateObject20 || (_templateObject20 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
                   display: "flex",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
@@ -1675,6 +1709,9 @@ var TutorializerClass = /*#__PURE__*/function () {
     key: "runTutorial",
     value: function () {
       var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+        var _this6 = this;
+
+        var counter;
         return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
@@ -1686,32 +1723,35 @@ var TutorializerClass = /*#__PURE__*/function () {
                 console.log("start:runTutorial()");
                 _context11.prev = 2;
                 console.log("start:tutorial()");
-                _context11.next = 6;
+                counter = 0;
+                _context11.next = 7;
                 return this.tutorial({
                   Tutorializer: this,
-                  slide: this.slide.bind(this)
+                  slide: function slide(slideFunction) {
+                    return _this6.slide("".concat(++counter), slideFunction);
+                  }
                 });
 
-              case 6:
+              case 7:
                 return _context11.abrupt("return", this.data);
 
-              case 9:
-                _context11.prev = 9;
+              case 10:
+                _context11.prev = 10;
                 _context11.t0 = _context11["catch"](2);
 
                 if (_context11.t0 instanceof GoingBackDontMindMeException) {
-                  _context11.next = 13;
+                  _context11.next = 14;
                   break;
                 }
 
                 throw _context11.t0;
 
-              case 13:
+              case 14:
               case "end":
                 return _context11.stop();
             }
           }
-        }, _callee11, this, [[2, 9]]);
+        }, _callee11, this, [[2, 10]]);
       }));
 
       function runTutorial() {
@@ -1723,13 +1763,13 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "createElement",
     value: function createElement() {
-      var _this6 = this;
+      var _this7 = this;
 
       console.log("start:createElement()");
-      return this.element = html(_templateObject18 || (_templateObject18 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
-        return _this6.goBack.apply(_this6, arguments);
+      return this.element = html(_templateObject21 || (_templateObject21 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
+        return _this7.goBack.apply(_this7, arguments);
       }, function () {
-        return _this6.goNext.apply(_this6, arguments);
+        return _this7.goNext.apply(_this7, arguments);
       });
     }
   }, {
@@ -1751,9 +1791,10 @@ var TutorializerClass = /*#__PURE__*/function () {
           while (1) {
             switch (_context12.prev = _context12.next) {
               case 0:
+                console.log("goNext");
                 trigger(this.events.attemptGoingToNext);
 
-              case 1:
+              case 2:
               case "end":
                 return _context12.stop();
             }
@@ -1847,7 +1888,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63754" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57661" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
