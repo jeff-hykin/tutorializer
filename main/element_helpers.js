@@ -9,7 +9,7 @@ export const title = ({style, children, ...props})=>html`<h1 class="tutorialize-
     ${children}
 </h1>`
 
-export const text = ({style, children, ...props})=>html`<span class="tutorializer-text">
+export const text = ({style, children, ...props})=>html`<span class="tutorialize-text">
     ${children}
 </span>`
 
@@ -19,7 +19,6 @@ export const container = ({style, children, ...props})=>html`<div
         ${children}
 </div>`
 
-export const input = ({style, children, ...props})=>html`<div class="tutorialize-input" ...${props}>
-</div>`
+export const input = ({style, children, ...props})=>html`<input class="tutorialize-input" ...${props} />`
 
 // TODO: error

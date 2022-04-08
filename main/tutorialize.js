@@ -12,7 +12,7 @@ export const GoingBackDontMindMeException = class extends Error {}
 export const Tutorializer = globalThis[tutorializerSymbol] = {
     pendingData: {},
     progressData: [],
-    loadTutorial: defaultTutorial,
+    tutorial: defaultTutorial,
     main: html`
         <main class="tutorialize-main" >
             Howdy!
@@ -90,6 +90,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         return realValue
     },
     async intializeWholeWebpage() {
+        console.log(`start:intializeWholeWebpage()`)
         document.head.innerHTML += `<link rel="stylesheet" href="https://unpkg.com/css-baseline/css/3.css">`
         // attach the styles (part of theme)
         document.head.appendChild(Tutorializer._style)
@@ -98,10 +99,12 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         const { default: router } = await import("https://cdn.skypack.dev/quik-router")
         const givenUrl = router.pageInfo.url
         if (givenUrl) {
-            await Tutorializer.loadFromUrl(givenUrl)
+            await Tutorializer.getDataFromUrl(givenUrl)
         }
+        // set theme (will either init the default theme or the one from the URL)
         Tutorializer.theme = Tutorializer._theme
-        // load the webpage
+        Tutorializer.runTutorial()
+        // then load the webpage
         document.body = html`<body
             style=${{
                 display:        "flex", 
@@ -115,7 +118,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
                 ${Tutorializer.createElement()}
         </body>`
     },
-    async loadFromUrl(url) {
+    async getDataFromUrl(url) {
         try {
             var { Tutorial, theme } = await import(url)
         } catch (err) {
@@ -126,7 +129,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         // try setting the theme (asap)
         // 
         if (theme) {
-            Tutorializer.theme = theme
+            Tutorializer._theme = theme
         }
 
         // 
@@ -134,23 +137,27 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         // 
         if (Tutorial instanceof Function) {
             // Connect the tutorial (needed for re-running and going-back)
-            Tutorializer.loadTutorial = Tutorial
-            // Run the 
-            try {
-                await Tutorializer.loadTutorial({Tutorializer, slide: Tutorializer.slide})
-            } catch (error) {
-                // if not just going back
-                if (!(error instanceof GoingBackDontMindMeException)) {
-                    // FIXME: add graphical error message
-                    throw error
-                }
-            }
+            Tutorializer.tutorial = Tutorial
         } else {
             console.error(`The Tutorial wasnt a function: ${Tutorial}`)
             // FIXME: add graphical error message
         }
     },
+    async runTutorial() {
+        console.log(`start:runTutorial()`)
+        try {
+            console.log(`start:tutorial()`)
+            await Tutorializer.tutorial({Tutorializer, slide: Tutorializer.slide})
+        } catch (error) {
+            // if not just going back
+            if (!(error instanceof GoingBackDontMindMeException)) {
+                // FIXME: add graphical error message
+                throw error
+            }
+        }
+    },
     createElement() {
+        console.log(`start:createElement()`)
         return Tutorializer.element = html`<div class="tutorialize-root">
             ${Tutorializer.main}
             <div class="tutorialize-container-of-arrow-buttons">
@@ -177,15 +184,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         Tutorializer.pendingData = {}
         // cancel all the previous ones
         window.dispatchEvent(new CustomEvent(Tutorializer.eventTypes.back))
-        try {
-            await Tutorializer.loadTutorial({Tutorializer, slide: Tutorial.slide})
-        } catch (error) {
-            // if its a "real" error message
-            if (!(error instanceof GoingBackDontMindMeException)) {
-                // FIXME: create a graphical error
-                throw error
-            }
-        }
+        await Tutorializer.runTutorial()
     },
     async nextWasClicked() {
         return new Promise((resolve, reject)=>{

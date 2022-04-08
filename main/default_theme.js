@@ -37,7 +37,7 @@ export const theme = {
             text-decoration: underline;
         }
 
-        .tutorialize-content {
+        .tutorialize-text {
             padding: 2rem;
         }
 
