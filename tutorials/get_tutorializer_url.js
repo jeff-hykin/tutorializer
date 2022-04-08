@@ -8,6 +8,7 @@ const convertLink = (link)=> {
 }
 
 // Tutorials to create:
+    // How to add images to a tutorial (github hack)
     // Downloading a repo
     // Installing WSL
         // Windows 10
@@ -20,6 +21,7 @@ const convertLink = (link)=> {
     // Cloning a repo
     // Installing Deno
     // Running a Fornix project
+    // Connecting SSH
 
 export const Tutorial = async ({Tutorializer, slide}) => {
     
@@ -28,7 +30,7 @@ export const Tutorial = async ({Tutorializer, slide}) => {
             question: html`
                 <title>Howdy!</title>
                 <text>
-                    So I don't see a URL to another tutorial, so this is tutorial on how to set one up
+                    So I don't see a URL to another tutorial, so this is a tutorial on how to set one up
                     <br>
                     All I need is a link to a JavaScript file
                 </text>
