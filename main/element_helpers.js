@@ -1,26 +1,25 @@
-import { html } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
+// this jank is because I'm using an old version of Parcel.js that can't handle URL imports
+import { html } from "./elemental.js"
 
 // 
 // all of theses should be theme-able (or thats the idea)
 // 
 
-const title = ({style, children, ...props})=>html`<h1 class="tutorialize-title">
+export const title = ({style, children, ...props})=>html`<h1 class="tutorialize-title">
     ${children}
 </h1>`
 
-const text = ({style, children, ...props})=>html`<span class="tutorializer-text">
+export const text = ({style, children, ...props})=>html`<span class="tutorializer-text">
     ${children}
 </span>`
 
-const container = ({style, children, ...props})=>html`<div
+export const container = ({style, children, ...props})=>html`<div
     style=${{display: "flex",flexDirection: "column"}}
     >
         ${children}
 </div>`
 
-const input = ({style, children, ...props})=>html`<div class="tutorialize-input" ...${props}>
+export const input = ({style, children, ...props})=>html`<div class="tutorialize-input" ...${props}>
 </div>`
 
-
-// TODO: slide
 // TODO: error

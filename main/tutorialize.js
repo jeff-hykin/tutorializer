@@ -1,10 +1,12 @@
-import { html } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
-import { recursivelyAllKeysOf, get, set, remove, merge } from "https://deno.land/x/good@0.5.1/object.js"
+// import { html } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
+// import { recursivelyAllKeysOf, get, set, remove, merge } from "https://deno.land/x/good@0.5.1/object.js"
+import { html } from "./elemental.js"
 import { Tutorial as defaultTutorial } from "../tutorials/get_tutorializer_url.js"
 import { theme as defaultTheme } from "./default_theme.js"
+import { merge } from "https://deno.land/x/good@0.5.1/object.js"
 
 export const tutorializerSymbol = Symbol.for("tutorializer")
-export const GoingBackDontMindMeException = class extends Exception {}
+export const GoingBackDontMindMeException = class extends Error {}
 export const Tutorializer = globalThis[tutorializerSymbol] = {
     pendingData: {},
     progressData: [],
@@ -96,6 +98,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         if (givenUrl) {
             await Tutorializer.loadFromUrl(givenUrl)
         }
+        Tutorializer.theme = Tutorializer._theme
         // load the webpage
         document.body = html`<body
             style=${{
@@ -122,8 +125,6 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         // 
         if (theme) {
             Tutorializer.theme = theme
-        } else {
-            Tutorializer.theme = Tutorializer.defaultTheme
         }
 
         // 
@@ -143,6 +144,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
                 }
             }
         } else {
+            console.error(`The Tutorial wasnt a function: ${Tutorial}`)
             // FIXME: add graphical error message
         }
     },

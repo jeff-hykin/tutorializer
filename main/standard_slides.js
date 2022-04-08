@@ -1,4 +1,5 @@
-import { html } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
+// import { html as pureHtml } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
+import { html as pureHtml } from "./elemental.js"
 import { text, title, container, input } from "./element_helpers.js"
 import { Tutorializer } from "./tutorialize.js"
 
