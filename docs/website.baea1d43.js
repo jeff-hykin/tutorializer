@@ -757,33 +757,35 @@ var askLine = function askLine(_ref10) {
 
 var Tutorial1 = /*#__PURE__*/function () {
   var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref13) {
-    var Tutorializer, slide, githubUsername;
+    var Tutorializer3, slide, githubUsername;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            Tutorializer = _ref13.Tutorializer, slide = _ref13.slide;
-            _context3.next = 3;
+            Tutorializer3 = _ref13.Tutorializer, slide = _ref13.slide;
+            console.log("start:Tutorial");
+            console.debug("Tutorializer is:", Tutorializer3);
+            _context3.next = 5;
             return slide("githubUsername", askLine({
               question: "Whats the github username for the repository?"
             }));
 
-          case 3:
+          case 5:
             githubUsername = _context3.sent;
-            _context3.next = 6;
+            _context3.next = 8;
             return slide("didReadSummary1", showText({
               title: "Confirmation Check",
               body: html1(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
             }));
 
-          case 6:
-            _context3.next = 8;
+          case 8:
+            _context3.next = 10;
             return slide("didReadSummary2", showText({
               title: "What This Does",
               body: "Testing testing"
             }));
 
-          case 8:
+          case 10:
           case "end":
             return _context3.stop();
         }
@@ -1090,6 +1092,229 @@ var toRepresentation = function toRepresentation(item) {
   return item ? item.toString() : "".concat(item);
 };
 
+function createCommonjsModule(fn, basedir, module) {
+  return module = {
+    path: basedir,
+    exports: {},
+    require: function require(path, base) {
+      return commonjsRequire(path, base === void 0 || base === null ? module.path : base);
+    }
+  }, fn(module, module.exports), module.exports;
+}
+
+function commonjsRequire() {
+  throw new Error("Dynamic requires are not currently supported by @rollup/plugin-commonjs");
+}
+
+var eventemitter3 = createCommonjsModule(function (module) {
+  var has = Object.prototype.hasOwnProperty,
+      prefix = "~";
+
+  function Events() {}
+
+  if (Object.create) {
+    Events.prototype = Object.create(null);
+    if (!new Events().__proto__) prefix = false;
+  }
+
+  function EE(fn, context, once) {
+    this.fn = fn;
+    this.context = context;
+    this.once = once || false;
+  }
+
+  function addListener(emitter, event, fn, context, once) {
+    if (typeof fn !== "function") {
+      throw new TypeError("The listener must be a function");
+    }
+
+    var listener = new EE(fn, context || emitter, once),
+        evt = prefix ? prefix + event : event;
+    if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);else emitter._events[evt] = [emitter._events[evt], listener];
+    return emitter;
+  }
+
+  function clearEvent(emitter, evt) {
+    if (--emitter._eventsCount === 0) emitter._events = new Events();else delete emitter._events[evt];
+  }
+
+  function EventEmitter2() {
+    this._events = new Events();
+    this._eventsCount = 0;
+  }
+
+  EventEmitter2.prototype.eventNames = function eventNames() {
+    var names = [],
+        events,
+        name;
+    if (this._eventsCount === 0) return names;
+
+    for (name in events = this._events) {
+      if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
+    }
+
+    if (Object.getOwnPropertySymbols) {
+      return names.concat(Object.getOwnPropertySymbols(events));
+    }
+
+    return names;
+  };
+
+  EventEmitter2.prototype.listeners = function listeners(event) {
+    var evt = prefix ? prefix + event : event,
+        handlers = this._events[evt];
+    if (!handlers) return [];
+    if (handlers.fn) return [handlers.fn];
+
+    for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
+      ee[i] = handlers[i].fn;
+    }
+
+    return ee;
+  };
+
+  EventEmitter2.prototype.listenerCount = function listenerCount(event) {
+    var evt = prefix ? prefix + event : event,
+        listeners = this._events[evt];
+    if (!listeners) return 0;
+    if (listeners.fn) return 1;
+    return listeners.length;
+  };
+
+  EventEmitter2.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+    var evt = prefix ? prefix + event : event;
+    if (!this._events[evt]) return false;
+    var listeners = this._events[evt],
+        len = arguments.length,
+        args,
+        i;
+
+    if (listeners.fn) {
+      if (listeners.once) this.removeListener(event, listeners.fn, void 0, true);
+
+      switch (len) {
+        case 1:
+          return listeners.fn.call(listeners.context), true;
+
+        case 2:
+          return listeners.fn.call(listeners.context, a1), true;
+
+        case 3:
+          return listeners.fn.call(listeners.context, a1, a2), true;
+
+        case 4:
+          return listeners.fn.call(listeners.context, a1, a2, a3), true;
+
+        case 5:
+          return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
+
+        case 6:
+          return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+      }
+
+      for (i = 1, args = new Array(len - 1); i < len; i++) {
+        args[i - 1] = arguments[i];
+      }
+
+      listeners.fn.apply(listeners.context, args);
+    } else {
+      var length = listeners.length,
+          j;
+
+      for (i = 0; i < length; i++) {
+        if (listeners[i].once) this.removeListener(event, listeners[i].fn, void 0, true);
+
+        switch (len) {
+          case 1:
+            listeners[i].fn.call(listeners[i].context);
+            break;
+
+          case 2:
+            listeners[i].fn.call(listeners[i].context, a1);
+            break;
+
+          case 3:
+            listeners[i].fn.call(listeners[i].context, a1, a2);
+            break;
+
+          case 4:
+            listeners[i].fn.call(listeners[i].context, a1, a2, a3);
+            break;
+
+          default:
+            if (!args) for (j = 1, args = new Array(len - 1); j < len; j++) {
+              args[j - 1] = arguments[j];
+            }
+            listeners[i].fn.apply(listeners[i].context, args);
+        }
+      }
+    }
+
+    return true;
+  };
+
+  EventEmitter2.prototype.on = function on(event, fn, context) {
+    return addListener(this, event, fn, context, false);
+  };
+
+  EventEmitter2.prototype.once = function once(event, fn, context) {
+    return addListener(this, event, fn, context, true);
+  };
+
+  EventEmitter2.prototype.removeListener = function removeListener(event, fn, context, once) {
+    var evt = prefix ? prefix + event : event;
+    if (!this._events[evt]) return this;
+
+    if (!fn) {
+      clearEvent(this, evt);
+      return this;
+    }
+
+    var listeners = this._events[evt];
+
+    if (listeners.fn) {
+      if (listeners.fn === fn && (!once || listeners.once) && (!context || listeners.context === context)) {
+        clearEvent(this, evt);
+      }
+    } else {
+      for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+        if (listeners[i].fn !== fn || once && !listeners[i].once || context && listeners[i].context !== context) {
+          events.push(listeners[i]);
+        }
+      }
+
+      if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;else clearEvent(this, evt);
+    }
+
+    return this;
+  };
+
+  EventEmitter2.prototype.removeAllListeners = function removeAllListeners(event) {
+    var evt;
+
+    if (event) {
+      evt = prefix ? prefix + event : event;
+      if (this._events[evt]) clearEvent(this, evt);
+    } else {
+      this._events = new Events();
+      this._eventsCount = 0;
+    }
+
+    return this;
+  };
+
+  EventEmitter2.prototype.off = EventEmitter2.prototype.removeListener;
+  EventEmitter2.prototype.addListener = EventEmitter2.prototype.on;
+  EventEmitter2.prefixed = prefix;
+  EventEmitter2.EventEmitter = EventEmitter2;
+  {
+    module.exports = EventEmitter2;
+  }
+});
+eventemitter3.EventEmitter;
+eventemitter3.prefixed;
+console.debug("EventEmitter is:", eventemitter3);
+globalThis.EventEmitter = eventemitter3;
 var tutorializerSymbol = Symbol.for("tutorializer");
 
 var GoingBackDontMindMeException = /*#__PURE__*/function (_Error) {
@@ -1106,371 +1331,459 @@ var GoingBackDontMindMeException = /*#__PURE__*/function (_Error) {
   return _createClass(GoingBackDontMindMeException);
 }( /*#__PURE__*/_wrapNativeSuper(Error));
 
-var Tutorializer = globalThis[tutorializerSymbol] = {
-  pendingData: {},
-  progressData: [],
-  tutorial: Tutorial1,
-  main: html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n        <main class=\"tutorialize-main\" >\n            Howdy!\n        </main>\n    "]))),
-  element: null,
-  eventTypes: {
-    next: "tutorializer:next",
-    back: "tutorializer:back"
-  },
-  _style: document.createElement("style"),
-  _theme: theme1,
-  defaultTheme: theme1,
+var TutorializerClass = /*#__PURE__*/function () {
+  function TutorializerClass() {
+    _classCallCheck(this, TutorializerClass);
 
-  get data() {
-    return Object.fromEntries([].concat(_toConsumableArray(Tutorializer.progressData), [Object.entries(Tutorializer.pendingData)]).flat(1));
-  },
-
-  has: function has(id) {
-    return id in Tutorializer.data;
-  },
-  add: function add(id, value) {
-    Tutorializer.pendingData[id] = value;
-  },
-
-  get content() {
-    return Tutorializer.main.children;
-  },
-
-  set content(element) {
-    Tutorializer.main.style.opacity = 0;
-    setTimeout(function () {
-      Tutorializer.main.children = [element];
-      Tutorializer.main.style.opacity = 1;
-    }, Tutorializer.theme.settings.slideFadeInMiliseconds);
-  },
-
-  get theme() {
-    return this._theme;
-  },
-
-  set theme(newTheme) {
-    if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.styles !== 'string') {
-      throw Error("I was creating a theme, I expected an object like {name:\"blah\", styles: \".thing { color: red: }\" }\nHowever, instead I got this: ".concat(toRepresentation(newTheme)));
-    }
-
-    var name = newTheme.name,
-        styles = newTheme.styles,
-        settings = newTheme.settings;
-    this._theme = newTheme;
-    this._style.innerHTML = styles;
-
-    if (settings instanceof Object) {
-      this._theme.settings = merge({
-        oldData: theme1.settings,
-        newData: settings
-      });
-    }
-  },
-
-  slide: function slide(id, func) {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-      var realValue, value1, _yield$func, loadSlide, valueIsValid, ifValueInvalid;
-
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              if (!Tutorializer.has(id)) {
-                _context4.next = 2;
-                break;
-              }
-
-              return _context4.abrupt("return", Tutorializer.data[id]);
-
-            case 2:
-              realValue = undefined;
-              value1 = {
-                get: function get() {
-                  return realValue;
-                },
-                set: function set(value) {
-                  realValue = value;
-                  Tutorializer.add(id, realValue);
-                }
-              };
-              _context4.next = 6;
-              return func({
-                value: value1,
-                Tutorializer: Tutorializer
-              });
-
-            case 6:
-              _yield$func = _context4.sent;
-              loadSlide = _yield$func.loadSlide;
-              valueIsValid = _yield$func.valueIsValid;
-              ifValueInvalid = _yield$func.ifValueInvalid;
-              _context4.next = 12;
-              return loadSlide();
-
-            case 12:
-              if (!true) {
-                _context4.next = 25;
-                break;
-              }
-
-              _context4.next = 15;
-              return Tutorializer.nextWasClicked();
-
-            case 15:
-              _context4.next = 17;
-              return valueIsValid(realValue);
-
-            case 17:
-              if (!_context4.sent) {
-                _context4.next = 21;
-                break;
-              }
-
-              return _context4.abrupt("break", 25);
-
-            case 21:
-              _context4.next = 23;
-              return ifValueInvalid(realValue);
-
-            case 23:
-              _context4.next = 12;
-              break;
-
-            case 25:
-              Tutorializer.add(id, realValue);
-              Tutorializer.savePendingData();
-              return _context4.abrupt("return", realValue);
-
-            case 28:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }))();
-  },
-  intializeWholeWebpage: function intializeWholeWebpage() {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-      var _yield$import, router, givenUrl;
-
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              console.log("start:intializeWholeWebpage()");
-              document.head.innerHTML += "<link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">";
-              document.head.appendChild(Tutorializer._style);
-              _context5.next = 5;
-              return import("https://cdn.skypack.dev/quik-router");
-
-            case 5:
-              _yield$import = _context5.sent;
-              router = _yield$import.default;
-              givenUrl = router.pageInfo.url;
-
-              if (!givenUrl) {
-                _context5.next = 11;
-                break;
-              }
-
-              _context5.next = 11;
-              return Tutorializer.getDataFromUrl(givenUrl);
-
-            case 11:
-              Tutorializer.theme = Tutorializer._theme;
-              Tutorializer.runTutorial();
-              document.body = html(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
-                display: "flex",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                overflow: "hidden",
-                fontFamily: "sans-serif",
-                flexDirection: "column",
-                height: "100%"
-              }, Tutorializer.createElement());
-
-            case 14:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    }))();
-  },
-  getDataFromUrl: function getDataFromUrl(url) {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-      var _yield$import2, Tutorial, theme;
-
-      return regeneratorRuntime.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              _context6.prev = 0;
-              _context6.next = 3;
-              return import(url);
-
-            case 3:
-              _yield$import2 = _context6.sent;
-              Tutorial = _yield$import2.Tutorial;
-              theme = _yield$import2.theme;
-              _context6.next = 10;
-              break;
-
-            case 8:
-              _context6.prev = 8;
-              _context6.t0 = _context6["catch"](0);
-
-            case 10:
-              if (theme) {
-                Tutorializer._theme = theme;
-              }
-
-              if (Tutorial instanceof Function) {
-                Tutorializer.tutorial = Tutorial;
-              } else {
-                console.error("The Tutorial wasnt a function: ".concat(Tutorial));
-              }
-
-            case 12:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6, null, [[0, 8]]);
-    }))();
-  },
-  runTutorial: function runTutorial() {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-      return regeneratorRuntime.wrap(function _callee7$(_context7) {
-        while (1) {
-          switch (_context7.prev = _context7.next) {
-            case 0:
-              console.log("start:runTutorial()");
-              _context7.prev = 1;
-              console.log("start:tutorial()");
-              _context7.next = 5;
-              return Tutorializer.tutorial({
-                Tutorializer: Tutorializer,
-                slide: Tutorializer.slide
-              });
-
-            case 5:
-              _context7.next = 11;
-              break;
-
-            case 7:
-              _context7.prev = 7;
-              _context7.t0 = _context7["catch"](1);
-
-              if (_context7.t0 instanceof GoingBackDontMindMeException) {
-                _context7.next = 11;
-                break;
-              }
-
-              throw _context7.t0;
-
-            case 11:
-            case "end":
-              return _context7.stop();
-          }
-        }
-      }, _callee7, null, [[1, 7]]);
-    }))();
-  },
-  createElement: function createElement() {
-    console.log("start:createElement()");
-    return Tutorializer.element = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), Tutorializer.main, Tutorializer.goBack, Tutorializer.goNext);
-  },
-  savePendingData: function savePendingData() {
-    if (Object.keys(Tutorializer.pendingData).length) {
-      Tutorializer.progressData.push(Object.entries(Tutorializer.pendingData));
-      Tutorializer.pendingData = {};
-    }
-  },
-  goNext: function goNext() {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-      return regeneratorRuntime.wrap(function _callee8$(_context8) {
-        while (1) {
-          switch (_context8.prev = _context8.next) {
-            case 0:
-              window.dispatchEvent(new CustomEvent(Tutorializer.eventTypes.next));
-
-            case 1:
-            case "end":
-              return _context8.stop();
-          }
-        }
-      }, _callee8);
-    }))();
-  },
-  goBack: function goBack() {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-      return regeneratorRuntime.wrap(function _callee9$(_context9) {
-        while (1) {
-          switch (_context9.prev = _context9.next) {
-            case 0:
-              Tutorializer.progressData.pop();
-              Tutorializer.pendingData = {};
-              window.dispatchEvent(new CustomEvent(Tutorializer.eventTypes.back));
-              _context9.next = 5;
-              return Tutorializer.runTutorial();
-
-            case 5:
-            case "end":
-              return _context9.stop();
-          }
-        }
-      }, _callee9);
-    }))();
-  },
-  nextWasClicked: function nextWasClicked() {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-      return regeneratorRuntime.wrap(function _callee10$(_context10) {
-        while (1) {
-          switch (_context10.prev = _context10.next) {
-            case 0:
-              return _context10.abrupt("return", new Promise(function (resolve, reject) {
-                var resolved = false;
-                var rejected = false;
-                var cleanup;
-
-                var resolveListener = function resolveListener() {
-                  if (rejected) {
-                    return;
-                  } else {
-                    resolved = true;
-                    resolve();
-                    cleanup();
-                  }
-                };
-
-                var rejectListener = function rejectListener() {
-                  if (resolved) {
-                    return;
-                  } else {
-                    rejected = true;
-                    reject(new GoingBackDontMindMeException());
-                    cleanup();
-                  }
-                };
-
-                cleanup = function cleanup() {
-                  window.removeEventListener(Tutorializer.eventTypes.next, resolveListener);
-                  window.removeEventListener(Tutorializer.eventTypes.back, rejectListener);
-                };
-
-                window.addEventListener(Tutorializer.eventTypes.next, resolveListener);
-                window.addEventListener(Tutorializer.eventTypes.back, rejectListener);
-              }));
-
-            case 1:
-            case "end":
-              return _context10.stop();
-          }
-        }
-      }, _callee10);
-    }))();
+    this.pendingData = {};
+    this.progressData = [];
+    this.tutorial = Tutorial1;
+    this.main = html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
+    this.element = null;
+    this.events = new eventemitter3();
+    this.eventTypes = {
+      next: "tutorializer:next",
+      back: "tutorializer:back"
+    };
+    this._style = document.createElement("style");
+    this._theme = theme1;
   }
-};
+
+  _createClass(TutorializerClass, [{
+    key: "data",
+    get: function get() {
+      return Object.fromEntries([].concat(_toConsumableArray(this.progressData), [Object.entries(this.pendingData)]).flat(1));
+    }
+  }, {
+    key: "has",
+    value: function has(id) {
+      console.log("start:has()");
+      return id in this.data;
+    }
+  }, {
+    key: "add",
+    value: function add(id, value) {
+      this.pendingData[id] = value;
+    }
+  }, {
+    key: "content",
+    get: function get() {
+      return this.main.children;
+    },
+    set: function set(element) {
+      var _this2 = this;
+
+      console.log("start:set content");
+      this.main.style.opacity = 0;
+      setTimeout(function () {
+        _this2.main.children = [element];
+        _this2.main.style.opacity = 1;
+      }, this.theme.settings.slideFadeInMiliseconds);
+    }
+  }, {
+    key: "theme",
+    get: function get() {
+      return this._theme;
+    },
+    set: function set(newTheme) {
+      if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.styles !== 'string') {
+        throw Error("I was creating a theme, I expected an object like {name:\"blah\", styles: \".thing { color: red: }\" }\nHowever, instead I got this: ".concat(toRepresentation(newTheme)));
+      }
+
+      var name = newTheme.name,
+          styles = newTheme.styles,
+          settings = newTheme.settings;
+      this._theme = newTheme;
+      this._style.innerHTML = styles;
+
+      if (settings instanceof Object) {
+        this._theme.settings = merge({
+          oldData: theme1.settings,
+          newData: settings
+        });
+      }
+    }
+  }, {
+    key: "slide",
+    value: function () {
+      var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(id, func) {
+        var _this3 = this;
+
+        var realValue, value1, _yield$func, loadSlide, valueIsValid, ifValueInvalid;
+
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                console.log("start:slide");
+                console.debug("this is:", this);
+                console.debug("Tutorializer is:", Tutorializer);
+
+                if (!this.has(id)) {
+                  _context4.next = 5;
+                  break;
+                }
+
+                return _context4.abrupt("return", this.data[id]);
+
+              case 5:
+                realValue = undefined;
+                value1 = {
+                  get: function get() {
+                    return realValue;
+                  },
+                  set: function set(value) {
+                    realValue = value;
+
+                    _this3.add(id, realValue);
+                  }
+                };
+                _context4.next = 9;
+                return func({
+                  value: value1,
+                  Tutorializer: this
+                });
+
+              case 9:
+                _yield$func = _context4.sent;
+                loadSlide = _yield$func.loadSlide;
+                valueIsValid = _yield$func.valueIsValid;
+                ifValueInvalid = _yield$func.ifValueInvalid;
+                _context4.next = 15;
+                return loadSlide();
+
+              case 15:
+                if (!true) {
+                  _context4.next = 28;
+                  break;
+                }
+
+                _context4.next = 18;
+                return this.nextWasClicked();
+
+              case 18:
+                _context4.next = 20;
+                return valueIsValid(realValue);
+
+              case 20:
+                if (!_context4.sent) {
+                  _context4.next = 24;
+                  break;
+                }
+
+                return _context4.abrupt("break", 28);
+
+              case 24:
+                _context4.next = 26;
+                return ifValueInvalid(realValue);
+
+              case 26:
+                _context4.next = 15;
+                break;
+
+              case 28:
+                this.add(id, realValue);
+                this.savePendingData();
+                return _context4.abrupt("return", realValue);
+
+              case 31:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function slide(_x2, _x3) {
+        return _slide.apply(this, arguments);
+      }
+
+      return slide;
+    }()
+  }, {
+    key: "intializeWholeWebpage",
+    value: function () {
+      var _intializeWholeWebpage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+        var _yield$import, router, givenUrl;
+
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                console.log("start:intializeWholeWebpage()");
+                document.head.innerHTML += "<link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">";
+                document.head.appendChild(this._style);
+                _context5.next = 5;
+                return import("https://cdn.skypack.dev/quik-router");
+
+              case 5:
+                _yield$import = _context5.sent;
+                router = _yield$import.default;
+                givenUrl = router.pageInfo.url;
+
+                if (!givenUrl) {
+                  _context5.next = 11;
+                  break;
+                }
+
+                _context5.next = 11;
+                return this.getDataFromUrl(givenUrl);
+
+              case 11:
+                this.theme = this._theme;
+                this.runTutorial();
+                document.body = html(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  overflow: "hidden",
+                  fontFamily: "sans-serif",
+                  flexDirection: "column",
+                  height: "100%"
+                }, this.createElement());
+
+              case 14:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function intializeWholeWebpage() {
+        return _intializeWholeWebpage.apply(this, arguments);
+      }
+
+      return intializeWholeWebpage;
+    }()
+  }, {
+    key: "getDataFromUrl",
+    value: function () {
+      var _getDataFromUrl = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(url) {
+        var _yield$import2, Tutorial, theme;
+
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.prev = 0;
+                _context6.next = 3;
+                return import(url);
+
+              case 3:
+                _yield$import2 = _context6.sent;
+                Tutorial = _yield$import2.Tutorial;
+                theme = _yield$import2.theme;
+                _context6.next = 10;
+                break;
+
+              case 8:
+                _context6.prev = 8;
+                _context6.t0 = _context6["catch"](0);
+
+              case 10:
+                if (theme) {
+                  this._theme = theme;
+                }
+
+                if (Tutorial instanceof Function) {
+                  this.tutorial = Tutorial;
+                } else {
+                  console.error("The Tutorial wasnt a function: ".concat(Tutorial));
+                }
+
+              case 12:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this, [[0, 8]]);
+      }));
+
+      function getDataFromUrl(_x4) {
+        return _getDataFromUrl.apply(this, arguments);
+      }
+
+      return getDataFromUrl;
+    }()
+  }, {
+    key: "runTutorial",
+    value: function () {
+      var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                console.log("start:runTutorial()");
+                _context7.prev = 1;
+                console.log("start:tutorial()");
+                _context7.next = 5;
+                return this.tutorial({
+                  Tutorializer: this,
+                  slide: this.slide.bind(this)
+                });
+
+              case 5:
+                return _context7.abrupt("return", this.data);
+
+              case 8:
+                _context7.prev = 8;
+                _context7.t0 = _context7["catch"](1);
+
+                if (_context7.t0 instanceof GoingBackDontMindMeException) {
+                  _context7.next = 12;
+                  break;
+                }
+
+                throw _context7.t0;
+
+              case 12:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this, [[1, 8]]);
+      }));
+
+      function runTutorial() {
+        return _runTutorial.apply(this, arguments);
+      }
+
+      return runTutorial;
+    }()
+  }, {
+    key: "createElement",
+    value: function createElement() {
+      console.log("start:createElement()");
+      console.debug("this is:", this);
+      return this.element = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, this.goBack, this.goNext);
+    }
+  }, {
+    key: "savePendingData",
+    value: function savePendingData() {
+      if (Object.keys(this.pendingData).length) {
+        this.progressData.push(Object.entries(this.pendingData));
+        this.pendingData = {};
+      }
+    }
+  }, {
+    key: "goNext",
+    value: function () {
+      var _goNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                console.log("start:goNext()");
+                this.events.dispatchEvent(new CustomEvent(this.eventTypes.next));
+
+              case 2:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8, this);
+      }));
+
+      function goNext() {
+        return _goNext.apply(this, arguments);
+      }
+
+      return goNext;
+    }()
+  }, {
+    key: "goBack",
+    value: function () {
+      var _goBack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                this.progressData.pop();
+                this.pendingData = {};
+                this.events.dispatchEvent(new CustomEvent(this.eventTypes.next));
+                window.dispatchEvent(new CustomEvent(this.eventTypes.back));
+                _context9.next = 6;
+                return this.runTutorial();
+
+              case 6:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, this);
+      }));
+
+      function goBack() {
+        return _goBack.apply(this, arguments);
+      }
+
+      return goBack;
+    }()
+  }, {
+    key: "nextWasClicked",
+    value: function () {
+      var _nextWasClicked = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+        var _this4 = this;
+
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                return _context10.abrupt("return", new Promise(function (resolve, reject) {
+                  var resolved = false;
+                  var rejected = false;
+                  var cleanup;
+
+                  var resolveListener = function resolveListener() {
+                    if (rejected) {
+                      return;
+                    } else {
+                      resolved = true;
+                      resolve();
+                      cleanup();
+                    }
+                  };
+
+                  var rejectListener = function rejectListener() {
+                    if (resolved) {
+                      return;
+                    } else {
+                      rejected = true;
+                      reject(new GoingBackDontMindMeException());
+                      cleanup();
+                    }
+                  };
+
+                  cleanup = function cleanup() {
+                    window.removeEventListener(_this4.eventTypes.next, resolveListener);
+                    window.removeEventListener(_this4.eventTypes.back, rejectListener);
+                  };
+
+                  window.addEventListener(_this4.eventTypes.next, resolveListener);
+                  window.addEventListener(_this4.eventTypes.back, rejectListener);
+                }));
+
+              case 1:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, _callee10);
+      }));
+
+      function nextWasClicked() {
+        return _nextWasClicked.apply(this, arguments);
+      }
+
+      return nextWasClicked;
+    }()
+  }]);
+
+  return TutorializerClass;
+}();
+
+var Tutorializer = globalThis[tutorializerSymbol] = new TutorializerClass();
 exports.Tutorializer = Tutorializer;
 var e1 = "\uE000",
     t1 = "\uE001";
@@ -1568,7 +1881,7 @@ var ElementalSymbol1 = Symbol.for("Elemental");
 
 var ElementalClass1 = /*#__PURE__*/function () {
   function ElementalClass1() {
-    var _this2 = this;
+    var _this5 = this;
 
     var components = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -1581,7 +1894,7 @@ var ElementalClass1 = /*#__PURE__*/function () {
     this.middleware = middleware || {};
     this.errorComponentFactory = errorComponentFactory || defaultErrorComponentFactory1;
     this.html = xhtm1.bind(function () {
-      return _this2.createElement.apply(_this2, arguments);
+      return _this5.createElement.apply(_this5, arguments);
     });
     this.html[ElementalSymbol1] = this;
     this.css = Elemental1.css;
@@ -1973,7 +2286,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49301" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57959" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

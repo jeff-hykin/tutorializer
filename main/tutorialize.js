@@ -5,50 +5,57 @@ import { Tutorial as defaultTutorial } from "../tutorials/get_tutorializer_url.j
 import { theme as defaultTheme } from "./default_theme.js"
 import { merge } from "https://deno.land/x/good@0.5.1/object.js"
 import { toRepresentation } from "https://deno.land/x/good@0.5.1/string.js"
-// import { debugValueAsString } from "https://deno.land/x/good@0.5.1/value.js"
+import EventEmitter from 'https://cdn.skypack.dev/eventemitter3'
+
+globalThis.EventEmitter = EventEmitter
 
 export const tutorializerSymbol = Symbol.for("tutorializer")
 export const GoingBackDontMindMeException = class extends Error {}
-export const Tutorializer = globalThis[tutorializerSymbol] = {
-    pendingData: {},
-    progressData: [],
-    tutorial: defaultTutorial,
-    main: html`
-        <main class="tutorialize-main" >
-            Howdy!
-        </main>
-    `,
-    element: null,
-    eventTypes: {
-        next: "tutorializer:next",
-        back: "tutorializer:back",
-    },
-    _style: document.createElement("style"),
-    _theme: defaultTheme,
-    defaultTheme,
+
+export class TutorializerClass {
+    constructor() {
+        this.pendingData = {}
+        this.progressData = []
+        this.tutorial = defaultTutorial
+        this.main = html`
+            <div class="tutorialize-main" >
+                Howdy!
+            </div>
+        `
+        this.element = null
+        this.events = new EventEmitter()
+        this.eventTypes = {
+            next: "tutorializer:next",
+            back: "tutorializer:back",
+        }
+        this._style = document.createElement("style")
+        this._theme = defaultTheme
+    }
     get data() {
-        return Object.fromEntries([...Tutorializer.progressData, Object.entries(Tutorializer.pendingData) ].flat(1))
-    },
+        return Object.fromEntries([...this.progressData, Object.entries(this.pendingData) ].flat(1))
+    }
     has(id) {
-        return id in Tutorializer.data
-    },
+        console.log(`start:has()`)
+        return id in this.data
+    }
     add(id, value) {
-        Tutorializer.pendingData[id] = value
-    },
+        this.pendingData[id] = value
+    }
     get content() {
-        return Tutorializer.main.children
-    },
+        return this.main.children
+    }
     set content(element) {
-        Tutorializer.main.style.opacity = 0
-        // there's a better way to do this using Tutorializer.main.animate()... I should do that later
+        console.log(`start:set content`)
+        this.main.style.opacity = 0
+        // there's a better way to do this using this.main.animate()... I should do that later
         setTimeout(()=>{
-            Tutorializer.main.children = [ element ]
-            Tutorializer.main.style.opacity = 1
-        }, Tutorializer.theme.settings.slideFadeInMiliseconds)
-    },
+            this.main.children = [ element ]
+            this.main.style.opacity = 1
+        }, this.theme.settings.slideFadeInMiliseconds)
+    }
     get theme() {
         return this._theme
-    },
+    }
     set theme(newTheme) {
         // sanity check
         if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.styles !== 'string') {
@@ -64,46 +71,49 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
                 newData: settings,
             })
         }
-    },
+    }
     async slide(id, func) {
-        if (Tutorializer.has(id)) { return Tutorializer.data[id] }
+        console.log(`start:slide`)
+        console.debug(`this is:`,this)
+        console.debug(`Tutorializer is:`,Tutorializer)
+        if (this.has(id)) { return this.data[id] }
         let realValue = undefined
         const value = {
             get: ()=>realValue,
             set: (value)=>{
                 realValue=value
-                Tutorializer.add(id, realValue)
+                this.add(id, realValue)
             },
         }
-        const { loadSlide, valueIsValid, ifValueInvalid } = await func({value, Tutorializer})
+        const { loadSlide, valueIsValid, ifValueInvalid } = await func({value, Tutorializer: this})
         await loadSlide()
         while (true) {
-            await Tutorializer.nextWasClicked()
+            await this.nextWasClicked()
             if (await valueIsValid(realValue)) {
                 break
             } else {
                 await ifValueInvalid(realValue)
             }
         }
-        Tutorializer.add(id, realValue)
-        Tutorializer.savePendingData() // TODO: this can be simplified, since originally it was designed for multiple id's
+        this.add(id, realValue)
+        this.savePendingData() // TODO: this can be simplified, since originally it was designed for multiple id's
         return realValue
-    },
+    }
     async intializeWholeWebpage() {
         console.log(`start:intializeWholeWebpage()`)
         document.head.innerHTML += `<link rel="stylesheet" href="https://unpkg.com/css-baseline/css/3.css">`
         // attach the styles (part of theme)
-        document.head.appendChild(Tutorializer._style)
+        document.head.appendChild(this._style)
         // TODO; add a loader/spinner here
         // parse the URL to figure out what tutorial/theme to load
         const { default: router } = await import("https://cdn.skypack.dev/quik-router")
         const givenUrl = router.pageInfo.url
         if (givenUrl) {
-            await Tutorializer.getDataFromUrl(givenUrl)
+            await this.getDataFromUrl(givenUrl)
         }
         // set theme (will either init the default theme or the one from the URL)
-        Tutorializer.theme = Tutorializer._theme
-        Tutorializer.runTutorial()
+        this.theme = this._theme
+        this.runTutorial()
         // then load the webpage
         document.body = html`<body
             style=${{
@@ -115,9 +125,9 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
                 flexDirection:  "column",
                 height:         "100%",
             }}>
-                ${Tutorializer.createElement()}
+                ${this.createElement()}
         </body>`
-    },
+    }
     async getDataFromUrl(url) {
         try {
             var { Tutorial, theme } = await import(url)
@@ -129,7 +139,7 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         // try setting the theme (asap)
         // 
         if (theme) {
-            Tutorializer._theme = theme
+            this._theme = theme
         }
 
         // 
@@ -137,17 +147,18 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
         // 
         if (Tutorial instanceof Function) {
             // Connect the tutorial (needed for re-running and going-back)
-            Tutorializer.tutorial = Tutorial
+            this.tutorial = Tutorial
         } else {
             console.error(`The Tutorial wasnt a function: ${Tutorial}`)
             // FIXME: add graphical error message
         }
-    },
+    }
     async runTutorial() {
         console.log(`start:runTutorial()`)
         try {
             console.log(`start:tutorial()`)
-            await Tutorializer.tutorial({Tutorializer, slide: Tutorializer.slide})
+            await this.tutorial({Tutorializer: this, slide: this.slide.bind(this)})
+            return this.data
         } catch (error) {
             // if not just going back
             if (!(error instanceof GoingBackDontMindMeException)) {
@@ -155,37 +166,40 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
                 throw error
             }
         }
-    },
+    }
     createElement() {
         console.log(`start:createElement()`)
-        return Tutorializer.element = html`<div class="tutorialize-root">
-            ${Tutorializer.main}
+        console.debug(`this is:`,this)
+        return this.element = html`<div class="tutorialize-root">
+            ${this.main}
             <div class="tutorialize-container-of-arrow-buttons">
-                <a class="tutorialize-arrow-buttons" onclick=${Tutorializer.goBack}>
+                <a class="tutorialize-arrow-buttons" onclick=${this.goBack}>
                     Back
                 </a>
-                <a class="tutorialize-arrow-buttons" onclick=${Tutorializer.goNext}>
+                <a class="tutorialize-arrow-buttons" onclick=${this.goNext}>
                     Next
                 </a>
             </div>
         </div>`
-    },
+    }
     savePendingData() {
-        if (Object.keys(Tutorializer.pendingData).length) {
-            Tutorializer.progressData.push(Object.entries(Tutorializer.pendingData))
-            Tutorializer.pendingData = {}
+        if (Object.keys(this.pendingData).length) {
+            this.progressData.push(Object.entries(this.pendingData))
+            this.pendingData = {}
         }
-    },
+    }
     async goNext() {
-        window.dispatchEvent(new CustomEvent(Tutorializer.eventTypes.next))
-    },
+        console.log(`start:goNext()`)
+        this.events.dispatchEvent(new CustomEvent(this.eventTypes.next))
+    }
     async goBack() {
-        const previous = Tutorializer.progressData.pop()
-        Tutorializer.pendingData = {}
+        const previous = this.progressData.pop()
+        this.pendingData = {}
         // cancel all the previous ones
-        window.dispatchEvent(new CustomEvent(Tutorializer.eventTypes.back))
-        await Tutorializer.runTutorial()
-    },
+        this.events.dispatchEvent(new CustomEvent(this.eventTypes.next))
+        window.dispatchEvent(new CustomEvent(this.eventTypes.back))
+        await this.runTutorial()
+    }
     async nextWasClicked() {
         return new Promise((resolve, reject)=>{
             let resolved = false
@@ -210,11 +224,13 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
                 }
             }
             cleanup = ()=>{
-                window.removeEventListener(Tutorializer.eventTypes.next, resolveListener)
-                window.removeEventListener(Tutorializer.eventTypes.back, rejectListener)
+                window.removeEventListener(this.eventTypes.next, resolveListener)
+                window.removeEventListener(this.eventTypes.back, rejectListener)
             }
-            window.addEventListener(Tutorializer.eventTypes.next, resolveListener)
-            window.addEventListener(Tutorializer.eventTypes.back, rejectListener)
+            window.addEventListener(this.eventTypes.next, resolveListener)
+            window.addEventListener(this.eventTypes.back, rejectListener)
         })
-    },
+    }
 }
+
+export const Tutorializer = globalThis[tutorializerSymbol] = new TutorializerClass()
