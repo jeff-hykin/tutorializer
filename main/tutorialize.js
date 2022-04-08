@@ -90,8 +90,6 @@ export class TutorializerClass {
             await once(this.events.attemptGoingToNext)
             if (await slide.valueIsValid(realValue)) {
                 break
-            } else {
-                await slide.ifValueInvalid(realValue)
             }
         }
         this.add(id, realValue)

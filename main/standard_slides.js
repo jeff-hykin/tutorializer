@@ -20,10 +20,9 @@ export const showText = ({title, body})=>({value, Tutorializer})=>({
         </container>`
     },
     valueIsValid: (value)=>true,
-    ifValueInvalid: ()=> {}, // change GUI if there is a problem
 })
 
-export const askLine = ({question})=>({value, Tutorializer})=>({
+export const askLine = ({question, createErrorMessage})=>({value, Tutorializer})=>({
     loadSlide() {
         this.errorMessageElement = html`<errorText style=${{textAlign: "center"}}/>`
         
@@ -44,15 +43,13 @@ export const askLine = ({question})=>({value, Tutorializer})=>({
             </container>
         </container>`
     },
-    valueIsValid(value) {
-        console.debug(`value is:`,value)
-        console.debug(`typeof value == 'string' is:`,typeof value == 'string')
-        console.debug(`value.length > 0 is:`,typeof value == 'string' && (value.length > 0))
-        return typeof value == 'string' && value.length > 0
-    },
-    ifValueInvalid() {
-        this.errorMessageElement.innerHTML = `
-            The input box needs at least one character
-        `
+    async valueIsValid(value) {
+        const errorMessage = await createErrorMessage(value||"")
+        if (!errorMessage) {
+            return true
+        } else {
+            this.errorMessageElement.innerHTML = errorMessage
+            return false
+        }
     },
 })

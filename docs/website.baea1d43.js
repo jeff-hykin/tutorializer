@@ -1604,14 +1604,14 @@ var showText = function showText(_ref18) {
       },
       valueIsValid: function valueIsValid(value) {
         return true;
-      },
-      ifValueInvalid: function ifValueInvalid() {}
+      }
     };
   };
 };
 
 var askLine = function askLine(_ref20) {
-  var question = _ref20.question;
+  var question = _ref20.question,
+      createErrorMessage = _ref20.createErrorMessage;
   return function (_ref21) {
     var value1 = _ref21.value,
         Tutorializer2 = _ref21.Tutorializer;
@@ -1634,54 +1634,82 @@ var askLine = function askLine(_ref20) {
         }, this.errorMessageElement);
       },
       valueIsValid: function valueIsValid(value) {
-        console.debug("value is:", value);
-        console.debug("typeof value == 'string' is:", typeof value == 'string');
-        console.debug("value.length > 0 is:", typeof value == 'string' && value.length > 0);
-        return typeof value == 'string' && value.length > 0;
-      },
-      ifValueInvalid: function ifValueInvalid() {
-        this.errorMessageElement.innerHTML = "\n            The input box needs at least one character\n        ";
+        var _this3 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+          var errorMessage;
+          return regeneratorRuntime.wrap(function _callee7$(_context7) {
+            while (1) {
+              switch (_context7.prev = _context7.next) {
+                case 0:
+                  _context7.next = 2;
+                  return createErrorMessage(value || "");
+
+                case 2:
+                  errorMessage = _context7.sent;
+
+                  if (errorMessage) {
+                    _context7.next = 7;
+                    break;
+                  }
+
+                  return _context7.abrupt("return", true);
+
+                case 7:
+                  _this3.errorMessageElement.innerHTML = errorMessage;
+                  return _context7.abrupt("return", false);
+
+                case 9:
+                case "end":
+                  return _context7.stop();
+              }
+            }
+          }, _callee7);
+        }))();
       }
     };
   };
 };
 
 var Tutorial1 = /*#__PURE__*/function () {
-  var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_ref23) {
-    var Tutorializer3, slide, githubUsername;
-    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+  var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_ref23) {
+    var Tutorializer, slide, githubUsername;
+    return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context8.prev = _context8.next) {
           case 0:
-            Tutorializer3 = _ref23.Tutorializer, slide = _ref23.slide;
-            console.log("start:Tutorial");
-            console.debug("Tutorializer is:", Tutorializer3);
-            _context7.next = 5;
+            Tutorializer = _ref23.Tutorializer, slide = _ref23.slide;
+            _context8.next = 3;
             return slide("githubUsername", askLine({
-              question: "Whats the github username for the repository?"
+              question: "Whats the github username for the repository?",
+              createErrorMessage: function createErrorMessage(value) {
+                if (value.match(/ /)) {
+                  return "Sorry, github usernames can't have spaces";
+                }
+              }
             }));
 
-          case 5:
-            githubUsername = _context7.sent;
-            _context7.next = 8;
+          case 3:
+            githubUsername = _context8.sent;
+            _context8.next = 6;
             return slide("didReadSummary1", showText({
               title: "Confirmation Check",
               body: html2(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
             }));
 
-          case 8:
-            _context7.next = 10;
+          case 6:
+            _context8.next = 8;
             return slide("didReadSummary2", showText({
               title: "What This Does",
               body: "Testing testing"
             }));
 
-          case 10:
+          case 8:
           case "end":
-            return _context7.stop();
+            return _context8.stop();
         }
       }
-    }, _callee7);
+    }, _callee8);
   }));
 
   return function Tutorial1(_x2) {
@@ -1752,13 +1780,13 @@ var TutorializerClass = /*#__PURE__*/function () {
       return this.main.children;
     },
     set: function set(element) {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log("start:set content");
       this.main.style.opacity = 0;
       setTimeout(function () {
-        _this3.main.children = [element];
-        _this3.main.style.opacity = 1;
+        _this4.main.children = [element];
+        _this4.main.style.opacity = 1;
       }, this.theme.settings.slideFadeInMiliseconds);
     }
   }, {
@@ -1787,24 +1815,24 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "slide",
     value: function () {
-      var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(id, func) {
-        var _this4 = this;
+      var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(id, func) {
+        var _this5 = this;
 
         var realValue, value1, slide;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 console.log("start:slide");
                 console.debug("this is:", this);
                 console.debug("Tutorializer is:", Tutorializer);
 
                 if (!this.has(id)) {
-                  _context8.next = 5;
+                  _context9.next = 5;
                   break;
                 }
 
-                return _context8.abrupt("return", this.data[id]);
+                return _context9.abrupt("return", this.data[id]);
 
               case 5:
                 realValue = undefined;
@@ -1815,60 +1843,56 @@ var TutorializerClass = /*#__PURE__*/function () {
                   set: function set(value) {
                     realValue = value;
 
-                    _this4.add(id, realValue);
+                    _this5.add(id, realValue);
                   }
                 };
-                _context8.next = 9;
+                _context9.next = 9;
                 return func({
                   value: value1,
                   Tutorializer: this
                 });
 
               case 9:
-                slide = _context8.sent;
-                _context8.next = 12;
+                slide = _context9.sent;
+                _context9.next = 12;
                 return slide.loadSlide();
 
               case 12:
                 if (!true) {
-                  _context8.next = 25;
+                  _context9.next = 21;
                   break;
                 }
 
-                _context8.next = 15;
+                _context9.next = 15;
                 return once(this.events.attemptGoingToNext);
 
               case 15:
-                _context8.next = 17;
+                _context9.next = 17;
                 return slide.valueIsValid(realValue);
 
               case 17:
-                if (!_context8.sent) {
-                  _context8.next = 21;
+                if (!_context9.sent) {
+                  _context9.next = 19;
                   break;
                 }
 
-                return _context8.abrupt("break", 25);
+                return _context9.abrupt("break", 21);
 
-              case 21:
-                _context8.next = 23;
-                return slide.ifValueInvalid(realValue);
-
-              case 23:
-                _context8.next = 12;
+              case 19:
+                _context9.next = 12;
                 break;
 
-              case 25:
+              case 21:
                 this.add(id, realValue);
                 this.savePendingData();
-                return _context8.abrupt("return", realValue);
+                return _context9.abrupt("return", realValue);
 
-              case 28:
+              case 24:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
 
       function slide(_x3, _x4) {
@@ -1880,30 +1904,30 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "intializeWholeWebpage",
     value: function () {
-      var _intializeWholeWebpage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+      var _intializeWholeWebpage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
         var _yield$import, router, givenUrl;
 
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 console.log("start:intializeWholeWebpage()");
                 document.head.innerHTML += "<link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">";
                 document.head.appendChild(this._style);
-                _context9.next = 5;
+                _context10.next = 5;
                 return import("https://cdn.skypack.dev/quik-router");
 
               case 5:
-                _yield$import = _context9.sent;
+                _yield$import = _context10.sent;
                 router = _yield$import.default;
                 givenUrl = router.pageInfo.url;
 
                 if (!givenUrl) {
-                  _context9.next = 11;
+                  _context10.next = 11;
                   break;
                 }
 
-                _context9.next = 11;
+                _context10.next = 11;
                 return this.getDataFromUrl(givenUrl);
 
               case 11:
@@ -1921,10 +1945,10 @@ var TutorializerClass = /*#__PURE__*/function () {
 
               case 14:
               case "end":
-                return _context9.stop();
+                return _context10.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee10, this);
       }));
 
       function intializeWholeWebpage() {
@@ -1936,27 +1960,27 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "getDataFromUrl",
     value: function () {
-      var _getDataFromUrl = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(url) {
+      var _getDataFromUrl = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(url) {
         var _yield$import2, Tutorial, theme;
 
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
-                _context10.prev = 0;
-                _context10.next = 3;
+                _context11.prev = 0;
+                _context11.next = 3;
                 return import(url);
 
               case 3:
-                _yield$import2 = _context10.sent;
+                _yield$import2 = _context11.sent;
                 Tutorial = _yield$import2.Tutorial;
                 theme = _yield$import2.theme;
-                _context10.next = 10;
+                _context11.next = 10;
                 break;
 
               case 8:
-                _context10.prev = 8;
-                _context10.t0 = _context10["catch"](0);
+                _context11.prev = 8;
+                _context11.t0 = _context11["catch"](0);
 
               case 10:
                 if (theme) {
@@ -1971,10 +1995,10 @@ var TutorializerClass = /*#__PURE__*/function () {
 
               case 12:
               case "end":
-                return _context10.stop();
+                return _context11.stop();
             }
           }
-        }, _callee10, this, [[0, 8]]);
+        }, _callee11, this, [[0, 8]]);
       }));
 
       function getDataFromUrl(_x5) {
@@ -1986,40 +2010,40 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "runTutorial",
     value: function () {
-      var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+      var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
                 console.log("start:runTutorial()");
-                _context11.prev = 1;
+                _context12.prev = 1;
                 console.log("start:tutorial()");
-                _context11.next = 5;
+                _context12.next = 5;
                 return this.tutorial({
                   Tutorializer: this,
                   slide: this.slide.bind(this)
                 });
 
               case 5:
-                return _context11.abrupt("return", this.data);
+                return _context12.abrupt("return", this.data);
 
               case 8:
-                _context11.prev = 8;
-                _context11.t0 = _context11["catch"](1);
+                _context12.prev = 8;
+                _context12.t0 = _context12["catch"](1);
 
-                if (_context11.t0 instanceof GoingBackDontMindMeException) {
-                  _context11.next = 12;
+                if (_context12.t0 instanceof GoingBackDontMindMeException) {
+                  _context12.next = 12;
                   break;
                 }
 
-                throw _context11.t0;
+                throw _context12.t0;
 
               case 12:
               case "end":
-                return _context11.stop();
+                return _context12.stop();
             }
           }
-        }, _callee11, this, [[1, 8]]);
+        }, _callee12, this, [[1, 8]]);
       }));
 
       function runTutorial() {
@@ -2031,14 +2055,14 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "createElement",
     value: function createElement() {
-      var _this5 = this;
+      var _this6 = this;
 
       console.log("start:createElement()");
       console.debug("this is:", this);
       return this.element = html(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
-        return _this5.goBack.apply(_this5, arguments);
+        return _this6.goBack.apply(_this6, arguments);
       }, function () {
-        return _this5.goNext.apply(_this5, arguments);
+        return _this6.goNext.apply(_this6, arguments);
       });
     }
   }, {
@@ -2052,19 +2076,19 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "goNext",
     value: function () {
-      var _goNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+      var _goNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
           while (1) {
-            switch (_context12.prev = _context12.next) {
+            switch (_context13.prev = _context13.next) {
               case 0:
                 trigger(this.events.attemptGoingToNext);
 
               case 1:
               case "end":
-                return _context12.stop();
+                return _context13.stop();
             }
           }
-        }, _callee12, this);
+        }, _callee13, this);
       }));
 
       function goNext() {
@@ -2076,10 +2100,10 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "goBack",
     value: function () {
-      var _goBack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+      var _goBack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+        return regeneratorRuntime.wrap(function _callee14$(_context14) {
           while (1) {
-            switch (_context13.prev = _context13.next) {
+            switch (_context14.prev = _context14.next) {
               case 0:
                 if (this.progressData.length > 0) {
                   this.progressData.pop();
@@ -2087,15 +2111,15 @@ var TutorializerClass = /*#__PURE__*/function () {
 
                 this.pendingData = {};
                 trigger(this.events.goingBack);
-                _context13.next = 5;
+                _context14.next = 5;
                 return this.runTutorial();
 
               case 5:
               case "end":
-                return _context13.stop();
+                return _context14.stop();
             }
           }
-        }, _callee13, this);
+        }, _callee14, this);
       }));
 
       function goBack() {
@@ -2147,7 +2171,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62535" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49619" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

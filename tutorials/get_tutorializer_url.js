@@ -2,10 +2,16 @@ import { askLine, showText, html } from "../main/standard_slides.js"
 
 
 export const Tutorial = async ({Tutorializer, slide}) => {
-    console.log(`start:Tutorial`)
-    console.debug(`Tutorializer is:`,Tutorializer)
+    
     const githubUsername = await slide("githubUsername",
-        askLine({ question: "Whats the github username for the repository?" })
+        askLine({
+            question: "Whats the github username for the repository?",
+            createErrorMessage: (value)=>{
+                if (value.match(/ /)) {
+                    return `Sorry, github usernames can't have spaces`
+                }
+            }
+        })
     )
     
     const slide1WasRead = await slide("didReadSummary1",
