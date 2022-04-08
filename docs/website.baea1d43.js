@@ -966,6 +966,117 @@ Object.keys || function (obj) {
   return keys;
 };
 
+var indent = function indent(_ref18) {
+  var string = _ref18.string,
+      _ref18$by = _ref18.by,
+      by = _ref18$by === void 0 ? "    " : _ref18$by,
+      _ref18$noLead = _ref18.noLead,
+      noLead = _ref18$noLead === void 0 ? false : _ref18$noLead;
+  return (noLead ? "" : by) + string.replace(/\n/g, "\n" + by);
+};
+
+var toRepresentation = function toRepresentation(item) {
+  if (typeof item == 'string') {
+    return "\"".concat(item.replace(/"|\n|\t|\r|\\/g, function (__char) {
+      switch (__char) {
+        case '"':
+          return '\\"';
+
+        case '\n':
+          return '\\n';
+
+        case '\t':
+          return '\\t';
+
+        case '\r':
+          return '\\r';
+
+        case '\\':
+          return '\\\\';
+      }
+    }), "\"");
+  }
+
+  if (item instanceof Array) {
+    return "[".concat(item.map(function (each) {
+      return toRepresentation(each);
+    }).join(","), "]");
+  }
+
+  if (item instanceof Set) {
+    return "{".concat(_toConsumableArray(item).map(function (each) {
+      return toRepresentation(each);
+    }).join(","), "}");
+  }
+
+  if (item instanceof Object && item.constructor == Object) {
+    var string = "{";
+
+    for (var _i7 = 0, _Object$entries4 = Object.entries(item); _i7 < _Object$entries4.length; _i7++) {
+      var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i7], 2),
+          key = _Object$entries4$_i[0],
+          value = _Object$entries4$_i[1];
+
+      var stringKey = toRepresentation(key);
+      var stringValue = toRepresentation(value);
+      string += "\n  ".concat(stringKey, ": ").concat(indent({
+        string: stringValue,
+        by: "  ",
+        noLead: true
+      }), ",");
+    }
+
+    string += "\n}";
+    return string;
+  }
+
+  if (item instanceof Map) {
+    var _string = "Map {";
+
+    var _iterator5 = _createForOfIteratorHelper(item.entries()),
+        _step5;
+
+    try {
+      for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+        var _step5$value = _slicedToArray(_step5.value, 2),
+            _key7 = _step5$value[0],
+            _value2 = _step5$value[1];
+
+        var _stringKey = toRepresentation(_key7);
+
+        var _stringValue = toRepresentation(_value2);
+
+        if (!_stringKey.match(/\n/g)) {
+          _string += "\n  ".concat(_stringKey, " => ").concat(indent({
+            string: _stringValue,
+            by: "  ",
+            noLead: true
+          }), ",");
+        } else {
+          _string += "\n  ".concat(indent({
+            string: _stringKey,
+            by: "  ",
+            noLead: true
+          }), "\n    => ").concat(indent({
+            string: _stringValue,
+            by: "    ",
+            noLead: true
+          }), ",");
+        }
+      }
+    } catch (err) {
+      _iterator5.e(err);
+    } finally {
+      _iterator5.f();
+    }
+
+    _string += "\n}";
+    return _string;
+  }
+
+  return item ? item.toString() : "".concat(item);
+};
+
 var tutorializerSymbol = Symbol.for("tutorializer");
 
 var GoingBackDontMindMeException = /*#__PURE__*/function (_Error) {
@@ -1024,8 +1135,8 @@ var Tutorializer = globalThis[tutorializerSymbol] = {
   },
 
   set theme(newTheme) {
-    if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.style !== 'string') {
-      throw Error("was creating a theme, I expected an object like {name:\"blah\", styles: \".thing { color: red: }\" }\nHowever, instead I got this: ".concat(newTheme));
+    if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.styles !== 'string') {
+      throw Error("I was creating a theme, I expected an object like {name:\"blah\", styles: \".thing { color: red: }\" }\nHowever, instead I got this: ".concat(toRepresentation(newTheme)));
     }
 
     var name = newTheme.name,
@@ -1473,18 +1584,18 @@ var ElementalClass1 = /*#__PURE__*/function () {
   _createClass(ElementalClass1, [{
     key: "createElement",
     value: function createElement() {
-      for (var _len5 = arguments.length, args = new Array(_len5), _key7 = 0; _key7 < _len5; _key7++) {
-        args[_key7] = arguments[_key7];
+      for (var _len5 = arguments.length, args = new Array(_len5), _key8 = 0; _key8 < _len5; _key8++) {
+        args[_key8] = arguments[_key8];
       }
 
       Elemental1.debug && console.debug("args is:", args);
 
-      var _iterator5 = _createForOfIteratorHelper((this.middleware[Elemental1.allTags] || []).concat(this.middleware[args[0]] || [])),
-          _step5;
+      var _iterator6 = _createForOfIteratorHelper((this.middleware[Elemental1.allTags] || []).concat(this.middleware[args[0]] || [])),
+          _step6;
 
       try {
-        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-          var middleware = _step5.value;
+        for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+          var middleware = _step6.value;
 
           try {
             args = eachMiddleWare(args);
@@ -1493,9 +1604,9 @@ var ElementalClass1 = /*#__PURE__*/function () {
           }
         }
       } catch (err) {
-        _iterator5.e(err);
+        _iterator6.e(err);
       } finally {
-        _iterator5.f();
+        _iterator6.f();
       }
 
       var _args12 = args,
@@ -1558,10 +1669,10 @@ var ElementalClass1 = /*#__PURE__*/function () {
       var element = isSvg ? document.createElementNS("http://www.w3.org/2000/svg", key) : document.createElement(key);
 
       if (properties instanceof Object) {
-        for (var _i7 = 0, _Object$entries4 = Object.entries(properties); _i7 < _Object$entries4.length; _i7++) {
-          var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i7], 2),
-              key2 = _Object$entries4$_i[0],
-              value = _Object$entries4$_i[1];
+        for (var _i8 = 0, _Object$entries5 = Object.entries(properties); _i8 < _Object$entries5.length; _i8++) {
+          var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i8], 2),
+              key2 = _Object$entries5$_i[0],
+              value = _Object$entries5$_i[1];
 
           try {
             if (isSvg) {
@@ -1603,8 +1714,8 @@ var ElementalClass1 = /*#__PURE__*/function () {
 var proxySymbol1 = Symbol.for("Proxy");
 
 var Elemental1 = function Elemental1() {
-  for (var _len6 = arguments.length, args = new Array(_len6), _key8 = 0; _key8 < _len6; _key8++) {
-    args[_key8] = arguments[_key8];
+  for (var _len6 = arguments.length, args = new Array(_len6), _key9 = 0; _key9 < _len6; _key9++) {
+    args[_key9] = arguments[_key9];
   }
 
   var originalThing = _construct(ElementalClass1, args).html;
@@ -1636,8 +1747,8 @@ Elemental1.exclusivelySvgElements = new Set(["svg", "animate", "animateMotion", 
 Elemental1.css = function () {
   var element = document.createElement("div");
 
-  for (var _len7 = arguments.length, args = new Array(_len7), _key9 = 0; _key9 < _len7; _key9++) {
-    args[_key9] = arguments[_key9];
+  for (var _len7 = arguments.length, args = new Array(_len7), _key10 = 0; _key10 < _len7; _key10++) {
+    args[_key10] = arguments[_key10];
   }
 
   if (args.length == 1) {
@@ -1649,12 +1760,12 @@ Elemental1.css = function () {
         values = args.slice(1);
     var finalString = "";
 
-    var _iterator6 = _createForOfIteratorHelper(strings),
-        _step6;
+    var _iterator7 = _createForOfIteratorHelper(strings),
+        _step7;
 
     try {
-      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-        var each2 = _step6.value;
+      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+        var each2 = _step7.value;
         finalString += each2;
 
         if (values.length > 0) {
@@ -1662,9 +1773,9 @@ Elemental1.css = function () {
         }
       }
     } catch (err) {
-      _iterator6.e(err);
+      _iterator7.e(err);
     } finally {
-      _iterator6.f();
+      _iterator7.f();
     }
 
     element.style = finalString;
@@ -1674,12 +1785,12 @@ Elemental1.css = function () {
 };
 
 function appendChildren1(element) {
-  for (var _len8 = arguments.length, children = new Array(_len8 > 1 ? _len8 - 1 : 0), _key10 = 1; _key10 < _len8; _key10++) {
-    children[_key10 - 1] = arguments[_key10];
+  for (var _len8 = arguments.length, children = new Array(_len8 > 1 ? _len8 - 1 : 0), _key11 = 1; _key11 < _len8; _key11++) {
+    children[_key11 - 1] = arguments[_key11];
   }
 
-  for (var _i8 = 0, _children2 = children; _i8 < _children2.length; _i8++) {
-    var each2 = _children2[_i8];
+  for (var _i9 = 0, _children2 = children; _i9 < _children2.length; _i9++) {
+    var each2 = _children2[_i9];
 
     if (typeof each2 == "string") {
       element.appendChild(new window.Text(each2));
@@ -1727,9 +1838,9 @@ function appendChildren1(element) {
   return element;
 }
 
-function defaultErrorComponentFactory1(_ref20, key, error5) {
-  var children = _ref20.children,
-      properties = _objectWithoutProperties(_ref20, _excluded8);
+function defaultErrorComponentFactory1(_ref21, key, error5) {
+  var children = _ref21.children,
+      properties = _objectWithoutProperties(_ref21, _excluded8);
 
   var element = document.createElement("div");
   var errorDetails = document.createElement("code");
@@ -1759,10 +1870,10 @@ function defaultErrorComponentFactory1(_ref20, key, error5) {
 
   var errorJsonObject = {};
 
-  for (var _i9 = 0, _Object$entries5 = Object.entries(properties); _i9 < _Object$entries5.length; _i9++) {
-    var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i9], 2),
-        key2 = _Object$entries5$_i[0],
-        value = _Object$entries5$_i[1];
+  for (var _i10 = 0, _Object$entries6 = Object.entries(properties); _i10 < _Object$entries6.length; _i10++) {
+    var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i10], 2),
+        key2 = _Object$entries6$_i[0],
+        value = _Object$entries6$_i[1];
 
     try {
       errorJsonObject[key2] = JSON.parse(JSON.stringify(value));
@@ -1782,15 +1893,15 @@ function defaultErrorComponentFactory1(_ref20, key, error5) {
   childContainer.style.marginTop = "1.3rem";
 
   if (children instanceof Array) {
-    for (var _i10 = 0, _Object$entries6 = Object.entries(children); _i10 < _Object$entries6.length; _i10++) {
-      var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i10], 2),
-          _key11 = _Object$entries6$_i[0],
-          _value2 = _Object$entries6$_i[1];
+    for (var _i11 = 0, _Object$entries7 = Object.entries(children); _i11 < _Object$entries7.length; _i11++) {
+      var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i11], 2),
+          _key12 = _Object$entries7$_i[0],
+          _value3 = _Object$entries7$_i[1];
 
       if (typeof each == "string") {
-        childContainer.appendChild(new window.Text(_value2));
-      } else if (_value2 instanceof Node) {
-        childContainer.appendChild(_value2);
+        childContainer.appendChild(new window.Text(_value3));
+      } else if (_value3 instanceof Node) {
+        childContainer.appendChild(_value3);
       }
     }
   }
@@ -1856,7 +1967,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52932" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54327" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

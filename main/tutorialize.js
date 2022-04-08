@@ -4,6 +4,8 @@ import { html } from "./elemental.js"
 import { Tutorial as defaultTutorial } from "../tutorials/get_tutorializer_url.js"
 import { theme as defaultTheme } from "./default_theme.js"
 import { merge } from "https://deno.land/x/good@0.5.1/object.js"
+import { toRepresentation } from "https://deno.land/x/good@0.5.1/string.js"
+// import { debugValueAsString } from "https://deno.land/x/good@0.5.1/value.js"
 
 export const tutorializerSymbol = Symbol.for("tutorializer")
 export const GoingBackDontMindMeException = class extends Error {}
@@ -49,8 +51,8 @@ export const Tutorializer = globalThis[tutorializerSymbol] = {
     },
     set theme(newTheme) {
         // sanity check
-        if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.style !== 'string') {
-            throw Error(`was creating a theme, I expected an object like {name:"blah", styles: ".thing { color: red: }" }\nHowever, instead I got this: ${newTheme}`)
+        if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.styles !== 'string') {
+            throw Error(`I was creating a theme, I expected an object like {name:"blah", styles: ".thing { color: red: }" }\nHowever, instead I got this: ${toRepresentation(newTheme)}`)
         }
         const { name, styles, settings } = newTheme
         this._theme = newTheme
