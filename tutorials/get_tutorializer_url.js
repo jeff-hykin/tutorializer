@@ -1,4 +1,4 @@
-import { askLine, showText, html } from "../main/standard_slides.js"
+import { askLine, askYesNo, showText, html } from "../main/standard_slides.js"
 
 
 export const Tutorial = async ({Tutorializer, slide}) => {
@@ -14,6 +14,20 @@ export const Tutorial = async ({Tutorializer, slide}) => {
         })
     )
     
+    const confirmed = await slide("confirmedGithub",
+        askYesNo({
+            question: html`
+                <span>So is this the url to your profile?</span>
+                <br>
+                <a href=${`https://github.com/${githubUsername}`}>
+                    https://github.com/${githubUsername}
+                </a>
+                <br>
+                <br>
+            `,
+        })
+    )
+
     const slide1WasRead = await slide("didReadSummary1",
         showText({
             title: `Confirmation Check`,

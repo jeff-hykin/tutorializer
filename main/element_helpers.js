@@ -1,21 +1,30 @@
-// this jank is because I'm using an old version of Parcel.js that can't handle URL imports
-import { html } from "./elemental.js"
+import { html } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
 
 // 
 // all of theses should be theme-able (or thats the idea)
 // 
 
-export const title = ({style, children, ...props})=>html`<h1 class="tutorialize-title">
+export const br = ()=>html`<br style="height: 1rem;" />`
+
+export const title = ({children, ...props})=>html`<h1 class="tutorialize-title" ...${props}>
     ${children}
 </h1>`
 
-export const text = ({style, children, ...props})=>html`<span class="tutorialize-text">
+export const text = ({children, ...props})=>html`<span class="tutorialize-text" ...${props}>
     ${children}
 </span>`
 
 export const errorText = ({children, ...props})=>html`<span class="tutorialize-text tutorialize-error-text" ...${props}>
     ${children}
 </span>`
+
+export const hint = ({children, ...props})=>html`<span class="tutorialize-hint" ...${props}>
+    ${children}
+</span>`
+
+export const button = ({children, ...props})=>html`<button class="tutorialize-button" ...${props}>
+    ${children}
+</button>`
 
 export const container = ({style, children, ...props})=>html`<div
     style=${{display: "flex",flexDirection: "column", ...style}}
@@ -27,3 +36,8 @@ export const container = ({style, children, ...props})=>html`<div
 export const input = ({style, children, ...props})=>html`<input class="tutorialize-input" ...${props} />`
 
 // TODO: error
+
+const newHtml = html.extend({ text, button, br, title, container, input, errorText, hint })
+export {
+    newHtml as html
+}

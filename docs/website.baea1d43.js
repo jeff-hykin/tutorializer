@@ -125,14 +125,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.html = exports.Tutorializer = void 0;
 
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18;
 
 var _excluded = ["middleware"],
     _excluded2 = ["children"],
-    _excluded3 = ["middleware"],
+    _excluded3 = ["children"],
     _excluded4 = ["children"],
-    _excluded5 = ["style", "children"],
-    _excluded6 = ["style", "children"],
+    _excluded5 = ["children"],
+    _excluded6 = ["children"],
     _excluded7 = ["children"],
     _excluded8 = ["style", "children"],
     _excluded9 = ["style", "children"];
@@ -1076,531 +1076,84 @@ var once = function once(event) {
   });
 };
 
-var e1 = "",
-    t1 = "";
-
-function o1(r1) {
-  var _arguments2 = arguments;
-  var p1,
-      a1,
-      l,
-      s,
-      c1 = arguments,
-      i1 = this,
-      n = 0,
-      d = [],
-      h = 0,
-      u = [],
-      f = 0;
-  d.root = !0;
-
-  var g = function g(e11, o11, r2) {
-    void 0 === o11 && (o11 = []);
-    var p2 = 0;
-    return (e11 = r2 || e11 !== t1 ? e11.replace(/\ue001/g, function (e) {
-      return u[f++];
-    }) : u[f++].slice(1, -1)) ? (e11.replace(/\ue000/g, function (t, r3) {
-      return r3 && o11.push(e11.slice(p2, r3)), p2 = r3 + 1, o11.push(c1[++h]);
-    }), p2 < e11.length && o11.push(e11.slice(p2)), o11.length > 1 ? o11 : o11[0]) : e11;
-  },
-      m = function m() {
-    var _d3, _d4;
-
-    (_d3 = d, _d4 = _toArray(_d3), d = _d4[0], s = _d4[1], p1 = _d4.slice(2), _d3), d.push(i1.apply(void 0, [s].concat(_toConsumableArray(p1))));
-  };
-
-  return r1.join(e1).replace(/<!--[^]*-->/g, "").replace(/<!\[CDATA\[[^]*\]\]>/g, "").replace(/('|")[^\1]*?\1/g, function (e2) {
-    return u.push(e2), t1;
-  }).replace(/\s+/g, " ").replace(/(?:^|>)([^<]*)(?:$|<)/g, function (e3, t11, r4, p3) {
-    var c, i;
-    if (r4 && p3.slice(n, r4).replace(/(\S)\/$/, "$1 /").split(" ").map(function (e4, t2) {
-      if ("/" === e4[0]) c = i || e4.slice(1) || 1;else if (t2) {
-        if (e4) {
-          var _e4$split, _e4$split2;
-
-          var r5 = d[2] || (d[2] = {});
-          "..." === e4.slice(0, 3) ? Object.assign(r5, _arguments2[++h]) : ((_e4$split = e4.split("="), _e4$split2 = _slicedToArray(_e4$split, 2), a1 = _e4$split2[0], l = _e4$split2[1], _e4$split), r5[g(a1)] = !l || g(l));
-        }
-      } else {
-        for (i = g(e4); o1.close[d[1] + i];) {
-          m();
-        }
-
-        d = [d, i, null], o1.empty[i] && (c = i);
-      }
-    }), c) for (m(); s !== c && o1.close[s];) {
-      m();
-    }
-    n = r4 + e3.length, t11 && " " !== t11 && g((s = 0, t11), d, !0);
-  }), d.root || m(), d.length > 1 ? d : d[0];
-}
-
-o1.empty = {}, o1.close = {}, "area base br col command embed hr img input keygen link meta param source track wbr ! !doctype ? ?xml".split(" ").map(function (e) {
-  return o1.empty[e] = o1.empty[e.toUpperCase()] = !0;
-});
-
-var r1 = {
-  li: "",
-  dt: "dd",
-  dd: "dt",
-  p: "address article aside blockquote details div dl fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hgroup hr main menu nav ol pre section table",
-  rt: "rp",
-  rp: "rt",
-  optgroup: "",
-  option: "optgroup",
-  caption: "tbody thead tfoot tr colgroup",
-  colgroup: "thead tbody tfoot tr caption",
-  thead: "tbody tfoot caption",
-  tbody: "tfoot caption",
-  tfoot: "caption",
-  tr: "tbody tfoot",
-  td: "th tr",
-  th: "td tr tbody"
-},
-    p1 = function p1(e5) {
-  [].concat(_toConsumableArray(r1[e5].split(" ")), [e5]).map(function (t) {
-    o1.close[e5] = o1.close[e5.toUpperCase()] = o1.close[e5 + t] = o1.close[e5.toUpperCase() + t] = o1.close[e5 + t.toUpperCase()] = o1.close[e5.toUpperCase() + t.toUpperCase()] = !0;
-  });
+var br = function br() {
+  return html(_templateObject || (_templateObject = _taggedTemplateLiteral(["<br style=\"height: 1rem;\" />"])));
 };
 
-for (var a1 in r1) {
-  p1(a1);
-}
+var title = function title(_ref10) {
+  var children = _ref10.children,
+      props = _objectWithoutProperties(_ref10, _excluded3);
 
-var xhtm1 = o1;
-var ElementalSymbol1 = Symbol.for("Elemental");
-
-var ElementalClass1 = /*#__PURE__*/function () {
-  function ElementalClass1() {
-    var _this2 = this;
-
-    var components = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    _classCallCheck(this, ElementalClass1);
-
-    var middleware = options.middleware,
-        errorComponentFactory = options.errorComponentFactory;
-    this.components = components || {};
-    this.middleware = middleware || {};
-    this.errorComponentFactory = errorComponentFactory || defaultErrorComponentFactory1;
-    this.html = xhtm1.bind(function () {
-      return _this2.createElement.apply(_this2, arguments);
-    });
-    this.html[ElementalSymbol1] = this;
-    this.css = Elemental1.css;
-  }
-
-  _createClass(ElementalClass1, [{
-    key: "createElement",
-    value: function createElement() {
-      for (var _len7 = arguments.length, args = new Array(_len7), _key9 = 0; _key9 < _len7; _key9++) {
-        args[_key9] = arguments[_key9];
-      }
-
-      Elemental1.debug && console.debug("args is:", args);
-
-      var _iterator6 = _createForOfIteratorHelper((this.middleware[Elemental1.allTags] || []).concat(this.middleware[args[0]] || [])),
-          _step6;
-
-      try {
-        for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-          var middleware = _step6.value;
-
-          try {
-            args = eachMiddleWare(args);
-          } catch (error) {
-            console.error("[ElementalClass] one of the middleware functions failed:", eachMiddleWare, args);
-          }
-        }
-      } catch (err) {
-        _iterator6.e(err);
-      } finally {
-        _iterator6.f();
-      }
-
-      var _args7 = args,
-          _args8 = _toArray(_args7),
-          key = _args8[0],
-          properties = _args8[1],
-          children = _args8.slice(2);
-
-      Elemental1.debug && console.debug("key, properties, children is:", key, properties, children);
-
-      if (this.components[key] instanceof Function) {
-        key = this.components[key];
-      }
-
-      if (key instanceof Function) {
-        var output;
-
-        try {
-          output = isConstructor1(key) ? new key(_objectSpread(_objectSpread({}, properties), {}, {
-            children: children
-          })) : key(_objectSpread(_objectSpread({}, properties), {}, {
-            children: children
-          }));
-        } catch (error2) {
-          return this.errorComponentFactory(_objectSpread(_objectSpread({}, properties), {}, {
-            children: children
-          }), key, error2);
-        }
-
-        if (output instanceof Promise) {
-          var elementPromise = output;
-          var placeholder = elementPromise.placeholder || document.createElement("div");
-          setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
-              while (1) {
-                switch (_context5.prev = _context5.next) {
-                  case 0:
-                    _context5.t0 = placeholder;
-                    _context5.next = 3;
-                    return elementPromise;
-
-                  case 3:
-                    _context5.t1 = _context5.sent;
-                    return _context5.abrupt("return", _context5.t0.replaceWith.call(_context5.t0, _context5.t1));
-
-                  case 5:
-                  case "end":
-                    return _context5.stop();
-                }
-              }
-            }, _callee5);
-          })), 0);
-          return placeholder;
-        } else {
-          return output;
-        }
-      }
-
-      var isSvg = Elemental1.exclusivelySvgElements.has(key);
-      var element = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', key) : document.createElement(key);
-
-      if (properties instanceof Object) {
-        for (var _i8 = 0, _Object$entries5 = Object.entries(properties); _i8 < _Object$entries5.length; _i8++) {
-          var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i8], 2),
-              _key10 = _Object$entries5$_i[0],
-              value = _Object$entries5$_i[1];
-
-          try {
-            if (isSvg) {
-              var kebabCase = _key10.replace(/(?<=[a-z])([A-Z])(?=[a-z])/g, function (each) {
-                return "-".concat(each.toLowerCase());
-              });
-
-              element.setAttribute(kebabCase, value);
-            } else {
-              element.setAttribute(_key10.toLowerCase(), value);
-            }
-          } catch (error) {}
-
-          try {
-            element[_key10] = value;
-          } catch (error1) {}
-        }
-      }
-
-      return appendChildren1.apply(void 0, [element].concat(_toConsumableArray(children)));
-    }
-  }, {
-    key: "extend",
-    value: function extend() {
-      var additionalComponents = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-      var middleware = options.middleware,
-          other = _objectWithoutProperties(options, _excluded3);
-
-      return Elemental1(_objectSpread(_objectSpread({}, this.components), additionalComponents), _objectSpread({
-        middleware: _objectSpread(_objectSpread({}, this.middleware), middleware)
-      }, other));
-    }
-  }]);
-
-  return ElementalClass1;
-}();
-
-var proxySymbol1 = Symbol.for('Proxy');
-
-var Elemental1 = function Elemental1() {
-  for (var _len8 = arguments.length, args = new Array(_len8), _key11 = 0; _key11 < _len8; _key11++) {
-    args[_key11] = arguments[_key11];
-  }
-
-  var originalThing = _construct(ElementalClass1, args).html;
-
-  var proxyObject = new Proxy(originalThing, {
-    ownKeys: function ownKeys(original) {
-      return Reflect.ownKeys(original[ElementalSymbol1]);
-    },
-    get: function get(original, key) {
-      if (key == proxySymbol1) {
-        return true;
-      }
-
-      var originalValue = original[ElementalSymbol1][key];
-
-      if (originalValue) {
-        return originalValue;
-      }
-
-      return Reflect.get.apply(Reflect, [original, key].concat(args));
-    }
-  });
-  return proxyObject;
+  return html(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<h1 class=\"tutorialize-title\" ...", ">\n    ", "\n</h1>"])), props, children);
 };
 
-Elemental1.allTags = Symbol.for("allTags");
-Elemental1.exclusivelySvgElements = new Set(["svg", "animate", "animateMotion", "animateTransform", "circle", "clipPath", "defs", "desc", "discard", "ellipse", "feBlend", "feColorMatrix", "feComponentTransfer", "feComposite", "feConvolveMatrix", "feDiffuseLighting", "feDisplacementMap", "feDistantLight", "feDropShadow", "feFlood", "feFuncA", "feFuncB", "feFuncG", "feFuncR", "feGaussianBlur", "feImage", "feMerge", "feMergeNode", "feMorphology", "feOffset", "fePointLight", "feSpecularLighting", "feSpotLight", "feTile", "feTurbulence", "filter", "foreignObject", "g", "hatch", "hatchpath", "image", "line", "linearGradient", "marker", "mask", "mesh", "meshgradient", "meshpatch", "meshrow", "metadata", "mpath", "path", "pattern", "polygon", "polyline", "radialGradient", "rect", "set", "stop", "switch", "symbol", "text", "textPath", "tspan", "unknown", "use", "view"]);
+var text = function text(_ref11) {
+  var children = _ref11.children,
+      props = _objectWithoutProperties(_ref11, _excluded4);
 
-Elemental1.css = function () {
-  var element = document.createElement("div");
-
-  for (var _len9 = arguments.length, args = new Array(_len9), _key12 = 0; _key12 < _len9; _key12++) {
-    args[_key12] = arguments[_key12];
-  }
-
-  if (args.length == 1) {
-    if (args instanceof Object) {
-      Object.assign(element.style, args);
-    }
-  } else if (args.length > 1) {
-    var strings = args[0],
-        values = args.slice(1);
-    var finalString = "";
-
-    var _iterator7 = _createForOfIteratorHelper(strings),
-        _step7;
-
-    try {
-      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-        var _each = _step7.value;
-        finalString += _each;
-
-        if (values.length > 0) {
-          finalString += "".concat(values.shift());
-        }
-      }
-    } catch (err) {
-      _iterator7.e(err);
-    } finally {
-      _iterator7.f();
-    }
-
-    element.style = finalString;
-  }
-
-  return element.style;
+  return html(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<span class=\"tutorialize-text\" ...", ">\n    ", "\n</span>"])), props, children);
 };
 
-function appendChildren1(element) {
-  for (var _len10 = arguments.length, children = new Array(_len10 > 1 ? _len10 - 1 : 0), _key13 = 1; _key13 < _len10; _key13++) {
-    children[_key13 - 1] = arguments[_key13];
-  }
-
-  for (var _i9 = 0, _children2 = children; _i9 < _children2.length; _i9++) {
-    var _each2 = _children2[_i9];
-
-    if (typeof _each2 == 'string') {
-      element.appendChild(new window.Text(_each2));
-    } else if (_each2 == null) {
-      element.appendChild(new window.Text(""));
-    } else if (!(_each2 instanceof Object)) {
-      element.appendChild(new window.Text("".concat(_each2)));
-    } else if (_each2 instanceof Node) {
-      element.appendChild(_each2);
-    } else if (_each2 instanceof Array) {
-      appendChildren1.apply(void 0, [element].concat(_toConsumableArray(_each2)));
-    } else if (_each2 instanceof Function) {
-      appendChildren1(element, _each2());
-    } else if (_each2 instanceof Promise) {
-      (function () {
-        var elementPromise = _each2;
-        var placeholder = elementPromise.placeholder || document.createElement("div");
-        setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-          return regeneratorRuntime.wrap(function _callee6$(_context6) {
-            while (1) {
-              switch (_context6.prev = _context6.next) {
-                case 0:
-                  _context6.t0 = placeholder;
-                  _context6.next = 3;
-                  return elementPromise;
-
-                case 3:
-                  _context6.t1 = _context6.sent;
-                  return _context6.abrupt("return", _context6.t0.replaceWith.call(_context6.t0, _context6.t1));
-
-                case 5:
-                case "end":
-                  return _context6.stop();
-              }
-            }
-          }, _callee6);
-        })), 0);
-        element.appendChild(placeholder);
-      })();
-    } else if (_each2 != null && _each2 instanceof Object) {
-      element.appendChild(_each2);
-    }
-  }
-
-  return element;
-}
-
-function defaultErrorComponentFactory1(_ref12, key, error3) {
+var errorText = function errorText(_ref12) {
   var children = _ref12.children,
-      properties = _objectWithoutProperties(_ref12, _excluded4);
+      props = _objectWithoutProperties(_ref12, _excluded5);
 
-  var element = document.createElement("div");
-  var errorDetails = document.createElement("code");
-  var childContainer = document.createElement("div");
-  element.style.all = "unset";
-  element.style.display = "flex";
-  element.style.flexDirection = "column";
-  element.style.padding = "1.5rem";
-  element.style.backgroundColor = "#f5a5a8";
-  element.style.color = "white";
-  element.style.fontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-  element.style.fontSize = '18px';
-  element.style.fontWeight = '400';
-  element.style.overflow = 'auto';
-  element.innerHTML = "I'm sorry, there was an error when loading this part of the page \uD83D\uDE41 ";
-  var errorElementPart;
-
-  if (typeof key == 'string') {
-    errorElementPart = "<".concat(key, " />");
-  } else {
-    try {
-      errorElementPart = "<".concat(key.prototype.constructor.name, " />");
-    } catch (error) {
-      errorElementPart = "<".concat(key, " />");
-    }
-  }
-
-  var errorJsonObject = {};
-
-  for (var _i10 = 0, _Object$entries6 = Object.entries(properties); _i10 < _Object$entries6.length; _i10++) {
-    var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i10], 2),
-        key1 = _Object$entries6$_i[0],
-        value = _Object$entries6$_i[1];
-
-    try {
-      errorJsonObject[key1] = JSON.parse(JSON.stringify(value));
-    } catch (error) {
-      errorJsonObject[key1] = "".concat(value);
-    }
-  }
-
-  errorDetails.innerHTML = "tag: ".concat(errorElementPart, "\nproperties: ").concat(JSON.stringify(errorJsonObject), "\nerror: ").concat(error3);
-  errorDetails.style.padding = "1rem";
-  errorDetails.style.backgroundColor = "#161b22";
-  errorDetails.style.color = "#789896";
-  element.appendChild(errorDetails);
-  childContainer.style.all = "unset";
-  childContainer.style.display = "flex";
-  childContainer.style.flexDirection = "column";
-  childContainer.style.marginTop = "1.3rem";
-
-  if (children instanceof Array) {
-    for (var _i11 = 0, _Object$entries7 = Object.entries(children); _i11 < _Object$entries7.length; _i11++) {
-      var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i11], 2),
-          _key14 = _Object$entries7$_i[0],
-          _value3 = _Object$entries7$_i[1];
-
-      if (typeof each == 'string') {
-        childContainer.appendChild(new window.Text(_value3));
-      } else if (_value3 instanceof Node) {
-        childContainer.appendChild(_value3);
-      }
-    }
-  }
-
-  element.appendChild(childContainer);
-  return element;
-}
-
-function isConstructor1(obj) {
-  return !!obj.prototype && !!obj.prototype.constructor.name;
-}
-
-try {
-  var _originalHead = document.head;
-  Object.defineProperty(document, "head", {
-    set: function set(element) {
-      return appendChildren1.apply(void 0, [_originalHead].concat(_toConsumableArray(element.childNodes)));
-    },
-    get: function get() {
-      return _originalHead;
-    },
-    writable: true
-  });
-} catch (error4) {}
-
-var html1 = Elemental1();
-Elemental1.css;
-Elemental1.allTags;
-
-var title = function title(_ref13) {
-  var style = _ref13.style,
-      children = _ref13.children,
-      props = _objectWithoutProperties(_ref13, _excluded5);
-
-  return html1(_templateObject || (_templateObject = _taggedTemplateLiteral(["<h1 class=\"tutorialize-title\">\n    ", "\n</h1>"])), children);
+  return html(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["<span class=\"tutorialize-text tutorialize-error-text\" ...", ">\n    ", "\n</span>"])), props, children);
 };
 
-var text = function text(_ref14) {
-  var style = _ref14.style,
-      children = _ref14.children,
-      props = _objectWithoutProperties(_ref14, _excluded6);
+var hint = function hint(_ref13) {
+  var children = _ref13.children,
+      props = _objectWithoutProperties(_ref13, _excluded6);
 
-  return html1(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<span class=\"tutorialize-text\">\n    ", "\n</span>"])), children);
+  return html(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["<span class=\"tutorialize-hint\" ...", ">\n    ", "\n</span>"])), props, children);
 };
 
-var errorText = function errorText(_ref15) {
-  var children = _ref15.children,
-      props = _objectWithoutProperties(_ref15, _excluded7);
+var button = function button(_ref14) {
+  var children = _ref14.children,
+      props = _objectWithoutProperties(_ref14, _excluded7);
 
-  return html1(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<span class=\"tutorialize-text tutorialize-error-text\" ...", ">\n    ", "\n</span>"])), props, children);
+  return html(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<button class=\"tutorialize-button\" ...", ">\n    ", "\n</button>"])), props, children);
 };
 
-var container = function container(_ref16) {
-  var style = _ref16.style,
-      children = _ref16.children,
-      props = _objectWithoutProperties(_ref16, _excluded8);
+var container = function container(_ref15) {
+  var style = _ref15.style,
+      children = _ref15.children,
+      props = _objectWithoutProperties(_ref15, _excluded8);
 
-  return html1(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["<div\n    style=", "\n    ...", "\n    >\n        ", "\n</div>"])), _objectSpread({
+  return html(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["<div\n    style=", "\n    ...", "\n    >\n        ", "\n</div>"])), _objectSpread({
     display: "flex",
     flexDirection: "column"
   }, style), props, children);
 };
 
-var input = function input(_ref17) {
-  var style = _ref17.style,
-      children = _ref17.children,
-      props = _objectWithoutProperties(_ref17, _excluded9);
+var input = function input(_ref16) {
+  var style = _ref16.style,
+      children = _ref16.children,
+      props = _objectWithoutProperties(_ref16, _excluded9);
 
-  return html1(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["<input class=\"tutorialize-input\" ...", " />"])), props);
+  return html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["<input class=\"tutorialize-input\" ...", " />"])), props);
 };
 
-var html2 = html1.extend({
+var newHtml = html.extend({
   text: text,
+  button: button,
+  br: br,
   title: title,
   container: container,
   input: input,
-  errorText: errorText
+  errorText: errorText,
+  hint: hint
 });
 
-var showText = function showText(_ref18) {
-  var title1 = _ref18.title,
-      body = _ref18.body;
-  return function (_ref19) {
-    var value = _ref19.value,
-        Tutorializer1 = _ref19.Tutorializer;
+var showText = function showText(_ref17) {
+  var title1 = _ref17.title,
+      body = _ref17.body;
+  return function (_ref18) {
+    var value = _ref18.value,
+        Tutorializer1 = _ref18.Tutorializer;
     return {
       loadSlide: function loadSlide() {
-        Tutorializer1.content = html2(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<container>\n            <title>\n                ", "\n            </title>\n            <text>\n                ", "\n            </text>\n        </container>"])), title1, body);
+        Tutorializer1.content = newHtml(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<container>\n            <title>\n                ", "\n            </title>\n            <text>\n                ", "\n            </text>\n        </container>"])), title1, body);
       },
       valueIsValid: function valueIsValid(value) {
         return true;
@@ -1609,62 +1162,106 @@ var showText = function showText(_ref18) {
   };
 };
 
-var askLine = function askLine(_ref20) {
-  var question = _ref20.question,
-      createErrorMessage = _ref20.createErrorMessage;
-  return function (_ref21) {
-    var value1 = _ref21.value,
-        Tutorializer2 = _ref21.Tutorializer;
+var askYesNo = function askYesNo(_ref19) {
+  var question = _ref19.question;
+  return function (_ref20) {
+    var value1 = _ref20.value,
+        Tutorializer2 = _ref20.Tutorializer;
     return {
       loadSlide: function loadSlide() {
-        this.errorMessageElement = html2(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["<errorText style=", "/>"])), {
+        Tutorializer2.content = newHtml(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<container>\n            ", "\n            \n            <container style=", ">\n                <button onclick=", " style=", ">\n                    yes\n                </button>\n                <button onclick=", " style=", ">\n                    no\n                </button>\n            </container>\n            <hint>\n                (you can type \"y\" or \"n\" to answer faster)\n            </hint>\n        </container>"])), question, {
+          gap: "1rem"
+        }, function () {
+          return value1.set(true), Tutorializer2.goNext();
+        }, "--button-accent: var(--button-yes-color)", function () {
+          return value1.set(true), Tutorializer2.goNext();
+        }, "--button-accent: var(--button-no-color)");
+
+        var _listener;
+
+        window.addEventListener("keydown", _listener = function listener(_ref21) {
+          var key = _ref21.key;
+
+          if (key == "y" || key === "Y") {
+            value1.set(true);
+            Tutorializer2.goNext();
+            window.removeEventListener("keydown", _listener);
+          }
+
+          if (key == "n" || key === "N") {
+            value1.set(false);
+            Tutorializer2.goNext();
+            window.removeEventListener("keydown", _listener);
+          }
+        });
+      },
+      valueIsValid: function valueIsValid(value) {
+        return value === true || value === false;
+      }
+    };
+  };
+};
+
+var askLine = function askLine(_ref22) {
+  var question = _ref22.question,
+      createErrorMessage = _ref22.createErrorMessage;
+  return function (_ref23) {
+    var value2 = _ref23.value,
+        Tutorializer3 = _ref23.Tutorializer;
+    return {
+      loadSlide: function loadSlide() {
+        this.errorMessageElement = newHtml(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["<errorText style=", "/>"])), {
           textAlign: "center"
         });
-        Tutorializer2.content = html2(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            <input\n                onkeyup=", "\n                />\n            <container style=", ">\n                ", "\n            </container>\n        </container>"])), question, function (_ref22) {
-          var key = _ref22.key,
-              target = _ref22.target;
-          value1.set(target.value);
+        var input1 = newHtml(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["\n            <input\n                autofocus\n                onkeyup=", "\n                />\n        "])), function (_ref24) {
+          var key = _ref24.key,
+              target = _ref24.target;
+          value2.set(target.value);
 
           if (key == "Enter") {
-            Tutorializer2.goNext();
+            Tutorializer3.goNext();
           }
-        }, {
+        });
+        setTimeout(function () {
+          return input1.focus();
+        }, 0);
+        Tutorializer3.content = newHtml(_templateObject13 || (_templateObject13 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            ", "\n            <container style=", ">\n                ", "\n            </container>\n        </container>"])), question, input1, {
           height: "3rem",
           overflow: "visible"
         }, this.errorMessageElement);
       },
       valueIsValid: function valueIsValid(value) {
-        var _this3 = this;
+        var _this2 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+        return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
           var errorMessage;
-          return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
-              switch (_context7.prev = _context7.next) {
+              switch (_context5.prev = _context5.next) {
                 case 0:
-                  _context7.next = 2;
+                  _context5.next = 2;
                   return createErrorMessage(value || "");
 
                 case 2:
-                  errorMessage = _context7.sent;
+                  errorMessage = _context5.sent;
 
                   if (errorMessage) {
-                    _context7.next = 7;
+                    _context5.next = 7;
                     break;
                   }
 
-                  return _context7.abrupt("return", true);
+                  return _context5.abrupt("return", true);
 
                 case 7:
-                  _this3.errorMessageElement.innerHTML = errorMessage;
-                  return _context7.abrupt("return", false);
+                  _this2.errorMessageElement.innerHTML = errorMessage;
+                  return _context5.abrupt("return", false);
 
                 case 9:
                 case "end":
-                  return _context7.stop();
+                  return _context5.stop();
               }
             }
-          }, _callee7);
+          }, _callee5);
         }))();
       }
     };
@@ -1672,14 +1269,14 @@ var askLine = function askLine(_ref20) {
 };
 
 var Tutorial1 = /*#__PURE__*/function () {
-  var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_ref23) {
+  var _ref26 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_ref25) {
     var Tutorializer, slide, githubUsername;
-    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
-        switch (_context8.prev = _context8.next) {
+        switch (_context6.prev = _context6.next) {
           case 0:
-            Tutorializer = _ref23.Tutorializer, slide = _ref23.slide;
-            _context8.next = 3;
+            Tutorializer = _ref25.Tutorializer, slide = _ref25.slide;
+            _context6.next = 3;
             return slide("githubUsername", askLine({
               question: "Whats the github username for the repository?",
               createErrorMessage: function createErrorMessage(value) {
@@ -1690,30 +1287,36 @@ var Tutorial1 = /*#__PURE__*/function () {
             }));
 
           case 3:
-            githubUsername = _context8.sent;
-            _context8.next = 6;
-            return slide("didReadSummary1", showText({
-              title: "Confirmation Check",
-              body: html2(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
+            githubUsername = _context6.sent;
+            _context6.next = 6;
+            return slide("confirmedGithub", askYesNo({
+              question: newHtml(_templateObject14 || (_templateObject14 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <br>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n                <br>\n                <br>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
             }));
 
           case 6:
-            _context8.next = 8;
+            _context6.next = 8;
+            return slide("didReadSummary1", showText({
+              title: "Confirmation Check",
+              body: newHtml(_templateObject15 || (_templateObject15 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
+            }));
+
+          case 8:
+            _context6.next = 10;
             return slide("didReadSummary2", showText({
               title: "What This Does",
               body: "Testing testing"
             }));
 
-          case 8:
+          case 10:
           case "end":
-            return _context8.stop();
+            return _context6.stop();
         }
       }
-    }, _callee8);
+    }, _callee6);
   }));
 
   return function Tutorial1(_x2) {
-    return _ref24.apply(this, arguments);
+    return _ref26.apply(this, arguments);
   };
 }();
 
@@ -1722,7 +1325,7 @@ var theme1 = {
   settings: {
     slideFadeInMiliseconds: 600
   },
-  styles: "\n        :root {\n            --off-white: whitesmoke;\n            --blue: cornflowerblue;\n            --red: #f07178;\n            --light-gray: lightgray;\n            \n            --background: var(--off-white);\n            --arrow-button-accent: var(--blue);\n            --title-size: 32px;\n            --text-size: 22px;\n            --error-text-color: var(--red);\n            --text-default-color: gray;\n            --bottom-row-height: 7rem;\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: flex-start; \n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: var(--text-default-color);\n            background: var(--background);\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            padding: 2rem;\n        }\n        \n        .tutorialize-error-text {\n            color: var(--error-text-color);\n        }\n\n        .tutorialize-input {\n            color: gray;\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: var(--arrow-button-accent);\n            text-decoration: underline;\n            background: white;\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) var(--arrow-button-accent) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 100%;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
+  styles: "\n        :root {\n            --white     : 255, 255, 255;\n            --off-white : 238, 238, 238;\n            --gray      : 84 , 110, 122;\n            --light-gray: 199, 203, 205;\n            --black     : 36 , 41 ,  56;\n            --red       : 240, 113, 120;\n            --blue      : 130, 170, 255;\n            --green     : 128, 203, 171;\n            --yellow    : 254, 195,  85;\n            --orange    : 247, 140, 108;\n            --pink      : 229, 126, 179;\n            --purple    : 199, 146, 234;\n            --cyan      : 137, 221, 255;\n            \n            --background: var(--off-white);\n            --text-default-color: var(--gray);\n            --button-accent: var(--blue);\n            --button-background: rgb(var(--white));\n            --title-size: 32px;\n            --text-size: 22px;\n            --bottom-row-height: 7rem;\n            \n            --error-text-color: var(--red);\n            --button-yes-color: var(--green);\n            --button-no-color: var(--red);\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: flex-start; \n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: rgb(var(--text-default-color));\n            background: rgb(var(--background));\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            padding: 2rem;\n        }\n        \n        .tutorialize-button {\n            padding: 1rem;\n            --border-size: 2px;\n            transition: all 0.5s ease-in-out 0s;\n        }\n        .tutorialize-button:not(:hover) {\n            background: var(--button-background);\n            color: rgb(var(--button-accent));\n            border: rgb(var(--button-accent)) solid var(--border-size);\n        }\n        .tutorialize-button:hover {\n            background: rgba(var(--button-accent), 0.6);\n            color: var(--button-background);\n            border: var(--button-background) solid var(--border-size);\n        }\n\n        .tutorialize-error-text {\n            color: rgb(var(--error-text-color));\n        }\n        \n        .tutorialize-hint {\n            font-size: 0.7em;\n            opacity: 0.7;\n            text-align: center;\n            padding: 2rem;\n        }\n\n        .tutorialize-input {\n            color: rgb(var(--text-default-color));\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: rgb(var(--button-accent));\n            text-decoration: underline;\n            background: rgb(var(--white)));\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) rgb(var(--button-accent)) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 100%;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
 };
 globalThis.allKeys = allKeys1;
 var tutorializerSymbol = Symbol.for("tutorializer");
@@ -1748,7 +1351,7 @@ var TutorializerClass = /*#__PURE__*/function () {
     this.pendingData = {};
     this.progressData = [];
     this.tutorial = Tutorial1;
-    this.main = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
+    this.main = html(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
     this.element = null;
     this.events = {
       attemptGoingToNext: new Event(),
@@ -1780,13 +1383,13 @@ var TutorializerClass = /*#__PURE__*/function () {
       return this.main.children;
     },
     set: function set(element) {
-      var _this4 = this;
+      var _this3 = this;
 
       console.log("start:set content");
       this.main.style.opacity = 0;
       setTimeout(function () {
-        _this4.main.children = [element];
-        _this4.main.style.opacity = 1;
+        _this3.main.children = [element];
+        _this3.main.style.opacity = 1;
       }, this.theme.settings.slideFadeInMiliseconds);
     }
   }, {
@@ -1815,24 +1418,24 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "slide",
     value: function () {
-      var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(id, func) {
-        var _this5 = this;
+      var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(id, func) {
+        var _this4 = this;
 
         var realValue, value1, slide;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
                 console.log("start:slide");
                 console.debug("this is:", this);
                 console.debug("Tutorializer is:", Tutorializer);
 
                 if (!this.has(id)) {
-                  _context9.next = 5;
+                  _context7.next = 5;
                   break;
                 }
 
-                return _context9.abrupt("return", this.data[id]);
+                return _context7.abrupt("return", this.data[id]);
 
               case 5:
                 realValue = undefined;
@@ -1843,56 +1446,56 @@ var TutorializerClass = /*#__PURE__*/function () {
                   set: function set(value) {
                     realValue = value;
 
-                    _this5.add(id, realValue);
+                    _this4.add(id, realValue);
                   }
                 };
-                _context9.next = 9;
+                _context7.next = 9;
                 return func({
                   value: value1,
                   Tutorializer: this
                 });
 
               case 9:
-                slide = _context9.sent;
-                _context9.next = 12;
+                slide = _context7.sent;
+                _context7.next = 12;
                 return slide.loadSlide();
 
               case 12:
                 if (!true) {
-                  _context9.next = 21;
+                  _context7.next = 21;
                   break;
                 }
 
-                _context9.next = 15;
+                _context7.next = 15;
                 return once(this.events.attemptGoingToNext);
 
               case 15:
-                _context9.next = 17;
+                _context7.next = 17;
                 return slide.valueIsValid(realValue);
 
               case 17:
-                if (!_context9.sent) {
-                  _context9.next = 19;
+                if (!_context7.sent) {
+                  _context7.next = 19;
                   break;
                 }
 
-                return _context9.abrupt("break", 21);
+                return _context7.abrupt("break", 21);
 
               case 19:
-                _context9.next = 12;
+                _context7.next = 12;
                 break;
 
               case 21:
                 this.add(id, realValue);
                 this.savePendingData();
-                return _context9.abrupt("return", realValue);
+                return _context7.abrupt("return", realValue);
 
               case 24:
               case "end":
-                return _context9.stop();
+                return _context7.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee7, this);
       }));
 
       function slide(_x3, _x4) {
@@ -1904,36 +1507,36 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "intializeWholeWebpage",
     value: function () {
-      var _intializeWholeWebpage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+      var _intializeWholeWebpage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
         var _yield$import, router, givenUrl;
 
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 console.log("start:intializeWholeWebpage()");
                 document.head.innerHTML += "<link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">";
                 document.head.appendChild(this._style);
-                _context10.next = 5;
+                _context8.next = 5;
                 return import("https://cdn.skypack.dev/quik-router");
 
               case 5:
-                _yield$import = _context10.sent;
+                _yield$import = _context8.sent;
                 router = _yield$import.default;
                 givenUrl = router.pageInfo.url;
 
                 if (!givenUrl) {
-                  _context10.next = 11;
+                  _context8.next = 11;
                   break;
                 }
 
-                _context10.next = 11;
+                _context8.next = 11;
                 return this.getDataFromUrl(givenUrl);
 
               case 11:
                 this.theme = this._theme;
                 this.runTutorial();
-                document.body = html(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
+                document.body = html(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
                   display: "flex",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
@@ -1945,10 +1548,10 @@ var TutorializerClass = /*#__PURE__*/function () {
 
               case 14:
               case "end":
-                return _context10.stop();
+                return _context8.stop();
             }
           }
-        }, _callee10, this);
+        }, _callee8, this);
       }));
 
       function intializeWholeWebpage() {
@@ -1960,27 +1563,27 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "getDataFromUrl",
     value: function () {
-      var _getDataFromUrl = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(url) {
+      var _getDataFromUrl = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(url) {
         var _yield$import2, Tutorial, theme;
 
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
-                _context11.prev = 0;
-                _context11.next = 3;
+                _context9.prev = 0;
+                _context9.next = 3;
                 return import(url);
 
               case 3:
-                _yield$import2 = _context11.sent;
+                _yield$import2 = _context9.sent;
                 Tutorial = _yield$import2.Tutorial;
                 theme = _yield$import2.theme;
-                _context11.next = 10;
+                _context9.next = 10;
                 break;
 
               case 8:
-                _context11.prev = 8;
-                _context11.t0 = _context11["catch"](0);
+                _context9.prev = 8;
+                _context9.t0 = _context9["catch"](0);
 
               case 10:
                 if (theme) {
@@ -1995,10 +1598,10 @@ var TutorializerClass = /*#__PURE__*/function () {
 
               case 12:
               case "end":
-                return _context11.stop();
+                return _context9.stop();
             }
           }
-        }, _callee11, this, [[0, 8]]);
+        }, _callee9, this, [[0, 8]]);
       }));
 
       function getDataFromUrl(_x5) {
@@ -2010,40 +1613,40 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "runTutorial",
     value: function () {
-      var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+      var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context12.prev = _context12.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 console.log("start:runTutorial()");
-                _context12.prev = 1;
+                _context10.prev = 1;
                 console.log("start:tutorial()");
-                _context12.next = 5;
+                _context10.next = 5;
                 return this.tutorial({
                   Tutorializer: this,
                   slide: this.slide.bind(this)
                 });
 
               case 5:
-                return _context12.abrupt("return", this.data);
+                return _context10.abrupt("return", this.data);
 
               case 8:
-                _context12.prev = 8;
-                _context12.t0 = _context12["catch"](1);
+                _context10.prev = 8;
+                _context10.t0 = _context10["catch"](1);
 
-                if (_context12.t0 instanceof GoingBackDontMindMeException) {
-                  _context12.next = 12;
+                if (_context10.t0 instanceof GoingBackDontMindMeException) {
+                  _context10.next = 12;
                   break;
                 }
 
-                throw _context12.t0;
+                throw _context10.t0;
 
               case 12:
               case "end":
-                return _context12.stop();
+                return _context10.stop();
             }
           }
-        }, _callee12, this, [[1, 8]]);
+        }, _callee10, this, [[1, 8]]);
       }));
 
       function runTutorial() {
@@ -2055,14 +1658,14 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "createElement",
     value: function createElement() {
-      var _this6 = this;
+      var _this5 = this;
 
       console.log("start:createElement()");
       console.debug("this is:", this);
-      return this.element = html(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
-        return _this6.goBack.apply(_this6, arguments);
+      return this.element = html(_templateObject18 || (_templateObject18 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
+        return _this5.goBack.apply(_this5, arguments);
       }, function () {
-        return _this6.goNext.apply(_this6, arguments);
+        return _this5.goNext.apply(_this5, arguments);
       });
     }
   }, {
@@ -2076,19 +1679,19 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "goNext",
     value: function () {
-      var _goNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+      var _goNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context13.prev = _context13.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
                 trigger(this.events.attemptGoingToNext);
 
               case 1:
               case "end":
-                return _context13.stop();
+                return _context11.stop();
             }
           }
-        }, _callee13, this);
+        }, _callee11, this);
       }));
 
       function goNext() {
@@ -2100,10 +1703,10 @@ var TutorializerClass = /*#__PURE__*/function () {
   }, {
     key: "goBack",
     value: function () {
-      var _goBack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-        return regeneratorRuntime.wrap(function _callee14$(_context14) {
+      var _goBack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context14.prev = _context14.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
                 if (this.progressData.length > 0) {
                   this.progressData.pop();
@@ -2111,15 +1714,15 @@ var TutorializerClass = /*#__PURE__*/function () {
 
                 this.pendingData = {};
                 trigger(this.events.goingBack);
-                _context14.next = 5;
+                _context12.next = 5;
                 return this.runTutorial();
 
               case 5:
               case "end":
-                return _context14.stop();
+                return _context12.stop();
             }
           }
-        }, _callee14, this);
+        }, _callee12, this);
       }));
 
       function goBack() {
@@ -2171,7 +1774,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49619" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58007" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -5,18 +5,31 @@ export const theme = {
     },
     styles: `
         :root {
-            --off-white: whitesmoke;
-            --blue: cornflowerblue;
-            --red: #f07178;
-            --light-gray: lightgray;
+            --white     : 255, 255, 255;
+            --off-white : 238, 238, 238;
+            --gray      : 84 , 110, 122;
+            --light-gray: 199, 203, 205;
+            --black     : 36 , 41 ,  56;
+            --red       : 240, 113, 120;
+            --blue      : 130, 170, 255;
+            --green     : 128, 203, 171;
+            --yellow    : 254, 195,  85;
+            --orange    : 247, 140, 108;
+            --pink      : 229, 126, 179;
+            --purple    : 199, 146, 234;
+            --cyan      : 137, 221, 255;
             
             --background: var(--off-white);
-            --arrow-button-accent: var(--blue);
+            --text-default-color: var(--gray);
+            --button-accent: var(--blue);
+            --button-background: rgb(var(--white));
             --title-size: 32px;
             --text-size: 22px;
-            --error-text-color: var(--red);
-            --text-default-color: gray;
             --bottom-row-height: 7rem;
+            
+            --error-text-color: var(--red);
+            --button-yes-color: var(--green);
+            --button-no-color: var(--red);
         }
 
         .tutorialize-root {
@@ -29,8 +42,8 @@ export const theme = {
             height: 100%;
             width: 100%;
             font-size: var(--text-size);
-            color: var(--text-default-color);
-            background: var(--background);
+            color: rgb(var(--text-default-color));
+            background: rgb(var(--background));
         }
 
         .tutorialize-title {
@@ -43,12 +56,35 @@ export const theme = {
             padding: 2rem;
         }
         
+        .tutorialize-button {
+            padding: 1rem;
+            --border-size: 2px;
+            transition: all 0.5s ease-in-out 0s;
+        }
+        .tutorialize-button:not(:hover) {
+            background: var(--button-background);
+            color: rgb(var(--button-accent));
+            border: rgb(var(--button-accent)) solid var(--border-size);
+        }
+        .tutorialize-button:hover {
+            background: rgba(var(--button-accent), 0.6);
+            color: var(--button-background);
+            border: var(--button-background) solid var(--border-size);
+        }
+
         .tutorialize-error-text {
-            color: var(--error-text-color);
+            color: rgb(var(--error-text-color));
+        }
+        
+        .tutorialize-hint {
+            font-size: 0.7em;
+            opacity: 0.7;
+            text-align: center;
+            padding: 2rem;
         }
 
         .tutorialize-input {
-            color: gray;
+            color: rgb(var(--text-default-color));
             background: transparent;
             border-radius: 0;
             border: none;
@@ -65,9 +101,9 @@ export const theme = {
             height: 100%;
             flex-grow: 1;
             transition: all 0.5s ease-in-out 0s;
-            color: var(--arrow-button-accent);
+            color: rgb(var(--button-accent));
             text-decoration: underline;
-            background: white;
+            background: rgb(var(--white)));
             --border-size: 2px;
             margin-left: -var(--border-size);
         }
@@ -75,7 +111,7 @@ export const theme = {
             border: var(--border-size) var(--light-gray) solid;
         }
         .tutorialize-arrow-buttons:hover {
-            border: var(--border-size) var(--arrow-button-accent) solid;
+            border: var(--border-size) rgb(var(--button-accent)) solid;
             z-index: 1;
         }
 

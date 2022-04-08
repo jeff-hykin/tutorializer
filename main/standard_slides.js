@@ -1,9 +1,8 @@
-// import { html as pureHtml } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
-import { html as pureHtml } from "./elemental.js"
-import { text, title, container, input, errorText } from "./element_helpers.js"
-import { Tutorializer } from "./tutorialize.js"
+import { html } from "./element_helpers.js"
 
-export const html = pureHtml.extend({ text, title, container, input, errorText })
+export {
+    html as html
+}
 
 // 
 // actual tutorializer components
@@ -22,15 +21,48 @@ export const showText = ({title, body})=>({value, Tutorializer})=>({
     valueIsValid: (value)=>true,
 })
 
+export const askYesNo = ({question})=>({value, Tutorializer})=>({
+    loadSlide() {
+        Tutorializer.content = html`<container>
+            ${question}
+            
+            <container style=${{gap:"1rem"}}>
+                <button onclick=${()=>(value.set(true),Tutorializer.goNext())} style=${`--button-accent: var(--button-yes-color)`}>
+                    yes
+                </button>
+                <button onclick=${()=>(value.set(true),Tutorializer.goNext())} style=${`--button-accent: var(--button-no-color)`}>
+                    no
+                </button>
+            </container>
+            <hint>
+                (you can type "y" or "n" to answer faster)
+            </hint>
+        </container>`
+        var listener
+        window.addEventListener("keydown", listener=({key})=>{
+            if (key == "y" || key === "Y") {
+                value.set(true)
+                Tutorializer.goNext()
+                window.removeEventListener("keydown", listener)
+            }
+            if (key == "n" || key === "N") {
+                value.set(false)
+                Tutorializer.goNext()
+                window.removeEventListener("keydown", listener)
+            }
+        })
+    },
+    valueIsValid(value) {
+        return value === true || value === false
+    },
+})
+
 export const askLine = ({question, createErrorMessage})=>({value, Tutorializer})=>({
     loadSlide() {
         this.errorMessageElement = html`<errorText style=${{textAlign: "center"}}/>`
-        
-        Tutorializer.content = html`<container>
-            <text>
-                ${question}
-            </text>
+        const input = html`
             <input
+                autofocus
                 onkeyup=${({key, target})=>{
                     value.set(target.value)
                     if (key=="Enter") {
@@ -38,6 +70,14 @@ export const askLine = ({question, createErrorMessage})=>({value, Tutorializer})
                     }
                 }}
                 />
+        `
+        setTimeout(()=>input.focus(), 0) // autofocus on the input
+
+        Tutorializer.content = html`<container>
+            <text>
+                ${question}
+            </text>
+            ${input}
             <container style=${{height: "3rem", overflow:"visible"}}>
                 ${this.errorMessageElement}
             </container>
