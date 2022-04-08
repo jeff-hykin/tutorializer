@@ -7,12 +7,14 @@ export const theme = {
         :root {
             --off-white: whitesmoke;
             --blue: cornflowerblue;
+            --red: #f07178;
             --light-gray: lightgray;
             
             --background: var(--off-white);
             --arrow-button-accent: var(--blue);
             --title-size: 32px;
             --text-size: 22px;
+            --error-text-color: var(--red);
             --text-default-color: gray;
             --bottom-row-height: 7rem;
         }
@@ -39,6 +41,10 @@ export const theme = {
 
         .tutorialize-text {
             padding: 2rem;
+        }
+        
+        .tutorialize-error-text {
+            color: var(--error-text-color);
         }
 
         .tutorialize-input {

@@ -125,7 +125,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.html = exports.Tutorializer = void 0;
 
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12;
 
 var _excluded = ["middleware"],
     _excluded2 = ["children"],
@@ -133,8 +133,9 @@ var _excluded = ["middleware"],
     _excluded4 = ["children"],
     _excluded5 = ["style", "children"],
     _excluded6 = ["style", "children"],
-    _excluded7 = ["style", "children"],
-    _excluded8 = ["style", "children"];
+    _excluded7 = ["children"],
+    _excluded8 = ["style", "children"],
+    _excluded9 = ["style", "children"];
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
@@ -1557,41 +1558,49 @@ var text = function text(_ref14) {
   return html1(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<span class=\"tutorialize-text\">\n    ", "\n</span>"])), children);
 };
 
-var container = function container(_ref15) {
-  var style = _ref15.style,
-      children = _ref15.children,
+var errorText = function errorText(_ref15) {
+  var children = _ref15.children,
       props = _objectWithoutProperties(_ref15, _excluded7);
 
-  return html1(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<div\n    style=", "\n    >\n        ", "\n</div>"])), {
-    display: "flex",
-    flexDirection: "column"
-  }, children);
+  return html1(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<span class=\"tutorialize-text tutorialize-error-text\" ...", ">\n    ", "\n</span>"])), props, children);
 };
 
-var input = function input(_ref16) {
+var container = function container(_ref16) {
   var style = _ref16.style,
       children = _ref16.children,
       props = _objectWithoutProperties(_ref16, _excluded8);
 
-  return html1(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["<input class=\"tutorialize-input\" ...", " />"])), props);
+  return html1(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["<div\n    style=", "\n    ...", "\n    >\n        ", "\n</div>"])), _objectSpread({
+    display: "flex",
+    flexDirection: "column"
+  }, style), props, children);
+};
+
+var input = function input(_ref17) {
+  var style = _ref17.style,
+      children = _ref17.children,
+      props = _objectWithoutProperties(_ref17, _excluded9);
+
+  return html1(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["<input class=\"tutorialize-input\" ...", " />"])), props);
 };
 
 var html2 = html1.extend({
   text: text,
   title: title,
   container: container,
-  input: input
+  input: input,
+  errorText: errorText
 });
 
-var showText = function showText(_ref17) {
-  var title1 = _ref17.title,
-      body = _ref17.body;
-  return function (_ref18) {
-    var value = _ref18.value,
-        Tutorializer1 = _ref18.Tutorializer;
+var showText = function showText(_ref18) {
+  var title1 = _ref18.title,
+      body = _ref18.body;
+  return function (_ref19) {
+    var value = _ref19.value,
+        Tutorializer1 = _ref19.Tutorializer;
     return {
       loadSlide: function loadSlide() {
-        Tutorializer1.content = html2(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["<container>\n            <title>\n                ", "\n            </title>\n            <text>\n                ", "\n            </text>\n        </container>"])), title1, body);
+        Tutorializer1.content = html2(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<container>\n            <title>\n                ", "\n            </title>\n            <text>\n                ", "\n            </text>\n        </container>"])), title1, body);
       },
       valueIsValid: function valueIsValid(value) {
         return true;
@@ -1601,42 +1610,50 @@ var showText = function showText(_ref17) {
   };
 };
 
-var askLine = function askLine(_ref19) {
-  var question = _ref19.question;
-  return function (_ref20) {
-    var value1 = _ref20.value,
-        Tutorializer2 = _ref20.Tutorializer;
+var askLine = function askLine(_ref20) {
+  var question = _ref20.question;
+  return function (_ref21) {
+    var value1 = _ref21.value,
+        Tutorializer2 = _ref21.Tutorializer;
     return {
       loadSlide: function loadSlide() {
-        Tutorializer2.content = html2(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            <input\n                onkeyup=", "\n                />\n        </container>"])), question, function (_ref21) {
-          var key = _ref21.key,
-              target = _ref21.target;
+        this.errorMessageElement = html2(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["<errorText style=", "/>"])), {
+          textAlign: "center"
+        });
+        Tutorializer2.content = html2(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            <input\n                onkeyup=", "\n                />\n            <container style=", ">\n                ", "\n            </container>\n        </container>"])), question, function (_ref22) {
+          var key = _ref22.key,
+              target = _ref22.target;
           value1.set(target.value);
 
           if (key == "Enter") {
             Tutorializer2.goNext();
           }
-        });
+        }, {
+          height: "3rem",
+          overflow: "visible"
+        }, this.errorMessageElement);
       },
       valueIsValid: function valueIsValid(value) {
         console.debug("value is:", value);
         console.debug("typeof value == 'string' is:", typeof value == 'string');
-        console.debug("value.length > 0 is:", value.length > 0);
+        console.debug("value.length > 0 is:", typeof value == 'string' && value.length > 0);
         return typeof value == 'string' && value.length > 0;
       },
-      ifValueInvalid: function ifValueInvalid() {}
+      ifValueInvalid: function ifValueInvalid() {
+        this.errorMessageElement.innerHTML = "\n            The input box needs at least one character\n        ";
+      }
     };
   };
 };
 
 var Tutorial1 = /*#__PURE__*/function () {
-  var _ref23 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_ref22) {
+  var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_ref23) {
     var Tutorializer3, slide, githubUsername;
     return regeneratorRuntime.wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
-            Tutorializer3 = _ref22.Tutorializer, slide = _ref22.slide;
+            Tutorializer3 = _ref23.Tutorializer, slide = _ref23.slide;
             console.log("start:Tutorial");
             console.debug("Tutorializer is:", Tutorializer3);
             _context7.next = 5;
@@ -1649,7 +1666,7 @@ var Tutorial1 = /*#__PURE__*/function () {
             _context7.next = 8;
             return slide("didReadSummary1", showText({
               title: "Confirmation Check",
-              body: html2(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
+              body: html2(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
             }));
 
           case 8:
@@ -1668,7 +1685,7 @@ var Tutorial1 = /*#__PURE__*/function () {
   }));
 
   return function Tutorial1(_x2) {
-    return _ref23.apply(this, arguments);
+    return _ref24.apply(this, arguments);
   };
 }();
 
@@ -1677,7 +1694,7 @@ var theme1 = {
   settings: {
     slideFadeInMiliseconds: 600
   },
-  styles: "\n        :root {\n            --off-white: whitesmoke;\n            --blue: cornflowerblue;\n            --light-gray: lightgray;\n            \n            --background: var(--off-white);\n            --arrow-button-accent: var(--blue);\n            --title-size: 32px;\n            --text-size: 22px;\n            --text-default-color: gray;\n            --bottom-row-height: 7rem;\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: flex-start; \n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: var(--text-default-color);\n            background: var(--background);\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            padding: 2rem;\n        }\n\n        .tutorialize-input {\n            color: gray;\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: var(--arrow-button-accent);\n            text-decoration: underline;\n            background: white;\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) var(--arrow-button-accent) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 100%;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
+  styles: "\n        :root {\n            --off-white: whitesmoke;\n            --blue: cornflowerblue;\n            --red: #f07178;\n            --light-gray: lightgray;\n            \n            --background: var(--off-white);\n            --arrow-button-accent: var(--blue);\n            --title-size: 32px;\n            --text-size: 22px;\n            --error-text-color: var(--red);\n            --text-default-color: gray;\n            --bottom-row-height: 7rem;\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: flex-start; \n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: var(--text-default-color);\n            background: var(--background);\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            padding: 2rem;\n        }\n        \n        .tutorialize-error-text {\n            color: var(--error-text-color);\n        }\n\n        .tutorialize-input {\n            color: gray;\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: var(--arrow-button-accent);\n            text-decoration: underline;\n            background: white;\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) var(--arrow-button-accent) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 100%;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
 };
 globalThis.allKeys = allKeys1;
 var tutorializerSymbol = Symbol.for("tutorializer");
@@ -1703,7 +1720,7 @@ var TutorializerClass = /*#__PURE__*/function () {
     this.pendingData = {};
     this.progressData = [];
     this.tutorial = Tutorial1;
-    this.main = html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
+    this.main = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
     this.element = null;
     this.events = {
       attemptGoingToNext: new Event(),
@@ -1773,8 +1790,7 @@ var TutorializerClass = /*#__PURE__*/function () {
       var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(id, func) {
         var _this4 = this;
 
-        var realValue, value1, _yield$func, loadSlide, valueIsValid, ifValueInvalid;
-
+        var realValue, value1, slide;
         return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
@@ -1809,50 +1825,45 @@ var TutorializerClass = /*#__PURE__*/function () {
                 });
 
               case 9:
-                _yield$func = _context8.sent;
-                loadSlide = _yield$func.loadSlide;
-                valueIsValid = _yield$func.valueIsValid;
-                ifValueInvalid = _yield$func.ifValueInvalid;
-                _context8.next = 15;
-                return loadSlide();
+                slide = _context8.sent;
+                _context8.next = 12;
+                return slide.loadSlide();
 
-              case 15:
+              case 12:
                 if (!true) {
-                  _context8.next = 30;
+                  _context8.next = 25;
                   break;
                 }
 
-                console.debug("slide, this.events is:", this.events);
-                _context8.next = 19;
+                _context8.next = 15;
                 return once(this.events.attemptGoingToNext);
 
-              case 19:
-                console.debug("valueIsValid(realValue) is:", valueIsValid(realValue));
-                _context8.next = 22;
-                return valueIsValid(realValue);
+              case 15:
+                _context8.next = 17;
+                return slide.valueIsValid(realValue);
 
-              case 22:
+              case 17:
                 if (!_context8.sent) {
-                  _context8.next = 26;
+                  _context8.next = 21;
                   break;
                 }
 
-                return _context8.abrupt("break", 30);
+                return _context8.abrupt("break", 25);
 
-              case 26:
-                _context8.next = 28;
-                return ifValueInvalid(realValue);
+              case 21:
+                _context8.next = 23;
+                return slide.ifValueInvalid(realValue);
 
-              case 28:
-                _context8.next = 15;
+              case 23:
+                _context8.next = 12;
                 break;
 
-              case 30:
+              case 25:
                 this.add(id, realValue);
                 this.savePendingData();
                 return _context8.abrupt("return", realValue);
 
-              case 33:
+              case 28:
               case "end":
                 return _context8.stop();
             }
@@ -1898,7 +1909,7 @@ var TutorializerClass = /*#__PURE__*/function () {
               case 11:
                 this.theme = this._theme;
                 this.runTutorial();
-                document.body = html(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
+                document.body = html(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
                   display: "flex",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
@@ -2024,7 +2035,7 @@ var TutorializerClass = /*#__PURE__*/function () {
 
       console.log("start:createElement()");
       console.debug("this is:", this);
-      return this.element = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
+      return this.element = html(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
         return _this5.goBack.apply(_this5, arguments);
       }, function () {
         return _this5.goNext.apply(_this5, arguments);
@@ -2034,7 +2045,6 @@ var TutorializerClass = /*#__PURE__*/function () {
     key: "savePendingData",
     value: function savePendingData() {
       if (Object.keys(this.pendingData).length) {
-        console.debug("this.progressData is:", this.progressData);
         this.progressData.push(Object.entries(this.pendingData));
         this.pendingData = {};
       }
@@ -2047,10 +2057,9 @@ var TutorializerClass = /*#__PURE__*/function () {
           while (1) {
             switch (_context12.prev = _context12.next) {
               case 0:
-                console.debug("goNext, this.events is:", this.events);
                 trigger(this.events.attemptGoingToNext);
 
-              case 2:
+              case 1:
               case "end":
                 return _context12.stop();
             }
@@ -2138,7 +2147,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53071" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62535" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -13,8 +13,13 @@ export const text = ({style, children, ...props})=>html`<span class="tutorialize
     ${children}
 </span>`
 
+export const errorText = ({children, ...props})=>html`<span class="tutorialize-text tutorialize-error-text" ...${props}>
+    ${children}
+</span>`
+
 export const container = ({style, children, ...props})=>html`<div
-    style=${{display: "flex",flexDirection: "column"}}
+    style=${{display: "flex",flexDirection: "column", ...style}}
+    ...${props}
     >
         ${children}
 </div>`

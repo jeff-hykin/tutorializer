@@ -83,16 +83,15 @@ export class TutorializerClass {
                 this.add(id, realValue)
             },
         }
-        const { loadSlide, valueIsValid, ifValueInvalid } = await func({value, Tutorializer: this})
-        await loadSlide()
+        const slide = await func({value, Tutorializer: this})
+        await slide.loadSlide()
         while (true) {
-            console.debug(`slide, this.events is:`,this.events)
+            // TODO: add error handling here
             await once(this.events.attemptGoingToNext)
-            console.debug(`valueIsValid(realValue) is:`,valueIsValid(realValue))
-            if (await valueIsValid(realValue)) {
+            if (await slide.valueIsValid(realValue)) {
                 break
             } else {
-                await ifValueInvalid(realValue)
+                await slide.ifValueInvalid(realValue)
             }
         }
         this.add(id, realValue)
