@@ -3,7 +3,7 @@ import { html as pureHtml } from "./elemental.js"
 import { text, title, container, input } from "./element_helpers.js"
 import { Tutorializer } from "./tutorialize.js"
 
-const html = pureHtml.extend({ text, title, container, input })
+export const html = pureHtml.extend({ text, title, container, input })
 
 // 
 // actual tutorializer components
@@ -30,7 +30,12 @@ export const askLine = ({question})=>({value, Tutorializer})=>({
                 ${question}
             </text>
             <input
-                oninput=${({target})=>value.set(target.value)}
+                onkeydown=${({key, target})=>{
+                    value.set(target.value)
+                    if (key=="Enter") {
+                        Tutorializer.goNext()
+                    }
+                }}
                 />
         </container>`
     },

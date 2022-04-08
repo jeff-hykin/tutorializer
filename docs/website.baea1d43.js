@@ -125,7 +125,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.html = exports.Tutorializer = void 0;
 
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10;
 
 var _excluded = ["middleware"],
     _excluded2 = ["children"],
@@ -737,9 +737,14 @@ var askLine = function askLine(_ref10) {
         Tutorializer2 = _ref11.Tutorializer;
     return {
       loadSlide: function loadSlide() {
-        Tutorializer2.content = html1(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            <input\n                oninput=", "\n                />\n        </container>"])), question, function (_ref12) {
-          var target = _ref12.target;
-          return value1.set(target.value);
+        Tutorializer2.content = html1(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            <input\n                onkeydown=", "\n                />\n        </container>"])), question, function (_ref12) {
+          var key = _ref12.key,
+              target = _ref12.target;
+          value1.set(target.value);
+
+          if (key == "Enter") {
+            Tutorializer2.goNext();
+          }
         });
       },
       valueIsValid: function valueIsValid(value) {
@@ -752,7 +757,7 @@ var askLine = function askLine(_ref10) {
 
 var Tutorial1 = /*#__PURE__*/function () {
   var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref13) {
-    var Tutorializer, slide;
+    var Tutorializer, slide, githubUsername;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -764,13 +769,21 @@ var Tutorial1 = /*#__PURE__*/function () {
             }));
 
           case 3:
-            _context3.next = 5;
-            return slide("didReadSummary", showText({
+            githubUsername = _context3.sent;
+            _context3.next = 6;
+            return slide("didReadSummary1", showText({
+              title: "Confirmation Check",
+              body: html1(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
+            }));
+
+          case 6:
+            _context3.next = 8;
+            return slide("didReadSummary2", showText({
               title: "What This Does",
               body: "Testing testing"
             }));
 
-          case 5:
+          case 8:
           case "end":
             return _context3.stop();
         }
@@ -1097,7 +1110,7 @@ var Tutorializer = globalThis[tutorializerSymbol] = {
   pendingData: {},
   progressData: [],
   tutorial: Tutorial1,
-  main: html(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n        <main class=\"tutorialize-main\" >\n            Howdy!\n        </main>\n    "]))),
+  main: html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n        <main class=\"tutorialize-main\" >\n            Howdy!\n        </main>\n    "]))),
   element: null,
   eventTypes: {
     next: "tutorializer:next",
@@ -1265,7 +1278,7 @@ var Tutorializer = globalThis[tutorializerSymbol] = {
             case 11:
               Tutorializer.theme = Tutorializer._theme;
               Tutorializer.runTutorial();
-              document.body = html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
+              document.body = html(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
                 display: "flex",
                 alignItems: "flex-start",
                 justifyContent: "flex-start",
@@ -1365,7 +1378,7 @@ var Tutorializer = globalThis[tutorializerSymbol] = {
   },
   createElement: function createElement() {
     console.log("start:createElement()");
-    return Tutorializer.element = html(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), Tutorializer.main, Tutorializer.goBack, Tutorializer.goNext);
+    return Tutorializer.element = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), Tutorializer.main, Tutorializer.goBack, Tutorializer.goNext);
   },
   savePendingData: function savePendingData() {
     if (Object.keys(Tutorializer.pendingData).length) {
@@ -1960,7 +1973,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60063" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49301" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
