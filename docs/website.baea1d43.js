@@ -1091,7 +1091,7 @@ var text = function text(_ref11) {
   var children = _ref11.children,
       props = _objectWithoutProperties(_ref11, _excluded4);
 
-  return html(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<span class=\"tutorialize-text\" ...", ">\n    ", "\n</span>"])), props, children);
+  return html(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<span class=\"tutorialize-text\" ...", ">\n    ", "\n    <br />\n</span>"])), props, children);
 };
 
 var errorText = function errorText(_ref12) {
@@ -1341,7 +1341,7 @@ var Tutorial1 = /*#__PURE__*/function () {
             theLink = _context6.sent;
             convertedUrl = convertLink(theLink);
             _context6.next = 12;
-            return slide(show(newHtml(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["\n                <title>", "</title>\n                \n                <code>\n                    ", "\n                </code>\n\n                <text>\n                    If it doesn't work, its probably because of CORS.\n                    <br />\n                    When I get a chance, I'll write about some options of how to get around that problem.\n                </text>\n            "])), "Heres your URL", convertedUrl)));
+            return slide(show(newHtml(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["\n                <title>", "</title>\n                \n                <code>\n                    ", "\n                </code>\n\n                <text>\n                    ", "\n                    <br>\n                    ", "\n                </text>\n            "])), "Heres your URL", convertedUrl, "If it doesn't work, its probably because of CORS.", "When I get a chance, I'll write about some options of how to get around that problem.")));
 
           case 12:
             _context6.next = 19;
@@ -1888,7 +1888,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57661" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58794" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

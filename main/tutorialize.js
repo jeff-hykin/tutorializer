@@ -6,6 +6,13 @@ import { Event, trigger, everyTime, once } from "https://deno.land/x/good@0.5.4/
 import { Tutorial as defaultTutorial } from "../tutorials/get_tutorializer_url.js"
 import { theme as defaultTheme } from "./default_theme.js"
 
+// future features maybe/probably
+    // "I know how to do X" saved to local storage
+    // saving/editing settings
+    //   - letting the user pick their own theme for all tutorials
+    // bug reporting link that is always present
+    // Error GUI
+
 globalThis.allKeys = allKeys
 
 export const tutorializerSymbol = Symbol.for("tutorializer")

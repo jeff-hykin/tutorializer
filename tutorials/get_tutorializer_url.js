@@ -27,8 +27,10 @@ export const Tutorial = async ({Tutorializer, slide}) => {
             ]
         })
     )
-    console.debug(`firstChoice is:`,firstChoice)
-
+    
+    // 
+    // has a link
+    // 
     if (firstChoice == "I have a link") {
 
         const theLink = await slide(
@@ -44,19 +46,22 @@ export const Tutorial = async ({Tutorializer, slide}) => {
 
         const slideWasShown = await slide(
             show(html`
-                <title>${`Heres your URL`}</title>
+                <title>${`Here's your URL!`}</title>
                 
                 <code>
                     ${convertedUrl}
                 </code>
 
                 <text>
-                    If it doesn't work, its probably because of CORS.
-                    <br />
-                    When I get a chance, I'll write about some options of how to get around that problem.
+                    ${`If it doesn't work, its probably because of CORS.`}
+                    <br>
+                    ${`When I get a chance, I'll write about some options of how to get around that problem.`}
                 </text>
             ` )
         )
+    // 
+    // has File
+    // 
     } else if (firstChoice == "I made the JavaScript file, but not a link") {
         const slideWasShown = await slide(
             show(html`
@@ -65,7 +70,10 @@ export const Tutorial = async ({Tutorializer, slide}) => {
                 </text>
             ` )
         )
-
+    
+    // 
+    // Needs full tutorial
+    // 
     } else { // "I haven't made a JavaScript file yet"
         
     }
