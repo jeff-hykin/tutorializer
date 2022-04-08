@@ -129,14 +129,16 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4, _temp
 
 var _excluded = ["middleware"],
     _excluded2 = ["children"],
-    _excluded3 = ["style", "children"],
-    _excluded4 = ["style", "children"],
+    _excluded3 = ["middleware"],
+    _excluded4 = ["children"],
     _excluded5 = ["style", "children"],
     _excluded6 = ["style", "children"],
-    _excluded7 = ["middleware"],
-    _excluded8 = ["children"];
+    _excluded7 = ["style", "children"],
+    _excluded8 = ["style", "children"];
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -151,8 +153,6 @@ function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new 
 function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
 
@@ -204,67 +204,67 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symb
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var e = "",
-    t = "";
+var e = "\uE000",
+    t = "\uE001";
 
-function o(r1) {
+function o(r2) {
   var _arguments = arguments;
-  var p1,
+  var p2,
       a1,
       l,
       s,
-      c1 = arguments,
-      i1 = this,
+      c = arguments,
+      i = this,
       n = 0,
       d = [],
       h = 0,
       u = [],
       f = 0;
-  d.root = !0;
+  d.root = true;
 
-  var g = function g(e1, o1, r2) {
-    void 0 === o1 && (o1 = []);
-    var p2 = 0;
-    return (e1 = r2 || e1 !== t ? e1.replace(/\ue001/g, function (e) {
+  var g = function g(e2, o2, r3) {
+    o2 === void 0 && (o2 = []);
+    var p3 = 0;
+    return (e2 = r3 || e2 !== t ? e2.replace(/\ue001/g, function (e3) {
       return u[f++];
-    }) : u[f++].slice(1, -1)) ? (e1.replace(/\ue000/g, function (t, r3) {
-      return r3 && o1.push(e1.slice(p2, r3)), p2 = r3 + 1, o1.push(c1[++h]);
-    }), p2 < e1.length && o1.push(e1.slice(p2)), o1.length > 1 ? o1 : o1[0]) : e1;
+    }) : u[f++].slice(1, -1)) ? (e2.replace(/\ue000/g, function (t2, r4) {
+      return r4 && o2.push(e2.slice(p3, r4)), p3 = r4 + 1, o2.push(c[++h]);
+    }), p3 < e2.length && o2.push(e2.slice(p3)), o2.length > 1 ? o2 : o2[0]) : e2;
   },
       m = function m() {
     var _d, _d2;
 
-    (_d = d, _d2 = _toArray(_d), d = _d2[0], s = _d2[1], p1 = _d2.slice(2), _d), d.push(i1.apply(void 0, [s].concat(_toConsumableArray(p1))));
+    (_d = d, _d2 = _toArray(_d), d = _d2[0], s = _d2[1], p2 = _d2.slice(2), _d), d.push(i.apply(void 0, [s].concat(_toConsumableArray(p2))));
   };
 
-  return r1.join(e).replace(/<!--[^]*-->/g, "").replace(/<!\[CDATA\[[^]*\]\]>/g, "").replace(/('|")[^\1]*?\1/g, function (e2) {
+  return r2.join(e).replace(/<!--[^]*-->/g, "").replace(/<!\[CDATA\[[^]*\]\]>/g, "").replace(/('|")[^\1]*?\1/g, function (e2) {
     return u.push(e2), t;
-  }).replace(/\s+/g, " ").replace(/(?:^|>)([^<]*)(?:$|<)/g, function (e3, t1, r4, p3) {
-    var c, i;
-    if (r4 && p3.slice(n, r4).replace(/(\S)\/$/, "$1 /").split(" ").map(function (e4, t2) {
-      if ("/" === e4[0]) c = i || e4.slice(1) || 1;else if (t2) {
-        if (e4) {
-          var _e4$split, _e4$split2;
+  }).replace(/\s+/g, " ").replace(/(?:^|>)([^<]*)(?:$|<)/g, function (e2, t2, r3, p3) {
+    var c2, i2;
+    if (r3 && p3.slice(n, r3).replace(/(\S)\/$/, "$1 /").split(" ").map(function (e3, t3) {
+      if (e3[0] === "/") c2 = i2 || e3.slice(1) || 1;else if (t3) {
+        if (e3) {
+          var _e3$split, _e3$split2;
 
-          var r5 = d[2] || (d[2] = {});
-          "..." === e4.slice(0, 3) ? Object.assign(r5, _arguments[++h]) : ((_e4$split = e4.split("="), _e4$split2 = _slicedToArray(_e4$split, 2), a1 = _e4$split2[0], l = _e4$split2[1], _e4$split), r5[g(a1)] = !l || g(l));
+          var r4 = d[2] || (d[2] = {});
+          e3.slice(0, 3) === "..." ? Object.assign(r4, _arguments[++h]) : ((_e3$split = e3.split("="), _e3$split2 = _slicedToArray(_e3$split, 2), a1 = _e3$split2[0], l = _e3$split2[1], _e3$split), r4[g(a1)] = !l || g(l));
         }
       } else {
-        for (i = g(e4); o.close[d[1] + i];) {
+        for (i2 = g(e3); o.close[d[1] + i2];) {
           m();
         }
 
-        d = [d, i, null], o.empty[i] && (c = i);
+        d = [d, i2, null], o.empty[i2] && (c2 = i2);
       }
-    }), c) for (m(); s !== c && o.close[s];) {
+    }), c2) for (m(); s !== c2 && o.close[s];) {
       m();
     }
-    n = r4 + e3.length, t1 && " " !== t1 && g((s = 0, t1), d, !0);
+    n = r3 + e2.length, t2 && t2 !== " " && g((s = 0, t2), d, true);
   }), d.root || m(), d.length > 1 ? d : d[0];
 }
 
-o.empty = {}, o.close = {}, "area base br col command embed hr img input keygen link meta param source track wbr ! !doctype ? ?xml".split(" ").map(function (e) {
-  return o.empty[e] = o.empty[e.toUpperCase()] = !0;
+o.empty = {}, o.close = {}, "area base br col command embed hr img input keygen link meta param source track wbr ! !doctype ? ?xml".split(" ").map(function (e2) {
+  return o.empty[e2] = o.empty[e2.toUpperCase()] = true;
 });
 
 var r = {
@@ -285,9 +285,9 @@ var r = {
   td: "th tr",
   th: "td tr tbody"
 },
-    p = function p(e5) {
-  [].concat(_toConsumableArray(r[e5].split(" ")), [e5]).map(function (t) {
-    o.close[e5] = o.close[e5.toUpperCase()] = o.close[e5 + t] = o.close[e5.toUpperCase() + t] = o.close[e5 + t.toUpperCase()] = o.close[e5.toUpperCase() + t.toUpperCase()] = !0;
+    p = function p(e2) {
+  [].concat(_toConsumableArray(r[e2].split(" ")), [e2]).map(function (t2) {
+    o.close[e2] = o.close[e2.toUpperCase()] = o.close[e2 + t2] = o.close[e2.toUpperCase() + t2] = o.close[e2 + t2.toUpperCase()] = o.close[e2.toUpperCase() + t2.toUpperCase()] = true;
   });
 };
 
@@ -404,28 +404,27 @@ var ElementalClass = /*#__PURE__*/function () {
       }
 
       var isSvg = Elemental.exclusivelySvgElements.has(key);
-      var element = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', key) : document.createElement(key);
+      var element = isSvg ? document.createElementNS("http://www.w3.org/2000/svg", key) : document.createElement(key);
 
       if (properties instanceof Object) {
         for (var _i2 = 0, _Object$entries = Object.entries(properties); _i2 < _Object$entries.length; _i2++) {
           var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
-              _key2 = _Object$entries$_i[0],
+              key2 = _Object$entries$_i[0],
               value = _Object$entries$_i[1];
 
           try {
             if (isSvg) {
-              var kebabCase = _key2.replace(/(?<=[a-z])([A-Z])(?=[a-z])/g, function (each) {
-                return "-".concat(each.toLowerCase());
+              var kebabCase = key2.replace(/(?<=[a-z])([A-Z])(?=[a-z])/g, function (each2) {
+                return "-".concat(each2.toLowerCase());
               });
-
               element.setAttribute(kebabCase, value);
             } else {
-              element.setAttribute(_key2.toLowerCase(), value);
+              element.setAttribute(key2.toLowerCase(), value);
             }
           } catch (error) {}
 
           try {
-            element[_key2] = value;
+            element[key2] = value;
           } catch (error1) {}
         }
       }
@@ -450,11 +449,11 @@ var ElementalClass = /*#__PURE__*/function () {
   return ElementalClass;
 }();
 
-var proxySymbol = Symbol.for('Proxy');
+var proxySymbol = Symbol.for("Proxy");
 
 var Elemental = function Elemental() {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key3 = 0; _key3 < _len2; _key3++) {
-    args[_key3] = arguments[_key3];
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
   }
 
   var originalThing = _construct(ElementalClass, args).html;
@@ -486,8 +485,8 @@ Elemental.exclusivelySvgElements = new Set(["svg", "animate", "animateMotion", "
 Elemental.css = function () {
   var element = document.createElement("div");
 
-  for (var _len3 = arguments.length, args = new Array(_len3), _key4 = 0; _key4 < _len3; _key4++) {
-    args[_key4] = arguments[_key4];
+  for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    args[_key3] = arguments[_key3];
   }
 
   if (args.length == 1) {
@@ -504,8 +503,8 @@ Elemental.css = function () {
 
     try {
       for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var _each = _step2.value;
-        finalString += _each;
+        var each2 = _step2.value;
+        finalString += each2;
 
         if (values.length > 0) {
           finalString += "".concat(values.shift());
@@ -524,28 +523,28 @@ Elemental.css = function () {
 };
 
 function appendChildren(element) {
-  for (var _len4 = arguments.length, children = new Array(_len4 > 1 ? _len4 - 1 : 0), _key5 = 1; _key5 < _len4; _key5++) {
-    children[_key5 - 1] = arguments[_key5];
+  for (var _len4 = arguments.length, children = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+    children[_key4 - 1] = arguments[_key4];
   }
 
   for (var _i3 = 0, _children = children; _i3 < _children.length; _i3++) {
-    var _each2 = _children[_i3];
+    var each2 = _children[_i3];
 
-    if (typeof _each2 == 'string') {
-      element.appendChild(new window.Text(_each2));
-    } else if (_each2 == null) {
+    if (typeof each2 == "string") {
+      element.appendChild(new window.Text(each2));
+    } else if (each2 == null) {
       element.appendChild(new window.Text(""));
-    } else if (!(_each2 instanceof Object)) {
-      element.appendChild(new window.Text("".concat(_each2)));
-    } else if (_each2 instanceof Node) {
-      element.appendChild(_each2);
-    } else if (_each2 instanceof Array) {
-      appendChildren.apply(void 0, [element].concat(_toConsumableArray(_each2)));
-    } else if (_each2 instanceof Function) {
-      appendChildren(element, _each2());
-    } else if (_each2 instanceof Promise) {
+    } else if (!(each2 instanceof Object)) {
+      element.appendChild(new window.Text("".concat(each2)));
+    } else if (each2 instanceof Node) {
+      element.appendChild(each2);
+    } else if (each2 instanceof Array) {
+      appendChildren.apply(void 0, [element].concat(_toConsumableArray(each2)));
+    } else if (each2 instanceof Function) {
+      appendChildren(element, each2());
+    } else if (each2 instanceof Promise) {
       (function () {
-        var elementPromise = _each2;
+        var elementPromise = each2;
         var placeholder = elementPromise.placeholder || document.createElement("div");
         setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -569,8 +568,8 @@ function appendChildren(element) {
         })), 0);
         element.appendChild(placeholder);
       })();
-    } else if (_each2 != null && _each2 instanceof Object) {
-      element.appendChild(_each2);
+    } else if (each2 != null && each2 instanceof Object) {
+      element.appendChild(each2);
     }
   }
 
@@ -591,18 +590,18 @@ function defaultErrorComponentFactory(_ref3, key, error) {
   element.style.backgroundColor = "#f5a5a8";
   element.style.color = "white";
   element.style.fontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-  element.style.fontSize = '18px';
-  element.style.fontWeight = '400';
-  element.style.overflow = 'auto';
+  element.style.fontSize = "18px";
+  element.style.fontWeight = "400";
+  element.style.overflow = "auto";
   element.innerHTML = "I'm sorry, there was an error when loading this part of the page \uD83D\uDE41 ";
   var errorElementPart;
 
-  if (typeof key == 'string') {
+  if (typeof key == "string") {
     errorElementPart = "<".concat(key, " />");
   } else {
     try {
       errorElementPart = "<".concat(key.prototype.constructor.name, " />");
-    } catch (error) {
+    } catch (error2) {
       errorElementPart = "<".concat(key, " />");
     }
   }
@@ -611,13 +610,13 @@ function defaultErrorComponentFactory(_ref3, key, error) {
 
   for (var _i4 = 0, _Object$entries2 = Object.entries(properties); _i4 < _Object$entries2.length; _i4++) {
     var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i4], 2),
-        key1 = _Object$entries2$_i[0],
+        key2 = _Object$entries2$_i[0],
         value = _Object$entries2$_i[1];
 
     try {
-      errorJsonObject[key1] = JSON.parse(JSON.stringify(value));
-    } catch (error) {
-      errorJsonObject[key1] = "".concat(value);
+      errorJsonObject[key2] = JSON.parse(JSON.stringify(value));
+    } catch (error2) {
+      errorJsonObject[key2] = "".concat(value);
     }
   }
 
@@ -634,10 +633,10 @@ function defaultErrorComponentFactory(_ref3, key, error) {
   if (children instanceof Array) {
     for (var _i5 = 0, _Object$entries3 = Object.entries(children); _i5 < _Object$entries3.length; _i5++) {
       var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i5], 2),
-          _key6 = _Object$entries3$_i[0],
+          _key5 = _Object$entries3$_i[0],
           _value = _Object$entries3$_i[1];
 
-      if (typeof each == 'string') {
+      if (typeof each == "string") {
         childContainer.appendChild(new window.Text(_value));
       } else if (_value instanceof Node) {
         childContainer.appendChild(_value);
@@ -667,147 +666,31 @@ try {
 } catch (error) {}
 
 var html = Elemental();
+exports.html = html;
 Elemental.css;
 Elemental.allTags;
-
-var title = function title(_ref4) {
-  var style = _ref4.style,
-      children = _ref4.children,
-      props = _objectWithoutProperties(_ref4, _excluded3);
-
-  return html(_templateObject || (_templateObject = _taggedTemplateLiteral(["<h1 class=\"tutorialize-title\">\n    ", "\n</h1>"])), children);
-};
-
-var text = function text(_ref5) {
-  var style = _ref5.style,
-      children = _ref5.children,
-      props = _objectWithoutProperties(_ref5, _excluded4);
-
-  return html(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<span class=\"tutorialize-text\">\n    ", "\n</span>"])), children);
-};
-
-var container = function container(_ref6) {
-  var style = _ref6.style,
-      children = _ref6.children,
-      props = _objectWithoutProperties(_ref6, _excluded5);
-
-  return html(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<div\n    style=", "\n    >\n        ", "\n</div>"])), {
-    display: "flex",
-    flexDirection: "column"
-  }, children);
-};
-
-var input = function input(_ref7) {
-  var style = _ref7.style,
-      children = _ref7.children,
-      props = _objectWithoutProperties(_ref7, _excluded6);
-
-  return html(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["<input class=\"tutorialize-input\" ...", " />"])), props);
-};
-
-var html1 = html.extend({
-  text: text,
-  title: title,
-  container: container,
-  input: input
-});
-
-var showText = function showText(_ref8) {
-  var title1 = _ref8.title,
-      body = _ref8.body;
-  return function (_ref9) {
-    var value = _ref9.value,
-        Tutorializer1 = _ref9.Tutorializer;
-    return {
-      loadSlide: function loadSlide() {
-        Tutorializer1.content = html1(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["<container>\n            <title>\n                ", "\n            </title>\n            <text>\n                ", "\n            </text>\n        </container>"])), title1, body);
-      },
-      valueIsValid: function valueIsValid(value) {
-        return true;
-      },
-      ifValueInvalid: function ifValueInvalid() {}
-    };
-  };
-};
-
-var askLine = function askLine(_ref10) {
-  var question = _ref10.question;
-  return function (_ref11) {
-    var value1 = _ref11.value,
-        Tutorializer2 = _ref11.Tutorializer;
-    return {
-      loadSlide: function loadSlide() {
-        Tutorializer2.content = html1(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            <input\n                onkeydown=", "\n                />\n        </container>"])), question, function (_ref12) {
-          var key = _ref12.key,
-              target = _ref12.target;
-          value1.set(target.value);
-
-          if (key == "Enter") {
-            Tutorializer2.goNext();
-          }
-        });
-      },
-      valueIsValid: function valueIsValid(value) {
-        return typeof value == 'string' && value.length > 0;
-      },
-      ifValueInvalid: function ifValueInvalid() {}
-    };
-  };
-};
-
-var Tutorial1 = /*#__PURE__*/function () {
-  var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref13) {
-    var Tutorializer3, slide, githubUsername;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            Tutorializer3 = _ref13.Tutorializer, slide = _ref13.slide;
-            console.log("start:Tutorial");
-            console.debug("Tutorializer is:", Tutorializer3);
-            _context3.next = 5;
-            return slide("githubUsername", askLine({
-              question: "Whats the github username for the repository?"
-            }));
-
-          case 5:
-            githubUsername = _context3.sent;
-            _context3.next = 8;
-            return slide("didReadSummary1", showText({
-              title: "Confirmation Check",
-              body: html1(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
-            }));
-
-          case 8:
-            _context3.next = 10;
-            return slide("didReadSummary2", showText({
-              title: "What This Does",
-              body: "Testing testing"
-            }));
-
-          case 10:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-
-  return function Tutorial1(_x) {
-    return _ref14.apply(this, arguments);
-  };
-}();
-
-var theme1 = {
-  name: "DefaultTheme",
-  settings: {
-    slideFadeInMiliseconds: 600
-  },
-  styles: "\n        :root {\n            --off-white: whitesmoke;\n            --blue: cornflowerblue;\n            --light-gray: lightgray;\n            \n            --background: var(--off-white);\n            --arrow-button-accent: var(--blue);\n            --title-size: 32px;\n            --text-size: 22px;\n            --text-default-color: gray;\n            --bottom-row-height: 7rem;\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: flex-start; \n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: var(--text-default-color);\n            background: var(--background);\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            padding: 2rem;\n        }\n\n        .tutorialize-input {\n            color: gray;\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: var(--arrow-button-accent);\n            text-decoration: underline;\n            background: white;\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) var(--arrow-button-accent) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 100%;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
-};
 [Uint16Array, Uint32Array, Uint8Array, Uint8ClampedArray, Int16Array, Int32Array, Int8Array, Float32Array, Float64Array, globalThis.BigInt64Array, globalThis.BigUint64Array].filter(function (each) {
   return each;
 });
+
+var allKeys = function allKeys(obj) {
+  var keys = [];
+
+  if (obj == null) {
+    return [];
+  }
+
+  if (!(obj instanceof Object)) {
+    obj = Object.getPrototypeOf(obj);
+  }
+
+  while (obj) {
+    keys = keys.concat(Reflect.ownKeys(obj));
+    obj = Object.getPrototypeOf(obj);
+  }
+
+  return keys;
+};
 
 var allKeyDescriptions = function allKeyDescriptions(obj) {
   var keys = [];
@@ -854,10 +737,12 @@ Object.getPrototypeOf(function () {})[getThis] = function () {
   return this;
 };
 
-var get = function get(_ref15) {
-  var from = _ref15.from,
-      keyList = _ref15.keyList,
-      failValue = _ref15.failValue;
+var allKeys1 = allKeys;
+
+var get = function get(_ref4) {
+  var from = _ref4.from,
+      keyList = _ref4.keyList,
+      failValue = _ref4.failValue;
 
   try {
     var _iterator3 = _createForOfIteratorHelper(keyList),
@@ -885,9 +770,9 @@ var get = function get(_ref15) {
   return from;
 };
 
-var remove = function remove(_ref16) {
-  var keyList = _ref16.keyList,
-      from = _ref16.from;
+var remove = function remove(_ref5) {
+  var keyList = _ref5.keyList,
+      from = _ref5.from;
 
   if (keyList.length == 1) {
     try {
@@ -909,9 +794,9 @@ var remove = function remove(_ref16) {
   }
 };
 
-var merge = function merge(_ref17) {
-  var oldData = _ref17.oldData,
-      newData = _ref17.newData;
+var merge = function merge(_ref6) {
+  var oldData = _ref6.oldData,
+      newData = _ref6.newData;
 
   if (!(newData instanceof Object) || !(oldData instanceof Object)) {
     return newData;
@@ -981,12 +866,12 @@ Object.keys || function (obj) {
   return keys;
 };
 
-var indent = function indent(_ref18) {
-  var string = _ref18.string,
-      _ref18$by = _ref18.by,
-      by = _ref18$by === void 0 ? "    " : _ref18$by,
-      _ref18$noLead = _ref18.noLead,
-      noLead = _ref18$noLead === void 0 ? false : _ref18$noLead;
+var indent = function indent(_ref7) {
+  var string = _ref7.string,
+      _ref7$by = _ref7.by,
+      by = _ref7$by === void 0 ? "    " : _ref7$by,
+      _ref7$noLead = _ref7.noLead,
+      noLead = _ref7$noLead === void 0 ? false : _ref7$noLead;
   return (noLead ? "" : by) + string.replace(/\n/g, "\n" + by);
 };
 
@@ -1054,10 +939,10 @@ var toRepresentation = function toRepresentation(item) {
     try {
       for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
         var _step5$value = _slicedToArray(_step5.value, 2),
-            _key7 = _step5$value[0],
+            _key6 = _step5$value[0],
             _value2 = _step5$value[1];
 
-        var _stringKey = toRepresentation(_key7);
+        var _stringKey = toRepresentation(_key6);
 
         var _stringValue = toRepresentation(_value2);
 
@@ -1092,760 +977,165 @@ var toRepresentation = function toRepresentation(item) {
   return item ? item.toString() : "".concat(item);
 };
 
-function createCommonjsModule(fn, basedir, module) {
-  return module = {
-    path: basedir,
-    exports: {},
-    require: function require(path, base) {
-      return commonjsRequire(path, base === void 0 || base === null ? module.path : base);
-    }
-  }, fn(module, module.exports), module.exports;
-}
+var Event = /*#__PURE__*/function (_Set) {
+  _inherits(Event, _Set);
 
-function commonjsRequire() {
-  throw new Error("Dynamic requires are not currently supported by @rollup/plugin-commonjs");
-}
+  var _super = _createSuper(Event);
 
-var eventemitter3 = createCommonjsModule(function (module) {
-  var has = Object.prototype.hasOwnProperty,
-      prefix = "~";
-
-  function Events() {}
-
-  if (Object.create) {
-    Events.prototype = Object.create(null);
-    if (!new Events().__proto__) prefix = false;
-  }
-
-  function EE(fn, context, once) {
-    this.fn = fn;
-    this.context = context;
-    this.once = once || false;
-  }
-
-  function addListener(emitter, event, fn, context, once) {
-    if (typeof fn !== "function") {
-      throw new TypeError("The listener must be a function");
-    }
-
-    var listener = new EE(fn, context || emitter, once),
-        evt = prefix ? prefix + event : event;
-    if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);else emitter._events[evt] = [emitter._events[evt], listener];
-    return emitter;
-  }
-
-  function clearEvent(emitter, evt) {
-    if (--emitter._eventsCount === 0) emitter._events = new Events();else delete emitter._events[evt];
-  }
-
-  function EventEmitter2() {
-    this._events = new Events();
-    this._eventsCount = 0;
-  }
-
-  EventEmitter2.prototype.eventNames = function eventNames() {
-    var names = [],
-        events,
-        name;
-    if (this._eventsCount === 0) return names;
-
-    for (name in events = this._events) {
-      if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
-    }
-
-    if (Object.getOwnPropertySymbols) {
-      return names.concat(Object.getOwnPropertySymbols(events));
-    }
-
-    return names;
-  };
-
-  EventEmitter2.prototype.listeners = function listeners(event) {
-    var evt = prefix ? prefix + event : event,
-        handlers = this._events[evt];
-    if (!handlers) return [];
-    if (handlers.fn) return [handlers.fn];
-
-    for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
-      ee[i] = handlers[i].fn;
-    }
-
-    return ee;
-  };
-
-  EventEmitter2.prototype.listenerCount = function listenerCount(event) {
-    var evt = prefix ? prefix + event : event,
-        listeners = this._events[evt];
-    if (!listeners) return 0;
-    if (listeners.fn) return 1;
-    return listeners.length;
-  };
-
-  EventEmitter2.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-    var evt = prefix ? prefix + event : event;
-    if (!this._events[evt]) return false;
-    var listeners = this._events[evt],
-        len = arguments.length,
-        args,
-        i;
-
-    if (listeners.fn) {
-      if (listeners.once) this.removeListener(event, listeners.fn, void 0, true);
-
-      switch (len) {
-        case 1:
-          return listeners.fn.call(listeners.context), true;
-
-        case 2:
-          return listeners.fn.call(listeners.context, a1), true;
-
-        case 3:
-          return listeners.fn.call(listeners.context, a1, a2), true;
-
-        case 4:
-          return listeners.fn.call(listeners.context, a1, a2, a3), true;
-
-        case 5:
-          return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-
-        case 6:
-          return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
-      }
-
-      for (i = 1, args = new Array(len - 1); i < len; i++) {
-        args[i - 1] = arguments[i];
-      }
-
-      listeners.fn.apply(listeners.context, args);
-    } else {
-      var length = listeners.length,
-          j;
-
-      for (i = 0; i < length; i++) {
-        if (listeners[i].once) this.removeListener(event, listeners[i].fn, void 0, true);
-
-        switch (len) {
-          case 1:
-            listeners[i].fn.call(listeners[i].context);
-            break;
-
-          case 2:
-            listeners[i].fn.call(listeners[i].context, a1);
-            break;
-
-          case 3:
-            listeners[i].fn.call(listeners[i].context, a1, a2);
-            break;
-
-          case 4:
-            listeners[i].fn.call(listeners[i].context, a1, a2, a3);
-            break;
-
-          default:
-            if (!args) for (j = 1, args = new Array(len - 1); j < len; j++) {
-              args[j - 1] = arguments[j];
-            }
-            listeners[i].fn.apply(listeners[i].context, args);
-        }
-      }
-    }
-
-    return true;
-  };
-
-  EventEmitter2.prototype.on = function on(event, fn, context) {
-    return addListener(this, event, fn, context, false);
-  };
-
-  EventEmitter2.prototype.once = function once(event, fn, context) {
-    return addListener(this, event, fn, context, true);
-  };
-
-  EventEmitter2.prototype.removeListener = function removeListener(event, fn, context, once) {
-    var evt = prefix ? prefix + event : event;
-    if (!this._events[evt]) return this;
-
-    if (!fn) {
-      clearEvent(this, evt);
-      return this;
-    }
-
-    var listeners = this._events[evt];
-
-    if (listeners.fn) {
-      if (listeners.fn === fn && (!once || listeners.once) && (!context || listeners.context === context)) {
-        clearEvent(this, evt);
-      }
-    } else {
-      for (var i = 0, events = [], length = listeners.length; i < length; i++) {
-        if (listeners[i].fn !== fn || once && !listeners[i].once || context && listeners[i].context !== context) {
-          events.push(listeners[i]);
-        }
-      }
-
-      if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;else clearEvent(this, evt);
-    }
-
-    return this;
-  };
-
-  EventEmitter2.prototype.removeAllListeners = function removeAllListeners(event) {
-    var evt;
-
-    if (event) {
-      evt = prefix ? prefix + event : event;
-      if (this._events[evt]) clearEvent(this, evt);
-    } else {
-      this._events = new Events();
-      this._eventsCount = 0;
-    }
-
-    return this;
-  };
-
-  EventEmitter2.prototype.off = EventEmitter2.prototype.removeListener;
-  EventEmitter2.prototype.addListener = EventEmitter2.prototype.on;
-  EventEmitter2.prefixed = prefix;
-  EventEmitter2.EventEmitter = EventEmitter2;
-  {
-    module.exports = EventEmitter2;
-  }
-});
-eventemitter3.EventEmitter;
-eventemitter3.prefixed;
-console.debug("EventEmitter is:", eventemitter3);
-globalThis.EventEmitter = eventemitter3;
-var tutorializerSymbol = Symbol.for("tutorializer");
-
-var GoingBackDontMindMeException = /*#__PURE__*/function (_Error) {
-  _inherits(GoingBackDontMindMeException, _Error);
-
-  var _super = _createSuper(GoingBackDontMindMeException);
-
-  function GoingBackDontMindMeException() {
-    _classCallCheck(this, GoingBackDontMindMeException);
+  function Event() {
+    _classCallCheck(this, Event);
 
     return _super.apply(this, arguments);
   }
 
-  return _createClass(GoingBackDontMindMeException);
-}( /*#__PURE__*/_wrapNativeSuper(Error));
+  return _createClass(Event);
+}( /*#__PURE__*/_wrapNativeSuper(Set));
 
-var TutorializerClass = /*#__PURE__*/function () {
-  function TutorializerClass() {
-    _classCallCheck(this, TutorializerClass);
+var trigger = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(event) {
+    var _len5,
+        args,
+        _key7,
+        _args5 = arguments;
 
-    this.pendingData = {};
-    this.progressData = [];
-    this.tutorial = Tutorial1;
-    this.main = html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
-    this.element = null;
-    this.events = new eventemitter3();
-    this.eventTypes = {
-      next: "tutorializer:next",
-      back: "tutorializer:back"
-    };
-    this._style = document.createElement("style");
-    this._theme = theme1;
-  }
-
-  _createClass(TutorializerClass, [{
-    key: "data",
-    get: function get() {
-      return Object.fromEntries([].concat(_toConsumableArray(this.progressData), [Object.entries(this.pendingData)]).flat(1));
-    }
-  }, {
-    key: "has",
-    value: function has(id) {
-      console.log("start:has()");
-      return id in this.data;
-    }
-  }, {
-    key: "add",
-    value: function add(id, value) {
-      this.pendingData[id] = value;
-    }
-  }, {
-    key: "content",
-    get: function get() {
-      return this.main.children;
-    },
-    set: function set(element) {
-      var _this2 = this;
-
-      console.log("start:set content");
-      this.main.style.opacity = 0;
-      setTimeout(function () {
-        _this2.main.children = [element];
-        _this2.main.style.opacity = 1;
-      }, this.theme.settings.slideFadeInMiliseconds);
-    }
-  }, {
-    key: "theme",
-    get: function get() {
-      return this._theme;
-    },
-    set: function set(newTheme) {
-      if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.styles !== 'string') {
-        throw Error("I was creating a theme, I expected an object like {name:\"blah\", styles: \".thing { color: red: }\" }\nHowever, instead I got this: ".concat(toRepresentation(newTheme)));
-      }
-
-      var name = newTheme.name,
-          styles = newTheme.styles,
-          settings = newTheme.settings;
-      this._theme = newTheme;
-      this._style.innerHTML = styles;
-
-      if (settings instanceof Object) {
-        this._theme.settings = merge({
-          oldData: theme1.settings,
-          newData: settings
-        });
-      }
-    }
-  }, {
-    key: "slide",
-    value: function () {
-      var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(id, func) {
-        var _this3 = this;
-
-        var realValue, value1, _yield$func, loadSlide, valueIsValid, ifValueInvalid;
-
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                console.log("start:slide");
-                console.debug("this is:", this);
-                console.debug("Tutorializer is:", Tutorializer);
-
-                if (!this.has(id)) {
-                  _context4.next = 5;
-                  break;
-                }
-
-                return _context4.abrupt("return", this.data[id]);
-
-              case 5:
-                realValue = undefined;
-                value1 = {
-                  get: function get() {
-                    return realValue;
-                  },
-                  set: function set(value) {
-                    realValue = value;
-
-                    _this3.add(id, realValue);
-                  }
-                };
-                _context4.next = 9;
-                return func({
-                  value: value1,
-                  Tutorializer: this
-                });
-
-              case 9:
-                _yield$func = _context4.sent;
-                loadSlide = _yield$func.loadSlide;
-                valueIsValid = _yield$func.valueIsValid;
-                ifValueInvalid = _yield$func.ifValueInvalid;
-                _context4.next = 15;
-                return loadSlide();
-
-              case 15:
-                if (!true) {
-                  _context4.next = 28;
-                  break;
-                }
-
-                _context4.next = 18;
-                return this.nextWasClicked();
-
-              case 18:
-                _context4.next = 20;
-                return valueIsValid(realValue);
-
-              case 20:
-                if (!_context4.sent) {
-                  _context4.next = 24;
-                  break;
-                }
-
-                return _context4.abrupt("break", 28);
-
-              case 24:
-                _context4.next = 26;
-                return ifValueInvalid(realValue);
-
-              case 26:
-                _context4.next = 15;
-                break;
-
-              case 28:
-                this.add(id, realValue);
-                this.savePendingData();
-                return _context4.abrupt("return", realValue);
-
-              case 31:
-              case "end":
-                return _context4.stop();
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            for (_len5 = _args5.length, args = new Array(_len5 > 1 ? _len5 - 1 : 0), _key7 = 1; _key7 < _len5; _key7++) {
+              args[_key7 - 1] = _args5[_key7];
             }
-          }
-        }, _callee4, this);
-      }));
 
-      function slide(_x2, _x3) {
-        return _slide.apply(this, arguments);
+            return _context3.abrupt("return", Promise.all(_toConsumableArray(event).map(function (each) {
+              return each.apply(void 0, args);
+            })));
+
+          case 2:
+          case "end":
+            return _context3.stop();
+        }
       }
+    }, _callee3);
+  }));
 
-      return slide;
-    }()
-  }, {
-    key: "intializeWholeWebpage",
-    value: function () {
-      var _intializeWholeWebpage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-        var _yield$import, router, givenUrl;
-
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                console.log("start:intializeWholeWebpage()");
-                document.head.innerHTML += "<link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">";
-                document.head.appendChild(this._style);
-                _context5.next = 5;
-                return import("https://cdn.skypack.dev/quik-router");
-
-              case 5:
-                _yield$import = _context5.sent;
-                router = _yield$import.default;
-                givenUrl = router.pageInfo.url;
-
-                if (!givenUrl) {
-                  _context5.next = 11;
-                  break;
-                }
-
-                _context5.next = 11;
-                return this.getDataFromUrl(givenUrl);
-
-              case 11:
-                this.theme = this._theme;
-                this.runTutorial();
-                document.body = html(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "flex-start",
-                  overflow: "hidden",
-                  fontFamily: "sans-serif",
-                  flexDirection: "column",
-                  height: "100%"
-                }, this.createElement());
-
-              case 14:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, this);
-      }));
-
-      function intializeWholeWebpage() {
-        return _intializeWholeWebpage.apply(this, arguments);
-      }
-
-      return intializeWholeWebpage;
-    }()
-  }, {
-    key: "getDataFromUrl",
-    value: function () {
-      var _getDataFromUrl = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(url) {
-        var _yield$import2, Tutorial, theme;
-
-        return regeneratorRuntime.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _context6.prev = 0;
-                _context6.next = 3;
-                return import(url);
-
-              case 3:
-                _yield$import2 = _context6.sent;
-                Tutorial = _yield$import2.Tutorial;
-                theme = _yield$import2.theme;
-                _context6.next = 10;
-                break;
-
-              case 8:
-                _context6.prev = 8;
-                _context6.t0 = _context6["catch"](0);
-
-              case 10:
-                if (theme) {
-                  this._theme = theme;
-                }
-
-                if (Tutorial instanceof Function) {
-                  this.tutorial = Tutorial;
-                } else {
-                  console.error("The Tutorial wasnt a function: ".concat(Tutorial));
-                }
-
-              case 12:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6, this, [[0, 8]]);
-      }));
-
-      function getDataFromUrl(_x4) {
-        return _getDataFromUrl.apply(this, arguments);
-      }
-
-      return getDataFromUrl;
-    }()
-  }, {
-    key: "runTutorial",
-    value: function () {
-      var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                console.log("start:runTutorial()");
-                _context7.prev = 1;
-                console.log("start:tutorial()");
-                _context7.next = 5;
-                return this.tutorial({
-                  Tutorializer: this,
-                  slide: this.slide.bind(this)
-                });
-
-              case 5:
-                return _context7.abrupt("return", this.data);
-
-              case 8:
-                _context7.prev = 8;
-                _context7.t0 = _context7["catch"](1);
-
-                if (_context7.t0 instanceof GoingBackDontMindMeException) {
-                  _context7.next = 12;
-                  break;
-                }
-
-                throw _context7.t0;
-
-              case 12:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7, this, [[1, 8]]);
-      }));
-
-      function runTutorial() {
-        return _runTutorial.apply(this, arguments);
-      }
-
-      return runTutorial;
-    }()
-  }, {
-    key: "createElement",
-    value: function createElement() {
-      console.log("start:createElement()");
-      console.debug("this is:", this);
-      return this.element = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, this.goBack, this.goNext);
-    }
-  }, {
-    key: "savePendingData",
-    value: function savePendingData() {
-      if (Object.keys(this.pendingData).length) {
-        this.progressData.push(Object.entries(this.pendingData));
-        this.pendingData = {};
-      }
-    }
-  }, {
-    key: "goNext",
-    value: function () {
-      var _goNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                console.log("start:goNext()");
-                this.events.dispatchEvent(new CustomEvent(this.eventTypes.next));
-
-              case 2:
-              case "end":
-                return _context8.stop();
-            }
-          }
-        }, _callee8, this);
-      }));
-
-      function goNext() {
-        return _goNext.apply(this, arguments);
-      }
-
-      return goNext;
-    }()
-  }, {
-    key: "goBack",
-    value: function () {
-      var _goBack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                this.progressData.pop();
-                this.pendingData = {};
-                this.events.dispatchEvent(new CustomEvent(this.eventTypes.next));
-                window.dispatchEvent(new CustomEvent(this.eventTypes.back));
-                _context9.next = 6;
-                return this.runTutorial();
-
-              case 6:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9, this);
-      }));
-
-      function goBack() {
-        return _goBack.apply(this, arguments);
-      }
-
-      return goBack;
-    }()
-  }, {
-    key: "nextWasClicked",
-    value: function () {
-      var _nextWasClicked = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-        var _this4 = this;
-
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
-          while (1) {
-            switch (_context10.prev = _context10.next) {
-              case 0:
-                return _context10.abrupt("return", new Promise(function (resolve, reject) {
-                  var resolved = false;
-                  var rejected = false;
-                  var cleanup;
-
-                  var resolveListener = function resolveListener() {
-                    if (rejected) {
-                      return;
-                    } else {
-                      resolved = true;
-                      resolve();
-                      cleanup();
-                    }
-                  };
-
-                  var rejectListener = function rejectListener() {
-                    if (resolved) {
-                      return;
-                    } else {
-                      rejected = true;
-                      reject(new GoingBackDontMindMeException());
-                      cleanup();
-                    }
-                  };
-
-                  cleanup = function cleanup() {
-                    window.removeEventListener(_this4.eventTypes.next, resolveListener);
-                    window.removeEventListener(_this4.eventTypes.back, rejectListener);
-                  };
-
-                  window.addEventListener(_this4.eventTypes.next, resolveListener);
-                  window.addEventListener(_this4.eventTypes.back, rejectListener);
-                }));
-
-              case 1:
-              case "end":
-                return _context10.stop();
-            }
-          }
-        }, _callee10);
-      }));
-
-      function nextWasClicked() {
-        return _nextWasClicked.apply(this, arguments);
-      }
-
-      return nextWasClicked;
-    }()
-  }]);
-
-  return TutorializerClass;
+  return function trigger(_x) {
+    return _ref8.apply(this, arguments);
+  };
 }();
 
-var Tutorializer = globalThis[tutorializerSymbol] = new TutorializerClass();
-exports.Tutorializer = Tutorializer;
-var e1 = "\uE000",
-    t1 = "\uE001";
+var once = function once(event) {
+  var selfRemovingRanFirst = false;
+  var output;
+  var resolve;
 
-function o1(r2) {
+  var selfRemoving = /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      var _len6,
+          args,
+          _key8,
+          _args6 = arguments;
+
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              event.delete(selfRemoving);
+
+              for (_len6 = _args6.length, args = new Array(_len6), _key8 = 0; _key8 < _len6; _key8++) {
+                args[_key8] = _args6[_key8];
+              }
+
+              output = args;
+              selfRemovingRanFirst = true;
+
+              if (resolve) {
+                resolve(output);
+              }
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function selfRemoving() {
+      return _ref9.apply(this, arguments);
+    };
+  }();
+
+  event.add(selfRemoving);
+  return new Promise(function (res) {
+    resolve = res;
+
+    if (selfRemovingRanFirst) {
+      resolve(output);
+    }
+  });
+};
+
+var e1 = "",
+    t1 = "";
+
+function o1(r1) {
   var _arguments2 = arguments;
-  var p2,
+  var p1,
       a1,
       l,
       s,
-      c = arguments,
-      i = this,
+      c1 = arguments,
+      i1 = this,
       n = 0,
       d = [],
       h = 0,
       u = [],
       f = 0;
-  d.root = true;
+  d.root = !0;
 
-  var g = function g(e2, o2, r3) {
-    o2 === void 0 && (o2 = []);
-    var p3 = 0;
-    return (e2 = r3 || e2 !== t1 ? e2.replace(/\ue001/g, function (e3) {
+  var g = function g(e11, o11, r2) {
+    void 0 === o11 && (o11 = []);
+    var p2 = 0;
+    return (e11 = r2 || e11 !== t1 ? e11.replace(/\ue001/g, function (e) {
       return u[f++];
-    }) : u[f++].slice(1, -1)) ? (e2.replace(/\ue000/g, function (t2, r4) {
-      return r4 && o2.push(e2.slice(p3, r4)), p3 = r4 + 1, o2.push(c[++h]);
-    }), p3 < e2.length && o2.push(e2.slice(p3)), o2.length > 1 ? o2 : o2[0]) : e2;
+    }) : u[f++].slice(1, -1)) ? (e11.replace(/\ue000/g, function (t, r3) {
+      return r3 && o11.push(e11.slice(p2, r3)), p2 = r3 + 1, o11.push(c1[++h]);
+    }), p2 < e11.length && o11.push(e11.slice(p2)), o11.length > 1 ? o11 : o11[0]) : e11;
   },
       m = function m() {
     var _d3, _d4;
 
-    (_d3 = d, _d4 = _toArray(_d3), d = _d4[0], s = _d4[1], p2 = _d4.slice(2), _d3), d.push(i.apply(void 0, [s].concat(_toConsumableArray(p2))));
+    (_d3 = d, _d4 = _toArray(_d3), d = _d4[0], s = _d4[1], p1 = _d4.slice(2), _d3), d.push(i1.apply(void 0, [s].concat(_toConsumableArray(p1))));
   };
 
-  return r2.join(e1).replace(/<!--[^]*-->/g, "").replace(/<!\[CDATA\[[^]*\]\]>/g, "").replace(/('|")[^\1]*?\1/g, function (e2) {
+  return r1.join(e1).replace(/<!--[^]*-->/g, "").replace(/<!\[CDATA\[[^]*\]\]>/g, "").replace(/('|")[^\1]*?\1/g, function (e2) {
     return u.push(e2), t1;
-  }).replace(/\s+/g, " ").replace(/(?:^|>)([^<]*)(?:$|<)/g, function (e2, t2, r3, p3) {
-    var c2, i2;
-    if (r3 && p3.slice(n, r3).replace(/(\S)\/$/, "$1 /").split(" ").map(function (e3, t3) {
-      if (e3[0] === "/") c2 = i2 || e3.slice(1) || 1;else if (t3) {
-        if (e3) {
-          var _e3$split, _e3$split2;
+  }).replace(/\s+/g, " ").replace(/(?:^|>)([^<]*)(?:$|<)/g, function (e3, t11, r4, p3) {
+    var c, i;
+    if (r4 && p3.slice(n, r4).replace(/(\S)\/$/, "$1 /").split(" ").map(function (e4, t2) {
+      if ("/" === e4[0]) c = i || e4.slice(1) || 1;else if (t2) {
+        if (e4) {
+          var _e4$split, _e4$split2;
 
-          var r4 = d[2] || (d[2] = {});
-          e3.slice(0, 3) === "..." ? Object.assign(r4, _arguments2[++h]) : ((_e3$split = e3.split("="), _e3$split2 = _slicedToArray(_e3$split, 2), a1 = _e3$split2[0], l = _e3$split2[1], _e3$split), r4[g(a1)] = !l || g(l));
+          var r5 = d[2] || (d[2] = {});
+          "..." === e4.slice(0, 3) ? Object.assign(r5, _arguments2[++h]) : ((_e4$split = e4.split("="), _e4$split2 = _slicedToArray(_e4$split, 2), a1 = _e4$split2[0], l = _e4$split2[1], _e4$split), r5[g(a1)] = !l || g(l));
         }
       } else {
-        for (i2 = g(e3); o1.close[d[1] + i2];) {
+        for (i = g(e4); o1.close[d[1] + i];) {
           m();
         }
 
-        d = [d, i2, null], o1.empty[i2] && (c2 = i2);
+        d = [d, i, null], o1.empty[i] && (c = i);
       }
-    }), c2) for (m(); s !== c2 && o1.close[s];) {
+    }), c) for (m(); s !== c && o1.close[s];) {
       m();
     }
-    n = r3 + e2.length, t2 && t2 !== " " && g((s = 0, t2), d, true);
+    n = r4 + e3.length, t11 && " " !== t11 && g((s = 0, t11), d, !0);
   }), d.root || m(), d.length > 1 ? d : d[0];
 }
 
-o1.empty = {}, o1.close = {}, "area base br col command embed hr img input keygen link meta param source track wbr ! !doctype ? ?xml".split(" ").map(function (e2) {
-  return o1.empty[e2] = o1.empty[e2.toUpperCase()] = true;
+o1.empty = {}, o1.close = {}, "area base br col command embed hr img input keygen link meta param source track wbr ! !doctype ? ?xml".split(" ").map(function (e) {
+  return o1.empty[e] = o1.empty[e.toUpperCase()] = !0;
 });
 
 var r1 = {
@@ -1866,9 +1156,9 @@ var r1 = {
   td: "th tr",
   th: "td tr tbody"
 },
-    p1 = function p1(e2) {
-  [].concat(_toConsumableArray(r1[e2].split(" ")), [e2]).map(function (t2) {
-    o1.close[e2] = o1.close[e2.toUpperCase()] = o1.close[e2 + t2] = o1.close[e2.toUpperCase() + t2] = o1.close[e2 + t2.toUpperCase()] = o1.close[e2.toUpperCase() + t2.toUpperCase()] = true;
+    p1 = function p1(e5) {
+  [].concat(_toConsumableArray(r1[e5].split(" ")), [e5]).map(function (t) {
+    o1.close[e5] = o1.close[e5.toUpperCase()] = o1.close[e5 + t] = o1.close[e5.toUpperCase() + t] = o1.close[e5 + t.toUpperCase()] = o1.close[e5.toUpperCase() + t.toUpperCase()] = !0;
   });
 };
 
@@ -1881,7 +1171,7 @@ var ElementalSymbol1 = Symbol.for("Elemental");
 
 var ElementalClass1 = /*#__PURE__*/function () {
   function ElementalClass1() {
-    var _this5 = this;
+    var _this2 = this;
 
     var components = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -1894,7 +1184,7 @@ var ElementalClass1 = /*#__PURE__*/function () {
     this.middleware = middleware || {};
     this.errorComponentFactory = errorComponentFactory || defaultErrorComponentFactory1;
     this.html = xhtm1.bind(function () {
-      return _this5.createElement.apply(_this5, arguments);
+      return _this2.createElement.apply(_this2, arguments);
     });
     this.html[ElementalSymbol1] = this;
     this.css = Elemental1.css;
@@ -1903,8 +1193,8 @@ var ElementalClass1 = /*#__PURE__*/function () {
   _createClass(ElementalClass1, [{
     key: "createElement",
     value: function createElement() {
-      for (var _len5 = arguments.length, args = new Array(_len5), _key8 = 0; _key8 < _len5; _key8++) {
-        args[_key8] = arguments[_key8];
+      for (var _len7 = arguments.length, args = new Array(_len7), _key9 = 0; _key9 < _len7; _key9++) {
+        args[_key9] = arguments[_key9];
       }
 
       Elemental1.debug && console.debug("args is:", args);
@@ -1928,11 +1218,11 @@ var ElementalClass1 = /*#__PURE__*/function () {
         _iterator6.f();
       }
 
-      var _args13 = args,
-          _args14 = _toArray(_args13),
-          key = _args14[0],
-          properties = _args14[1],
-          children = _args14.slice(2);
+      var _args7 = args,
+          _args8 = _toArray(_args7),
+          key = _args8[0],
+          properties = _args8[1],
+          children = _args8.slice(2);
 
       Elemental1.debug && console.debug("key, properties, children is:", key, properties, children);
 
@@ -1949,34 +1239,34 @@ var ElementalClass1 = /*#__PURE__*/function () {
           })) : key(_objectSpread(_objectSpread({}, properties), {}, {
             children: children
           }));
-        } catch (error3) {
+        } catch (error2) {
           return this.errorComponentFactory(_objectSpread(_objectSpread({}, properties), {}, {
             children: children
-          }), key, error3);
+          }), key, error2);
         }
 
         if (output instanceof Promise) {
           var elementPromise = output;
           var placeholder = elementPromise.placeholder || document.createElement("div");
-          setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+          setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
-                    _context11.t0 = placeholder;
-                    _context11.next = 3;
+                    _context5.t0 = placeholder;
+                    _context5.next = 3;
                     return elementPromise;
 
                   case 3:
-                    _context11.t1 = _context11.sent;
-                    return _context11.abrupt("return", _context11.t0.replaceWith.call(_context11.t0, _context11.t1));
+                    _context5.t1 = _context5.sent;
+                    return _context5.abrupt("return", _context5.t0.replaceWith.call(_context5.t0, _context5.t1));
 
                   case 5:
                   case "end":
-                    return _context11.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee11);
+            }, _callee5);
           })), 0);
           return placeholder;
         } else {
@@ -1985,27 +1275,28 @@ var ElementalClass1 = /*#__PURE__*/function () {
       }
 
       var isSvg = Elemental1.exclusivelySvgElements.has(key);
-      var element = isSvg ? document.createElementNS("http://www.w3.org/2000/svg", key) : document.createElement(key);
+      var element = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', key) : document.createElement(key);
 
       if (properties instanceof Object) {
         for (var _i8 = 0, _Object$entries5 = Object.entries(properties); _i8 < _Object$entries5.length; _i8++) {
           var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i8], 2),
-              key2 = _Object$entries5$_i[0],
+              _key10 = _Object$entries5$_i[0],
               value = _Object$entries5$_i[1];
 
           try {
             if (isSvg) {
-              var kebabCase = key2.replace(/(?<=[a-z])([A-Z])(?=[a-z])/g, function (each2) {
-                return "-".concat(each2.toLowerCase());
+              var kebabCase = _key10.replace(/(?<=[a-z])([A-Z])(?=[a-z])/g, function (each) {
+                return "-".concat(each.toLowerCase());
               });
+
               element.setAttribute(kebabCase, value);
             } else {
-              element.setAttribute(key2.toLowerCase(), value);
+              element.setAttribute(_key10.toLowerCase(), value);
             }
           } catch (error) {}
 
           try {
-            element[key2] = value;
+            element[_key10] = value;
           } catch (error1) {}
         }
       }
@@ -2019,7 +1310,7 @@ var ElementalClass1 = /*#__PURE__*/function () {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       var middleware = options.middleware,
-          other = _objectWithoutProperties(options, _excluded7);
+          other = _objectWithoutProperties(options, _excluded3);
 
       return Elemental1(_objectSpread(_objectSpread({}, this.components), additionalComponents), _objectSpread({
         middleware: _objectSpread(_objectSpread({}, this.middleware), middleware)
@@ -2030,11 +1321,11 @@ var ElementalClass1 = /*#__PURE__*/function () {
   return ElementalClass1;
 }();
 
-var proxySymbol1 = Symbol.for("Proxy");
+var proxySymbol1 = Symbol.for('Proxy');
 
 var Elemental1 = function Elemental1() {
-  for (var _len6 = arguments.length, args = new Array(_len6), _key9 = 0; _key9 < _len6; _key9++) {
-    args[_key9] = arguments[_key9];
+  for (var _len8 = arguments.length, args = new Array(_len8), _key11 = 0; _key11 < _len8; _key11++) {
+    args[_key11] = arguments[_key11];
   }
 
   var originalThing = _construct(ElementalClass1, args).html;
@@ -2066,8 +1357,8 @@ Elemental1.exclusivelySvgElements = new Set(["svg", "animate", "animateMotion", 
 Elemental1.css = function () {
   var element = document.createElement("div");
 
-  for (var _len7 = arguments.length, args = new Array(_len7), _key10 = 0; _key10 < _len7; _key10++) {
-    args[_key10] = arguments[_key10];
+  for (var _len9 = arguments.length, args = new Array(_len9), _key12 = 0; _key12 < _len9; _key12++) {
+    args[_key12] = arguments[_key12];
   }
 
   if (args.length == 1) {
@@ -2084,8 +1375,8 @@ Elemental1.css = function () {
 
     try {
       for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-        var each2 = _step7.value;
-        finalString += each2;
+        var _each = _step7.value;
+        finalString += _each;
 
         if (values.length > 0) {
           finalString += "".concat(values.shift());
@@ -2104,62 +1395,62 @@ Elemental1.css = function () {
 };
 
 function appendChildren1(element) {
-  for (var _len8 = arguments.length, children = new Array(_len8 > 1 ? _len8 - 1 : 0), _key11 = 1; _key11 < _len8; _key11++) {
-    children[_key11 - 1] = arguments[_key11];
+  for (var _len10 = arguments.length, children = new Array(_len10 > 1 ? _len10 - 1 : 0), _key13 = 1; _key13 < _len10; _key13++) {
+    children[_key13 - 1] = arguments[_key13];
   }
 
   for (var _i9 = 0, _children2 = children; _i9 < _children2.length; _i9++) {
-    var each2 = _children2[_i9];
+    var _each2 = _children2[_i9];
 
-    if (typeof each2 == "string") {
-      element.appendChild(new window.Text(each2));
-    } else if (each2 == null) {
+    if (typeof _each2 == 'string') {
+      element.appendChild(new window.Text(_each2));
+    } else if (_each2 == null) {
       element.appendChild(new window.Text(""));
-    } else if (!(each2 instanceof Object)) {
-      element.appendChild(new window.Text("".concat(each2)));
-    } else if (each2 instanceof Node) {
-      element.appendChild(each2);
-    } else if (each2 instanceof Array) {
-      appendChildren1.apply(void 0, [element].concat(_toConsumableArray(each2)));
-    } else if (each2 instanceof Function) {
-      appendChildren1(element, each2());
-    } else if (each2 instanceof Promise) {
+    } else if (!(_each2 instanceof Object)) {
+      element.appendChild(new window.Text("".concat(_each2)));
+    } else if (_each2 instanceof Node) {
+      element.appendChild(_each2);
+    } else if (_each2 instanceof Array) {
+      appendChildren1.apply(void 0, [element].concat(_toConsumableArray(_each2)));
+    } else if (_each2 instanceof Function) {
+      appendChildren1(element, _each2());
+    } else if (_each2 instanceof Promise) {
       (function () {
-        var elementPromise = each2;
+        var elementPromise = _each2;
         var placeholder = elementPromise.placeholder || document.createElement("div");
-        setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-          return regeneratorRuntime.wrap(function _callee12$(_context12) {
+        setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
-              switch (_context12.prev = _context12.next) {
+              switch (_context6.prev = _context6.next) {
                 case 0:
-                  _context12.t0 = placeholder;
-                  _context12.next = 3;
+                  _context6.t0 = placeholder;
+                  _context6.next = 3;
                   return elementPromise;
 
                 case 3:
-                  _context12.t1 = _context12.sent;
-                  return _context12.abrupt("return", _context12.t0.replaceWith.call(_context12.t0, _context12.t1));
+                  _context6.t1 = _context6.sent;
+                  return _context6.abrupt("return", _context6.t0.replaceWith.call(_context6.t0, _context6.t1));
 
                 case 5:
                 case "end":
-                  return _context12.stop();
+                  return _context6.stop();
               }
             }
-          }, _callee12);
+          }, _callee6);
         })), 0);
         element.appendChild(placeholder);
       })();
-    } else if (each2 != null && each2 instanceof Object) {
-      element.appendChild(each2);
+    } else if (_each2 != null && _each2 instanceof Object) {
+      element.appendChild(_each2);
     }
   }
 
   return element;
 }
 
-function defaultErrorComponentFactory1(_ref21, key, error4) {
-  var children = _ref21.children,
-      properties = _objectWithoutProperties(_ref21, _excluded8);
+function defaultErrorComponentFactory1(_ref12, key, error3) {
+  var children = _ref12.children,
+      properties = _objectWithoutProperties(_ref12, _excluded4);
 
   var element = document.createElement("div");
   var errorDetails = document.createElement("code");
@@ -2171,18 +1462,18 @@ function defaultErrorComponentFactory1(_ref21, key, error4) {
   element.style.backgroundColor = "#f5a5a8";
   element.style.color = "white";
   element.style.fontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-  element.style.fontSize = "18px";
-  element.style.fontWeight = "400";
-  element.style.overflow = "auto";
+  element.style.fontSize = '18px';
+  element.style.fontWeight = '400';
+  element.style.overflow = 'auto';
   element.innerHTML = "I'm sorry, there was an error when loading this part of the page \uD83D\uDE41 ";
   var errorElementPart;
 
-  if (typeof key == "string") {
+  if (typeof key == 'string') {
     errorElementPart = "<".concat(key, " />");
   } else {
     try {
       errorElementPart = "<".concat(key.prototype.constructor.name, " />");
-    } catch (error2) {
+    } catch (error) {
       errorElementPart = "<".concat(key, " />");
     }
   }
@@ -2191,17 +1482,17 @@ function defaultErrorComponentFactory1(_ref21, key, error4) {
 
   for (var _i10 = 0, _Object$entries6 = Object.entries(properties); _i10 < _Object$entries6.length; _i10++) {
     var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i10], 2),
-        key2 = _Object$entries6$_i[0],
+        key1 = _Object$entries6$_i[0],
         value = _Object$entries6$_i[1];
 
     try {
-      errorJsonObject[key2] = JSON.parse(JSON.stringify(value));
-    } catch (error2) {
-      errorJsonObject[key2] = "".concat(value);
+      errorJsonObject[key1] = JSON.parse(JSON.stringify(value));
+    } catch (error) {
+      errorJsonObject[key1] = "".concat(value);
     }
   }
 
-  errorDetails.innerHTML = "tag: ".concat(errorElementPart, "\nproperties: ").concat(JSON.stringify(errorJsonObject), "\nerror: ").concat(error4);
+  errorDetails.innerHTML = "tag: ".concat(errorElementPart, "\nproperties: ").concat(JSON.stringify(errorJsonObject), "\nerror: ").concat(error3);
   errorDetails.style.padding = "1rem";
   errorDetails.style.backgroundColor = "#161b22";
   errorDetails.style.color = "#789896";
@@ -2214,10 +1505,10 @@ function defaultErrorComponentFactory1(_ref21, key, error4) {
   if (children instanceof Array) {
     for (var _i11 = 0, _Object$entries7 = Object.entries(children); _i11 < _Object$entries7.length; _i11++) {
       var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i11], 2),
-          _key12 = _Object$entries7$_i[0],
+          _key14 = _Object$entries7$_i[0],
           _value3 = _Object$entries7$_i[1];
 
-      if (typeof each == "string") {
+      if (typeof each == 'string') {
         childContainer.appendChild(new window.Text(_value3));
       } else if (_value3 instanceof Node) {
         childContainer.appendChild(_value3);
@@ -2244,12 +1535,573 @@ try {
     },
     writable: true
   });
-} catch (error5) {}
+} catch (error4) {}
 
-var html2 = Elemental1();
-exports.html = html2;
+var html1 = Elemental1();
 Elemental1.css;
 Elemental1.allTags;
+
+var title = function title(_ref13) {
+  var style = _ref13.style,
+      children = _ref13.children,
+      props = _objectWithoutProperties(_ref13, _excluded5);
+
+  return html1(_templateObject || (_templateObject = _taggedTemplateLiteral(["<h1 class=\"tutorialize-title\">\n    ", "\n</h1>"])), children);
+};
+
+var text = function text(_ref14) {
+  var style = _ref14.style,
+      children = _ref14.children,
+      props = _objectWithoutProperties(_ref14, _excluded6);
+
+  return html1(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<span class=\"tutorialize-text\">\n    ", "\n</span>"])), children);
+};
+
+var container = function container(_ref15) {
+  var style = _ref15.style,
+      children = _ref15.children,
+      props = _objectWithoutProperties(_ref15, _excluded7);
+
+  return html1(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<div\n    style=", "\n    >\n        ", "\n</div>"])), {
+    display: "flex",
+    flexDirection: "column"
+  }, children);
+};
+
+var input = function input(_ref16) {
+  var style = _ref16.style,
+      children = _ref16.children,
+      props = _objectWithoutProperties(_ref16, _excluded8);
+
+  return html1(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["<input class=\"tutorialize-input\" ...", " />"])), props);
+};
+
+var html2 = html1.extend({
+  text: text,
+  title: title,
+  container: container,
+  input: input
+});
+
+var showText = function showText(_ref17) {
+  var title1 = _ref17.title,
+      body = _ref17.body;
+  return function (_ref18) {
+    var value = _ref18.value,
+        Tutorializer1 = _ref18.Tutorializer;
+    return {
+      loadSlide: function loadSlide() {
+        Tutorializer1.content = html2(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["<container>\n            <title>\n                ", "\n            </title>\n            <text>\n                ", "\n            </text>\n        </container>"])), title1, body);
+      },
+      valueIsValid: function valueIsValid(value) {
+        return true;
+      },
+      ifValueInvalid: function ifValueInvalid() {}
+    };
+  };
+};
+
+var askLine = function askLine(_ref19) {
+  var question = _ref19.question;
+  return function (_ref20) {
+    var value1 = _ref20.value,
+        Tutorializer2 = _ref20.Tutorializer;
+    return {
+      loadSlide: function loadSlide() {
+        Tutorializer2.content = html2(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["<container>\n            <text>\n                ", "\n            </text>\n            <input\n                onkeyup=", "\n                />\n        </container>"])), question, function (_ref21) {
+          var key = _ref21.key,
+              target = _ref21.target;
+          value1.set(target.value);
+
+          if (key == "Enter") {
+            Tutorializer2.goNext();
+          }
+        });
+      },
+      valueIsValid: function valueIsValid(value) {
+        console.debug("value is:", value);
+        console.debug("typeof value == 'string' is:", typeof value == 'string');
+        console.debug("value.length > 0 is:", value.length > 0);
+        return typeof value == 'string' && value.length > 0;
+      },
+      ifValueInvalid: function ifValueInvalid() {}
+    };
+  };
+};
+
+var Tutorial1 = /*#__PURE__*/function () {
+  var _ref23 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_ref22) {
+    var Tutorializer3, slide, githubUsername;
+    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            Tutorializer3 = _ref22.Tutorializer, slide = _ref22.slide;
+            console.log("start:Tutorial");
+            console.debug("Tutorializer is:", Tutorializer3);
+            _context7.next = 5;
+            return slide("githubUsername", askLine({
+              question: "Whats the github username for the repository?"
+            }));
+
+          case 5:
+            githubUsername = _context7.sent;
+            _context7.next = 8;
+            return slide("didReadSummary1", showText({
+              title: "Confirmation Check",
+              body: html2(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n                <span>So is this the url to your profile?</span>\n                <a href=", ">\n                    https://github.com/", "\n                </a>\n            "])), "https://github.com/".concat(githubUsername), githubUsername)
+            }));
+
+          case 8:
+            _context7.next = 10;
+            return slide("didReadSummary2", showText({
+              title: "What This Does",
+              body: "Testing testing"
+            }));
+
+          case 10:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function Tutorial1(_x2) {
+    return _ref23.apply(this, arguments);
+  };
+}();
+
+var theme1 = {
+  name: "DefaultTheme",
+  settings: {
+    slideFadeInMiliseconds: 600
+  },
+  styles: "\n        :root {\n            --off-white: whitesmoke;\n            --blue: cornflowerblue;\n            --light-gray: lightgray;\n            \n            --background: var(--off-white);\n            --arrow-button-accent: var(--blue);\n            --title-size: 32px;\n            --text-size: 22px;\n            --text-default-color: gray;\n            --bottom-row-height: 7rem;\n        }\n\n        .tutorialize-root {\n            display: flex; \n            flex-direction: column;\n            align-items: flex-start; \n            justify-content: flex-start;\n            overflow: hidden;\n            font-family: sans-serif;\n            height: 100%;\n            width: 100%;\n            font-size: var(--text-size);\n            color: var(--text-default-color);\n            background: var(--background);\n        }\n\n        .tutorialize-title {\n            font-size: var(--title-size);\n            padding: 1rem;\n            text-decoration: underline;\n        }\n\n        .tutorialize-text {\n            padding: 2rem;\n        }\n\n        .tutorialize-input {\n            color: gray;\n            background: transparent;\n            border-radius: 0;\n            border: none;\n            border-bottom: 1px solid gray;\n            transition: all 0.5s ease-in-out 0s;\n            outline: none;\n        }\n        \n        .tutorialize-arrow-buttons {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            font-size: 25px; \n            height: 100%;\n            flex-grow: 1;\n            transition: all 0.5s ease-in-out 0s;\n            color: var(--arrow-button-accent);\n            text-decoration: underline;\n            background: white;\n            --border-size: 2px;\n            margin-left: -var(--border-size);\n        }\n        .tutorialize-arrow-buttons:not(:hover) {\n            border: var(--border-size) var(--light-gray) solid;\n        }\n        .tutorialize-arrow-buttons:hover {\n            border: var(--border-size) var(--arrow-button-accent) solid;\n            z-index: 1;\n        }\n\n        .tutorialize-main {\n            display: flex; \n            align-items: center; \n            justify-content: center;\n            transition: all 0.5s ease-in-out 0s;\n            height: 100%;\n            width: 100%;\n            padding: 2rem;\n            flex-direction: column;\n            overflow: auto;\n            max-height: calc(100vh - var(--bottom-row-height));\n        }\n\n        .tutorialize-container-of-arrow-buttons {\n            height: var(--bottom-row-height);\n            display: inline-flex; \n            flex-wrap: wrap;\n            align-items: flex-start; \n            justify-content: flext-start;\n            flex-direction: row;\n            width: 100%;\n        }\n    "
+};
+globalThis.allKeys = allKeys1;
+var tutorializerSymbol = Symbol.for("tutorializer");
+
+var GoingBackDontMindMeException = /*#__PURE__*/function (_Error) {
+  _inherits(GoingBackDontMindMeException, _Error);
+
+  var _super2 = _createSuper(GoingBackDontMindMeException);
+
+  function GoingBackDontMindMeException() {
+    _classCallCheck(this, GoingBackDontMindMeException);
+
+    return _super2.apply(this, arguments);
+  }
+
+  return _createClass(GoingBackDontMindMeException);
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+
+var TutorializerClass = /*#__PURE__*/function () {
+  function TutorializerClass() {
+    _classCallCheck(this, TutorializerClass);
+
+    this.pendingData = {};
+    this.progressData = [];
+    this.tutorial = Tutorial1;
+    this.main = html(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n            <div class=\"tutorialize-main\" >\n                Howdy!\n            </div>\n        "])));
+    this.element = null;
+    this.events = {
+      attemptGoingToNext: new Event(),
+      goingBack: new Event()
+    };
+    this._style = document.createElement("style");
+    this._theme = theme1;
+  }
+
+  _createClass(TutorializerClass, [{
+    key: "data",
+    get: function get() {
+      return Object.fromEntries([].concat(_toConsumableArray(this.progressData), [Object.entries(this.pendingData)]).flat(1));
+    }
+  }, {
+    key: "has",
+    value: function has(id) {
+      console.log("start:has()");
+      return id in this.data;
+    }
+  }, {
+    key: "add",
+    value: function add(id, value) {
+      this.pendingData[id] = value;
+    }
+  }, {
+    key: "content",
+    get: function get() {
+      return this.main.children;
+    },
+    set: function set(element) {
+      var _this3 = this;
+
+      console.log("start:set content");
+      this.main.style.opacity = 0;
+      setTimeout(function () {
+        _this3.main.children = [element];
+        _this3.main.style.opacity = 1;
+      }, this.theme.settings.slideFadeInMiliseconds);
+    }
+  }, {
+    key: "theme",
+    get: function get() {
+      return this._theme;
+    },
+    set: function set(newTheme) {
+      if (!(newTheme instanceof Object) || typeof newTheme.name !== 'string' || typeof newTheme.styles !== 'string') {
+        throw Error("I was creating a theme, I expected an object like {name:\"blah\", styles: \".thing { color: red: }\" }\nHowever, instead I got this: ".concat(toRepresentation(newTheme)));
+      }
+
+      var name = newTheme.name,
+          styles = newTheme.styles,
+          settings = newTheme.settings;
+      this._theme = newTheme;
+      this._style.innerHTML = styles;
+
+      if (settings instanceof Object) {
+        this._theme.settings = merge({
+          oldData: theme1.settings,
+          newData: settings
+        });
+      }
+    }
+  }, {
+    key: "slide",
+    value: function () {
+      var _slide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(id, func) {
+        var _this4 = this;
+
+        var realValue, value1, _yield$func, loadSlide, valueIsValid, ifValueInvalid;
+
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                console.log("start:slide");
+                console.debug("this is:", this);
+                console.debug("Tutorializer is:", Tutorializer);
+
+                if (!this.has(id)) {
+                  _context8.next = 5;
+                  break;
+                }
+
+                return _context8.abrupt("return", this.data[id]);
+
+              case 5:
+                realValue = undefined;
+                value1 = {
+                  get: function get() {
+                    return realValue;
+                  },
+                  set: function set(value) {
+                    realValue = value;
+
+                    _this4.add(id, realValue);
+                  }
+                };
+                _context8.next = 9;
+                return func({
+                  value: value1,
+                  Tutorializer: this
+                });
+
+              case 9:
+                _yield$func = _context8.sent;
+                loadSlide = _yield$func.loadSlide;
+                valueIsValid = _yield$func.valueIsValid;
+                ifValueInvalid = _yield$func.ifValueInvalid;
+                _context8.next = 15;
+                return loadSlide();
+
+              case 15:
+                if (!true) {
+                  _context8.next = 30;
+                  break;
+                }
+
+                console.debug("slide, this.events is:", this.events);
+                _context8.next = 19;
+                return once(this.events.attemptGoingToNext);
+
+              case 19:
+                console.debug("valueIsValid(realValue) is:", valueIsValid(realValue));
+                _context8.next = 22;
+                return valueIsValid(realValue);
+
+              case 22:
+                if (!_context8.sent) {
+                  _context8.next = 26;
+                  break;
+                }
+
+                return _context8.abrupt("break", 30);
+
+              case 26:
+                _context8.next = 28;
+                return ifValueInvalid(realValue);
+
+              case 28:
+                _context8.next = 15;
+                break;
+
+              case 30:
+                this.add(id, realValue);
+                this.savePendingData();
+                return _context8.abrupt("return", realValue);
+
+              case 33:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8, this);
+      }));
+
+      function slide(_x3, _x4) {
+        return _slide.apply(this, arguments);
+      }
+
+      return slide;
+    }()
+  }, {
+    key: "intializeWholeWebpage",
+    value: function () {
+      var _intializeWholeWebpage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+        var _yield$import, router, givenUrl;
+
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                console.log("start:intializeWholeWebpage()");
+                document.head.innerHTML += "<link rel=\"stylesheet\" href=\"https://unpkg.com/css-baseline/css/3.css\">";
+                document.head.appendChild(this._style);
+                _context9.next = 5;
+                return import("https://cdn.skypack.dev/quik-router");
+
+              case 5:
+                _yield$import = _context9.sent;
+                router = _yield$import.default;
+                givenUrl = router.pageInfo.url;
+
+                if (!givenUrl) {
+                  _context9.next = 11;
+                  break;
+                }
+
+                _context9.next = 11;
+                return this.getDataFromUrl(givenUrl);
+
+              case 11:
+                this.theme = this._theme;
+                this.runTutorial();
+                document.body = html(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["<body\n            style=", ">\n                ", "\n        </body>"])), {
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  overflow: "hidden",
+                  fontFamily: "sans-serif",
+                  flexDirection: "column",
+                  height: "100%"
+                }, this.createElement());
+
+              case 14:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, this);
+      }));
+
+      function intializeWholeWebpage() {
+        return _intializeWholeWebpage.apply(this, arguments);
+      }
+
+      return intializeWholeWebpage;
+    }()
+  }, {
+    key: "getDataFromUrl",
+    value: function () {
+      var _getDataFromUrl = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(url) {
+        var _yield$import2, Tutorial, theme;
+
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                _context10.prev = 0;
+                _context10.next = 3;
+                return import(url);
+
+              case 3:
+                _yield$import2 = _context10.sent;
+                Tutorial = _yield$import2.Tutorial;
+                theme = _yield$import2.theme;
+                _context10.next = 10;
+                break;
+
+              case 8:
+                _context10.prev = 8;
+                _context10.t0 = _context10["catch"](0);
+
+              case 10:
+                if (theme) {
+                  this._theme = theme;
+                }
+
+                if (Tutorial instanceof Function) {
+                  this.tutorial = Tutorial;
+                } else {
+                  console.error("The Tutorial wasnt a function: ".concat(Tutorial));
+                }
+
+              case 12:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, _callee10, this, [[0, 8]]);
+      }));
+
+      function getDataFromUrl(_x5) {
+        return _getDataFromUrl.apply(this, arguments);
+      }
+
+      return getDataFromUrl;
+    }()
+  }, {
+    key: "runTutorial",
+    value: function () {
+      var _runTutorial = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+          while (1) {
+            switch (_context11.prev = _context11.next) {
+              case 0:
+                console.log("start:runTutorial()");
+                _context11.prev = 1;
+                console.log("start:tutorial()");
+                _context11.next = 5;
+                return this.tutorial({
+                  Tutorializer: this,
+                  slide: this.slide.bind(this)
+                });
+
+              case 5:
+                return _context11.abrupt("return", this.data);
+
+              case 8:
+                _context11.prev = 8;
+                _context11.t0 = _context11["catch"](1);
+
+                if (_context11.t0 instanceof GoingBackDontMindMeException) {
+                  _context11.next = 12;
+                  break;
+                }
+
+                throw _context11.t0;
+
+              case 12:
+              case "end":
+                return _context11.stop();
+            }
+          }
+        }, _callee11, this, [[1, 8]]);
+      }));
+
+      function runTutorial() {
+        return _runTutorial.apply(this, arguments);
+      }
+
+      return runTutorial;
+    }()
+  }, {
+    key: "createElement",
+    value: function createElement() {
+      var _this5 = this;
+
+      console.log("start:createElement()");
+      console.debug("this is:", this);
+      return this.element = html(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["<div class=\"tutorialize-root\">\n            ", "\n            <div class=\"tutorialize-container-of-arrow-buttons\">\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Back\n                </a>\n                <a class=\"tutorialize-arrow-buttons\" onclick=", ">\n                    Next\n                </a>\n            </div>\n        </div>"])), this.main, function () {
+        return _this5.goBack.apply(_this5, arguments);
+      }, function () {
+        return _this5.goNext.apply(_this5, arguments);
+      });
+    }
+  }, {
+    key: "savePendingData",
+    value: function savePendingData() {
+      if (Object.keys(this.pendingData).length) {
+        console.debug("this.progressData is:", this.progressData);
+        this.progressData.push(Object.entries(this.pendingData));
+        this.pendingData = {};
+      }
+    }
+  }, {
+    key: "goNext",
+    value: function () {
+      var _goNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+          while (1) {
+            switch (_context12.prev = _context12.next) {
+              case 0:
+                console.debug("goNext, this.events is:", this.events);
+                trigger(this.events.attemptGoingToNext);
+
+              case 2:
+              case "end":
+                return _context12.stop();
+            }
+          }
+        }, _callee12, this);
+      }));
+
+      function goNext() {
+        return _goNext.apply(this, arguments);
+      }
+
+      return goNext;
+    }()
+  }, {
+    key: "goBack",
+    value: function () {
+      var _goBack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+          while (1) {
+            switch (_context13.prev = _context13.next) {
+              case 0:
+                if (this.progressData.length > 0) {
+                  this.progressData.pop();
+                }
+
+                this.pendingData = {};
+                trigger(this.events.goingBack);
+                _context13.next = 5;
+                return this.runTutorial();
+
+              case 5:
+              case "end":
+                return _context13.stop();
+            }
+          }
+        }, _callee13, this);
+      }));
+
+      function goBack() {
+        return _goBack.apply(this, arguments);
+      }
+
+      return goBack;
+    }()
+  }]);
+
+  return TutorializerClass;
+}();
+
+var Tutorializer = globalThis[tutorializerSymbol] = new TutorializerClass();
+exports.Tutorializer = Tutorializer;
 },{}],"../website.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -2286,7 +2138,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57959" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53071" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,13 +1,12 @@
-// import { html } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
-// import { recursivelyAllKeysOf, get, set, remove, merge } from "https://deno.land/x/good@0.5.1/object.js"
-import { html } from "./elemental.js"
+import { html } from "https://cdn.skypack.dev/@!!!!!/elemental@0.0.13"
+import { allKeys, merge } from "https://deno.land/x/good@0.5.4/object.js"
+import { toRepresentation } from "https://deno.land/x/good@0.5.4/string.js"
+import { Event, trigger, everyTime, once } from "https://deno.land/x/good@0.5.4/events.js"
+
 import { Tutorial as defaultTutorial } from "../tutorials/get_tutorializer_url.js"
 import { theme as defaultTheme } from "./default_theme.js"
-import { merge } from "https://deno.land/x/good@0.5.1/object.js"
-import { toRepresentation } from "https://deno.land/x/good@0.5.1/string.js"
-import EventEmitter from 'https://cdn.skypack.dev/eventemitter3'
 
-globalThis.EventEmitter = EventEmitter
+globalThis.allKeys = allKeys
 
 export const tutorializerSymbol = Symbol.for("tutorializer")
 export const GoingBackDontMindMeException = class extends Error {}
@@ -23,10 +22,9 @@ export class TutorializerClass {
             </div>
         `
         this.element = null
-        this.events = new EventEmitter()
-        this.eventTypes = {
-            next: "tutorializer:next",
-            back: "tutorializer:back",
+        this.events = {
+            attemptGoingToNext: new Event(),
+            goingBack: new Event(),
         }
         this._style = document.createElement("style")
         this._theme = defaultTheme
@@ -88,7 +86,9 @@ export class TutorializerClass {
         const { loadSlide, valueIsValid, ifValueInvalid } = await func({value, Tutorializer: this})
         await loadSlide()
         while (true) {
-            await this.nextWasClicked()
+            console.debug(`slide, this.events is:`,this.events)
+            await once(this.events.attemptGoingToNext)
+            console.debug(`valueIsValid(realValue) is:`,valueIsValid(realValue))
             if (await valueIsValid(realValue)) {
                 break
             } else {
@@ -173,10 +173,10 @@ export class TutorializerClass {
         return this.element = html`<div class="tutorialize-root">
             ${this.main}
             <div class="tutorialize-container-of-arrow-buttons">
-                <a class="tutorialize-arrow-buttons" onclick=${this.goBack}>
+                <a class="tutorialize-arrow-buttons" onclick=${(...args)=>this.goBack(...args)}>
                     Back
                 </a>
-                <a class="tutorialize-arrow-buttons" onclick=${this.goNext}>
+                <a class="tutorialize-arrow-buttons" onclick=${(...args)=>this.goNext(...args)}>
                     Next
                 </a>
             </div>
@@ -189,47 +189,16 @@ export class TutorializerClass {
         }
     }
     async goNext() {
-        console.log(`start:goNext()`)
-        this.events.dispatchEvent(new CustomEvent(this.eventTypes.next))
+        trigger(this.events.attemptGoingToNext)
     }
     async goBack() {
-        const previous = this.progressData.pop()
+        if (this.progressData.length > 0) {
+            const previous = this.progressData.pop()
+        }
         this.pendingData = {}
         // cancel all the previous ones
-        this.events.dispatchEvent(new CustomEvent(this.eventTypes.next))
-        window.dispatchEvent(new CustomEvent(this.eventTypes.back))
+        trigger(this.events.goingBack)
         await this.runTutorial()
-    }
-    async nextWasClicked() {
-        return new Promise((resolve, reject)=>{
-            let resolved = false
-            let rejected = false
-            let cleanup
-            const resolveListener = ()=>{
-                if (rejected) {
-                    return
-                } else {
-                    resolved = true
-                    resolve()
-                    cleanup()
-                }
-            }
-            const rejectListener = ()=>{
-                if (resolved) {
-                    return
-                } else {
-                    rejected = true
-                    reject(new GoingBackDontMindMeException())
-                    cleanup()
-                }
-            }
-            cleanup = ()=>{
-                window.removeEventListener(this.eventTypes.next, resolveListener)
-                window.removeEventListener(this.eventTypes.back, rejectListener)
-            }
-            window.addEventListener(this.eventTypes.next, resolveListener)
-            window.addEventListener(this.eventTypes.back, rejectListener)
-        })
     }
 }
 

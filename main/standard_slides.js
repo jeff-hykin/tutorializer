@@ -30,7 +30,7 @@ export const askLine = ({question})=>({value, Tutorializer})=>({
                 ${question}
             </text>
             <input
-                onkeydown=${({key, target})=>{
+                onkeyup=${({key, target})=>{
                     value.set(target.value)
                     if (key=="Enter") {
                         Tutorializer.goNext()
@@ -39,7 +39,12 @@ export const askLine = ({question})=>({value, Tutorializer})=>({
                 />
         </container>`
     },
-    valueIsValid: (value)=>typeof value == 'string' && value.length > 0,
+    valueIsValid: (value)=>{
+        console.debug(`value is:`,value)
+        console.debug(`typeof value == 'string' is:`,typeof value == 'string')
+        console.debug(`value.length > 0 is:`,value.length > 0)
+        return typeof value == 'string' && value.length > 0
+    },
     ifValueInvalid: ()=> {
         // change GUI if there is a problem
     },
